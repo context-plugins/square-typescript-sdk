@@ -1,0 +1,26 @@
+import * as s from "../core/validation/index.js";
+import type { EnumSchema } from "../core/validation/schema.js";
+
+export const DisputeEvidenceType = {
+  GenericEvidence: "GENERIC_EVIDENCE",
+  OnlineOrAppAccessLog: "ONLINE_OR_APP_ACCESS_LOG",
+  AuthorizationDocumentation: "AUTHORIZATION_DOCUMENTATION",
+  CancellationOrRefundDocumentation: "CANCELLATION_OR_REFUND_DOCUMENTATION",
+  CardholderCommunication: "CARDHOLDER_COMMUNICATION",
+  CardholderInformation: "CARDHOLDER_INFORMATION",
+  PurchaseAcknowledgement: "PURCHASE_ACKNOWLEDGEMENT",
+  DuplicateChargeDocumentation: "DUPLICATE_CHARGE_DOCUMENTATION",
+  ProductOrServiceDescription: "PRODUCT_OR_SERVICE_DESCRIPTION",
+  Receipt: "RECEIPT",
+  ServiceReceivedDocumentation: "SERVICE_RECEIVED_DOCUMENTATION",
+  ProofOfDeliveryDocumentation: "PROOF_OF_DELIVERY_DOCUMENTATION",
+  RelatedTransactionDocumentation: "RELATED_TRANSACTION_DOCUMENTATION",
+  RebuttalExplanation: "REBUTTAL_EXPLANATION",
+  TrackingNumber: "TRACKING_NUMBER",
+} as const;
+export type DisputeEvidenceType =
+  | (typeof DisputeEvidenceType)[keyof typeof DisputeEvidenceType]
+  | (string & {});
+
+export const disputeEvidenceTypeSchema: EnumSchema<DisputeEvidenceType> =
+  s.enumOf<DisputeEvidenceType>(DisputeEvidenceType);

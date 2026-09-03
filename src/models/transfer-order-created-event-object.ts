@@ -1,0 +1,15 @@
+import * as s from "../core/validation/index.js";
+import type { Schema } from "../core/validation/schema.js";
+import { transferOrderSchema, type TransferOrder } from "./transfer-order.js";
+
+export type TransferOrderCreatedEventObject = {
+  transferOrder?: TransferOrder;
+};
+
+export const transferOrderCreatedEventObjectSchema: Schema<TransferOrderCreatedEventObject> =
+  s.object<TransferOrderCreatedEventObject>({
+    transferOrder: s.optional(s.lazy(() => transferOrderSchema)),
+    _keysMap: {
+      transferOrder: "transfer_order",
+    },
+  });

@@ -1,0 +1,19 @@
+import * as s from "../core/validation/index.js";
+import type { EnumSchema } from "../core/validation/schema.js";
+
+export const MeasurementUnitLength = {
+  ImperialInch: "IMPERIAL_INCH",
+  ImperialFoot: "IMPERIAL_FOOT",
+  ImperialYard: "IMPERIAL_YARD",
+  ImperialMile: "IMPERIAL_MILE",
+  MetricMillimeter: "METRIC_MILLIMETER",
+  MetricCentimeter: "METRIC_CENTIMETER",
+  MetricMeter: "METRIC_METER",
+  MetricKilometer: "METRIC_KILOMETER",
+} as const;
+export type MeasurementUnitLength =
+  | (typeof MeasurementUnitLength)[keyof typeof MeasurementUnitLength]
+  | (string & {});
+
+export const measurementUnitLengthSchema: EnumSchema<MeasurementUnitLength> =
+  s.enumOf<MeasurementUnitLength>(MeasurementUnitLength);
