@@ -1,0 +1,39 @@
+import * as s from "../core/validation/index.js";
+import type { Schema } from "../core/validation/schema.js";
+
+/** A simplified line item for goods receipts in transfer orders */
+export type TransferOrderGoodsReceiptLineItem = {
+  /** The unique identifier of the Transfer Order line being received */
+  transferOrderLineUid: string;
+  /**
+   * The quantity received for this line item as a decimal string (e.g. "10.5"). These items will be
+   * added to the destination [Location](entity:Location)'s inventory with
+   * [InventoryState](entity:InventoryState) of IN_STOCK.
+   */
+  quantityReceived?: string | null;
+  /**
+   * The quantity that was damaged during shipping/handling as a decimal string (e.g. "1.5"). These
+   * items will be added to the destination [Location](entity:Location)'s inventory with
+   * [InventoryState](entity:InventoryState) of WASTE.
+   */
+  quantityDamaged?: string | null;
+  /**
+   * The quantity that was canceled during shipping/handling as a decimal string (e.g. "1.5"). These
+   * will be immediately added to inventory in the source location.
+   */
+  quantityCanceled?: string | null;
+};
+
+export const transferOrderGoodsReceiptLineItemSchema: Schema<TransferOrderGoodsReceiptLineItem> =
+  s.object<TransferOrderGoodsReceiptLineItem>({
+    transferOrderLineUid: s.string(),
+    quantityReceived: s.optionalNullable(s.string()),
+    quantityDamaged: s.optionalNullable(s.string()),
+    quantityCanceled: s.optionalNullable(s.string()),
+    _keysMap: {
+      transferOrderLineUid: "transfer_order_line_uid",
+      quantityReceived: "quantity_received",
+      quantityDamaged: "quantity_damaged",
+      quantityCanceled: "quantity_canceled",
+    },
+  });

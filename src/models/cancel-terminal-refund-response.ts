@@ -1,0 +1,20 @@
+import * as s from "../core/validation/index.js";
+import type { Schema } from "../core/validation/schema.js";
+import { errorSchema, type Error } from "./error.js";
+import { terminalRefundSchema, type TerminalRefund } from "./terminal-refund.js";
+
+export type CancelTerminalRefundResponse = {
+  /** Information about errors encountered during the request. */
+  errors?: Error[];
+  /**
+   * Represents a payment refund processed by the Square Terminal. Only supports Interac (Canadian
+   * debit network) payment refunds.
+   */
+  refund?: TerminalRefund;
+};
+
+export const cancelTerminalRefundResponseSchema: Schema<CancelTerminalRefundResponse> =
+  s.object<CancelTerminalRefundResponse>({
+    errors: s.optional(s.array(s.lazy(() => errorSchema))),
+    refund: s.optional(s.lazy(() => terminalRefundSchema)),
+  });

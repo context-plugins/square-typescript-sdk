@@ -1,0 +1,62 @@
+import * as s from "../core/validation/index.js";
+import type { Schema } from "../core/validation/schema.js";
+import {
+  catalogCustomAttributeDefinitionTypeSchema,
+  type CatalogCustomAttributeDefinitionType,
+} from "./catalog-custom-attribute-definition-type.js";
+
+/**
+ * An instance of a custom attribute. Custom attributes can be defined and added to `ITEM` and
+ * `ITEM_VARIATION` type catalog objects. [Read more about custom
+ * attributes](https://developer.squareup.com/docs/catalog-api/add-custom-attributes).
+ */
+export type CatalogCustomAttributeValue = {
+  /** The name of the custom attribute. */
+  name?: string | null;
+  /** The string value of the custom attribute. Populated if `type` = `STRING`. */
+  stringValue?: string | null;
+  /**
+   * The id of the [CatalogCustomAttributeDefinition](entity:CatalogCustomAttributeDefinition) this
+   * value belongs to.
+   */
+  customAttributeDefinitionId?: string;
+  /** Defines the possible types for a custom attribute. */
+  type?: CatalogCustomAttributeDefinitionType;
+  /**
+   * Populated if `type` = `NUMBER`. Contains a string representation of a decimal number, using a
+   * `.` as the decimal separator.
+   */
+  numberValue?: string | null;
+  /** A `true` or `false` value. Populated if `type` = `BOOLEAN`. */
+  booleanValue?: boolean | null;
+  /** One or more choices from `allowed_selections`. Populated if `type` = `SELECTION`. */
+  selectionUidValues?: string[] | null;
+  /**
+   * If the associated `CatalogCustomAttributeDefinition` object is defined by another application,
+   * this key is prefixed by the defining application ID. For example, if the
+   * CatalogCustomAttributeDefinition has a key attribute of "cocoa_brand" and the defining
+   * application ID is "abcd1234", this key is "abcd1234:cocoa_brand" when the application making
+   * the request is different from the application defining the custom attribute definition.
+   * Otherwise, the key is simply "cocoa_brand".
+   */
+  key?: string;
+};
+
+export const catalogCustomAttributeValueSchema: Schema<CatalogCustomAttributeValue> =
+  s.object<CatalogCustomAttributeValue>({
+    name: s.optionalNullable(s.string()),
+    stringValue: s.optionalNullable(s.string()),
+    customAttributeDefinitionId: s.optional(s.string()),
+    type: s.optional(s.lazy(() => catalogCustomAttributeDefinitionTypeSchema)),
+    numberValue: s.optionalNullable(s.string()),
+    booleanValue: s.optionalNullable(s.boolean()),
+    selectionUidValues: s.optionalNullable(s.array(s.string())),
+    key: s.optional(s.string()),
+    _keysMap: {
+      stringValue: "string_value",
+      customAttributeDefinitionId: "custom_attribute_definition_id",
+      numberValue: "number_value",
+      booleanValue: "boolean_value",
+      selectionUidValues: "selection_uid_values",
+    },
+  });

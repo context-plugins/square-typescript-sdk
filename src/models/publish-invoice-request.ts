@@ -1,0 +1,28 @@
+import * as s from "../core/validation/index.js";
+import type { Schema } from "../core/validation/schema.js";
+
+/** Describes a `PublishInvoice` request. */
+export type PublishInvoiceRequest = {
+  /**
+   * The version of the [invoice](entity:Invoice) to publish. This must match the current version of
+   * the invoice; otherwise, the request is rejected.
+   */
+  version: number;
+  /**
+   * A unique string that identifies the `PublishInvoice` request. If you do not provide
+   * `idempotency_key` (or provide an empty string as the value), the endpoint treats each request
+   * as independent.
+   *
+   * For more information, see
+   * [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency).
+   */
+  idempotencyKey?: string | null;
+};
+
+export const publishInvoiceRequestSchema: Schema<PublishInvoiceRequest> = s.object<PublishInvoiceRequest>({
+  version: s.number(),
+  idempotencyKey: s.optionalNullable(s.string()),
+  _keysMap: {
+    idempotencyKey: "idempotency_key",
+  },
+});

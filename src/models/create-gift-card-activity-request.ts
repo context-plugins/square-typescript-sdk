@@ -1,0 +1,26 @@
+import * as s from "../core/validation/index.js";
+import type { Schema } from "../core/validation/schema.js";
+import { giftCardActivitySchema, type GiftCardActivity } from "./gift-card-activity.js";
+
+/** A request to create a gift card activity. */
+export type CreateGiftCardActivityRequest = {
+  /** A unique string that identifies the `CreateGiftCardActivity` request. */
+  idempotencyKey: string;
+  /**
+   * Represents an action performed on a [gift card](entity:GiftCard) that affects its state or
+   * balance. A gift card activity contains information about a specific activity type. For example,
+   * a `REDEEM` activity includes a `redeem_activity_details` field that contains information about
+   * the redemption.
+   */
+  giftCardActivity: GiftCardActivity;
+};
+
+export const createGiftCardActivityRequestSchema: Schema<CreateGiftCardActivityRequest> =
+  s.object<CreateGiftCardActivityRequest>({
+    idempotencyKey: s.string(),
+    giftCardActivity: giftCardActivitySchema,
+    _keysMap: {
+      idempotencyKey: "idempotency_key",
+      giftCardActivity: "gift_card_activity",
+    },
+  });

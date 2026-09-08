@@ -1,0 +1,36 @@
+import * as s from "../core/validation/index.js";
+import type { Schema } from "../core/validation/schema.js";
+import {
+  orderFulfillmentUpdatedEventDataSchema,
+  type OrderFulfillmentUpdatedEventData,
+} from "./order-fulfillment-updated-event-data.js";
+
+/**
+ * Published when an [OrderFulfillment](entity:OrderFulfillment) is created or updated. This event
+ * is triggered only by the [UpdateOrder](api-endpoint:Orders-UpdateOrder) endpoint call.
+ */
+export type OrderFulfillmentUpdatedEvent = {
+  /** The ID of the target merchant associated with the event. */
+  merchantId?: string | null;
+  /** The type of event this represents, `"order.fulfillment.updated"`. */
+  type?: string | null;
+  /** A unique ID for the event. */
+  eventId?: string | null;
+  /** Timestamp of when the event was created, in RFC 3339 format. */
+  createdAt?: string;
+  data?: OrderFulfillmentUpdatedEventData;
+};
+
+export const orderFulfillmentUpdatedEventSchema: Schema<OrderFulfillmentUpdatedEvent> =
+  s.object<OrderFulfillmentUpdatedEvent>({
+    merchantId: s.optionalNullable(s.string()),
+    type: s.optionalNullable(s.string()),
+    eventId: s.optionalNullable(s.string()),
+    createdAt: s.optional(s.string()),
+    data: s.optional(s.lazy(() => orderFulfillmentUpdatedEventDataSchema)),
+    _keysMap: {
+      merchantId: "merchant_id",
+      eventId: "event_id",
+      createdAt: "created_at",
+    },
+  });

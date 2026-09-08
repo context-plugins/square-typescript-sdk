@@ -1,0 +1,36 @@
+import * as s from "../core/validation/index.js";
+import type { Schema } from "../core/validation/schema.js";
+import { inventoryChangeSchema, type InventoryChange } from "./inventory-change.js";
+
+export type BatchChangeInventoryRequest = {
+  /**
+   * A client-supplied, universally unique identifier (UUID) for the request.
+   *
+   * See
+   * [Idempotency](https://developer.squareup.com/docs/build-basics/common-api-patterns/idempotency)
+   * in the [API Development 101](https://developer.squareup.com/docs/buildbasics) section for more
+   * information.
+   */
+  idempotencyKey: string;
+  /**
+   * The set of physical counts and inventory adjustments to be made. Changes are applied based on
+   * the client-supplied timestamp and may be sent out of order.
+   */
+  changes?: InventoryChange[] | null;
+  /**
+   * Indicates whether the current physical count should be ignored if the quantity is unchanged
+   * since the last physical count. Default: `true`.
+   */
+  ignoreUnchangedCounts?: boolean | null;
+};
+
+export const batchChangeInventoryRequestSchema: Schema<BatchChangeInventoryRequest> =
+  s.object<BatchChangeInventoryRequest>({
+    idempotencyKey: s.string(),
+    changes: s.optionalNullable(s.array(s.lazy(() => inventoryChangeSchema))),
+    ignoreUnchangedCounts: s.optionalNullable(s.boolean()),
+    _keysMap: {
+      idempotencyKey: "idempotency_key",
+      ignoreUnchangedCounts: "ignore_unchanged_counts",
+    },
+  });

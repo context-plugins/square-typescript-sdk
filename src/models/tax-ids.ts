@@ -1,0 +1,48 @@
+import * as s from "../core/validation/index.js";
+import type { Schema } from "../core/validation/schema.js";
+
+/** Identifiers for the location used by various governments for tax purposes. */
+export type TaxIds = {
+  /**
+   * The EU VAT number for this location. For example, `IE3426675K`. If the EU VAT number is
+   * present, it is well-formed and has been validated with VIES, the VAT Information Exchange
+   * System.
+   */
+  euVat?: string;
+  /**
+   * The SIRET (Système d'Identification du Répertoire des Entreprises et de leurs Etablissements)
+   * number is a 14-digit code issued by the French INSEE. For example, `39922799000021`.
+   */
+  frSiret?: string;
+  /**
+   * The French government uses the NAF (Nomenclature des Activités Françaises) to display and track
+   * economic statistical data. This is also called the APE (Activite Principale de l’Entreprise)
+   * code. For example, `6910Z`.
+   */
+  frNaf?: string;
+  /**
+   * The NIF (Numero de Identificacion Fiscal) number is a nine-character tax identifier used in
+   * Spain. If it is present, it has been validated. For example, `73628495A`.
+   */
+  esNif?: string;
+  /**
+   * The QII (Qualified Invoice Issuer) number is a 14-character tax identifier used in Japan. For
+   * example, `T1234567890123`.
+   */
+  jpQii?: string;
+};
+
+export const taxIdsSchema: Schema<TaxIds> = s.object<TaxIds>({
+  euVat: s.optional(s.string()),
+  frSiret: s.optional(s.string()),
+  frNaf: s.optional(s.string()),
+  esNif: s.optional(s.string()),
+  jpQii: s.optional(s.string()),
+  _keysMap: {
+    euVat: "eu_vat",
+    frSiret: "fr_siret",
+    frNaf: "fr_naf",
+    esNif: "es_nif",
+    jpQii: "jp_qii",
+  },
+});
