@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   batchChangeInventoryRequestSchema,
@@ -120,25 +121,29 @@ export class Inventory {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   batchChangeInventory(
     request: Inventory.BatchChangeInventoryRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BatchChangeInventoryResponse, ResponseError> {
-    return this.#rawClient.execute<BatchChangeInventoryResponse, ResponseError>(
+  ): ApiPromise<BatchChangeInventoryResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/inventory/changes/batch-create"),
+        urlTemplate: this.#servers.default("/v2/inventory/changes/batch-create"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: batchChangeInventoryRequestSchema },
       },
       {
         success: { kind: "json", schema: batchChangeInventoryResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -158,25 +163,29 @@ export class Inventory {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   batchRetrieveInventoryChanges(
     request: Inventory.BatchRetrieveInventoryChangesRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BatchRetrieveInventoryChangesResponse, ResponseError> {
-    return this.#rawClient.execute<BatchRetrieveInventoryChangesResponse, ResponseError>(
+  ): ApiPromise<BatchRetrieveInventoryChangesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/inventory/changes/batch-retrieve"),
+        urlTemplate: this.#servers.default("/v2/inventory/changes/batch-retrieve"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: batchRetrieveInventoryChangesRequestSchema },
       },
       {
         success: { kind: "json", schema: batchRetrieveInventoryChangesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -198,25 +207,29 @@ export class Inventory {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   batchRetrieveInventoryCounts(
     request: Inventory.BatchRetrieveInventoryCountsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BatchRetrieveInventoryCountsResponse, ResponseError> {
-    return this.#rawClient.execute<BatchRetrieveInventoryCountsResponse, ResponseError>(
+  ): ApiPromise<BatchRetrieveInventoryCountsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/inventory/counts/batch-retrieve"),
+        urlTemplate: this.#servers.default("/v2/inventory/counts/batch-retrieve"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: batchRetrieveInventoryCountsRequestSchema },
       },
       {
         success: { kind: "json", schema: batchRetrieveInventoryCountsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -230,25 +243,29 @@ export class Inventory {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createInventoryAdjustmentReason(
     request: Inventory.CreateInventoryAdjustmentReasonRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateInventoryAdjustmentReasonResponse, ResponseError> {
-    return this.#rawClient.execute<CreateInventoryAdjustmentReasonResponse, ResponseError>(
+  ): ApiPromise<CreateInventoryAdjustmentReasonResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/inventory/adjustment-reasons/create"),
+        urlTemplate: this.#servers.default("/v2/inventory/adjustment-reasons/create"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createInventoryAdjustmentReasonRequestSchema },
       },
       {
         success: { kind: "json", schema: createInventoryAdjustmentReasonResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -262,25 +279,29 @@ export class Inventory {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   deleteInventoryAdjustmentReason(
     request: Inventory.DeleteInventoryAdjustmentReasonRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<DeleteInventoryAdjustmentReasonResponse, ResponseError> {
-    return this.#rawClient.execute<DeleteInventoryAdjustmentReasonResponse, ResponseError>(
+  ): ApiPromise<DeleteInventoryAdjustmentReasonResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/inventory/adjustment-reasons/delete"),
+        urlTemplate: this.#servers.default("/v2/inventory/adjustment-reasons/delete"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: deleteInventoryAdjustmentReasonRequestSchema },
       },
       {
         success: { kind: "json", schema: deleteInventoryAdjustmentReasonResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -295,27 +316,31 @@ export class Inventory {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    *
    * @deprecated
    */
   deprecatedBatchChangeInventory(
     request: Inventory.DeprecatedBatchChangeInventoryRequest,
     options?: RequestOptions,
-  ): ApiPromise<BatchChangeInventoryResponse, ResponseError> {
-    return this.#rawClient.execute<BatchChangeInventoryResponse, ResponseError>(
+  ): ApiPromise<BatchChangeInventoryResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/inventory/batch-change"),
+        urlTemplate: this.#servers.default("/v2/inventory/batch-change"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: batchChangeInventoryRequestSchema },
       },
       {
         success: { kind: "json", schema: batchChangeInventoryResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -331,27 +356,31 @@ export class Inventory {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    *
    * @deprecated
    */
   deprecatedBatchRetrieveInventoryChanges(
     request: Inventory.DeprecatedBatchRetrieveInventoryChangesRequest,
     options?: RequestOptions,
-  ): ApiPromise<BatchRetrieveInventoryChangesResponse, ResponseError> {
-    return this.#rawClient.execute<BatchRetrieveInventoryChangesResponse, ResponseError>(
+  ): ApiPromise<BatchRetrieveInventoryChangesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/inventory/batch-retrieve-changes"),
+        urlTemplate: this.#servers.default("/v2/inventory/batch-retrieve-changes"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: batchRetrieveInventoryChangesRequestSchema },
       },
       {
         success: { kind: "json", schema: batchRetrieveInventoryChangesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -367,27 +396,31 @@ export class Inventory {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    *
    * @deprecated
    */
   deprecatedBatchRetrieveInventoryCounts(
     request: Inventory.DeprecatedBatchRetrieveInventoryCountsRequest,
     options?: RequestOptions,
-  ): ApiPromise<BatchRetrieveInventoryCountsResponse, ResponseError> {
-    return this.#rawClient.execute<BatchRetrieveInventoryCountsResponse, ResponseError>(
+  ): ApiPromise<BatchRetrieveInventoryCountsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/inventory/batch-retrieve-counts"),
+        urlTemplate: this.#servers.default("/v2/inventory/batch-retrieve-counts"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: batchRetrieveInventoryCountsRequestSchema },
       },
       {
         success: { kind: "json", schema: batchRetrieveInventoryCountsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -403,28 +436,31 @@ export class Inventory {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    *
    * @deprecated
    */
   deprecatedRetrieveInventoryAdjustment(
     request: Inventory.DeprecatedRetrieveInventoryAdjustmentRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveInventoryAdjustmentResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveInventoryAdjustmentResponse, ResponseError>(
+  ): ApiPromise<RetrieveInventoryAdjustmentResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/inventory/adjustment/{adjustment_id}"),
+        urlTemplate: this.#servers.default("/v2/inventory/adjustment/{adjustment_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "adjustment_id", value: request.adjustmentId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveInventoryAdjustmentResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -440,28 +476,31 @@ export class Inventory {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    *
    * @deprecated
    */
   deprecatedRetrieveInventoryPhysicalCount(
     request: Inventory.DeprecatedRetrieveInventoryPhysicalCountRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveInventoryPhysicalCountResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveInventoryPhysicalCountResponse, ResponseError>(
+  ): ApiPromise<RetrieveInventoryPhysicalCountResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/inventory/physical-count/{physical_count_id}"),
+        urlTemplate: this.#servers.default("/v2/inventory/physical-count/{physical_count_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "physical_count_id", value: request.physicalCountId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveInventoryPhysicalCountResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -475,20 +514,22 @@ export class Inventory {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listInventoryAdjustmentReasons(
     request: Inventory.ListInventoryAdjustmentReasonsRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListInventoryAdjustmentReasonsResponse, ResponseError> {
-    return this.#rawClient.execute<ListInventoryAdjustmentReasonsResponse, ResponseError>(
+  ): ApiPromise<ListInventoryAdjustmentReasonsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/inventory/adjustment-reasons"),
+        urlTemplate: this.#servers.default("/v2/inventory/adjustment-reasons"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
           { name: "include_deleted", value: request.includeDeleted, schema: s.defaulted(s.boolean(), false) },
           {
@@ -497,11 +538,12 @@ export class Inventory {
             schema: s.defaulted(s.boolean(), false),
           },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listInventoryAdjustmentReasonsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -515,25 +557,29 @@ export class Inventory {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   restoreInventoryAdjustmentReason(
     request: Inventory.RestoreInventoryAdjustmentReasonRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<RestoreInventoryAdjustmentReasonResponse, ResponseError> {
-    return this.#rawClient.execute<RestoreInventoryAdjustmentReasonResponse, ResponseError>(
+  ): ApiPromise<RestoreInventoryAdjustmentReasonResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/inventory/adjustment-reasons/restore"),
+        urlTemplate: this.#servers.default("/v2/inventory/adjustment-reasons/restore"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: restoreInventoryAdjustmentReasonRequestSchema },
       },
       {
         success: { kind: "json", schema: restoreInventoryAdjustmentReasonResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -548,26 +594,29 @@ export class Inventory {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveInventoryAdjustment(
     request: Inventory.RetrieveInventoryAdjustmentRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveInventoryAdjustmentResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveInventoryAdjustmentResponse, ResponseError>(
+  ): ApiPromise<RetrieveInventoryAdjustmentResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/inventory/adjustments/{adjustment_id}"),
+        urlTemplate: this.#servers.default("/v2/inventory/adjustments/{adjustment_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "adjustment_id", value: request.adjustmentId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveInventoryAdjustmentResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -582,25 +631,29 @@ export class Inventory {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveInventoryAdjustmentReason(
     request: Inventory.RetrieveInventoryAdjustmentReasonRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveInventoryAdjustmentReasonResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveInventoryAdjustmentReasonResponse, ResponseError>(
+  ): ApiPromise<RetrieveInventoryAdjustmentReasonResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/inventory/adjustment-reasons/retrieve"),
+        urlTemplate: this.#servers.default("/v2/inventory/adjustment-reasons/retrieve"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: retrieveInventoryAdjustmentReasonRequestSchema },
       },
       {
         success: { kind: "json", schema: retrieveInventoryAdjustmentReasonResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -625,32 +678,34 @@ export class Inventory {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    *
    * @deprecated
    */
   retrieveInventoryChanges(
     request: Inventory.RetrieveInventoryChangesRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveInventoryChangesResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveInventoryChangesResponse, ResponseError>(
+  ): ApiPromise<RetrieveInventoryChangesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/inventory/{catalog_object_id}/changes"),
+        urlTemplate: this.#servers.default("/v2/inventory/{catalog_object_id}/changes"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "catalog_object_id", value: request.catalogObjectId, schema: s.string() }],
         query: [
           { name: "location_ids", value: request.locationIds, schema: s.optional(s.string()) },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveInventoryChangesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -666,30 +721,32 @@ export class Inventory {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveInventoryCount(
     request: Inventory.RetrieveInventoryCountRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveInventoryCountResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveInventoryCountResponse, ResponseError>(
+  ): ApiPromise<RetrieveInventoryCountResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/inventory/{catalog_object_id}"),
+        urlTemplate: this.#servers.default("/v2/inventory/{catalog_object_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "catalog_object_id", value: request.catalogObjectId, schema: s.string() }],
         query: [
           { name: "location_ids", value: request.locationIds, schema: s.optional(s.string()) },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveInventoryCountResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -704,26 +761,29 @@ export class Inventory {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveInventoryPhysicalCount(
     request: Inventory.RetrieveInventoryPhysicalCountRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveInventoryPhysicalCountResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveInventoryPhysicalCountResponse, ResponseError>(
+  ): ApiPromise<RetrieveInventoryPhysicalCountResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/inventory/physical-counts/{physical_count_id}"),
+        urlTemplate: this.#servers.default("/v2/inventory/physical-counts/{physical_count_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "physical_count_id", value: request.physicalCountId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveInventoryPhysicalCountResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -739,25 +799,29 @@ export class Inventory {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updateInventoryAdjustment(
     request: Inventory.UpdateInventoryAdjustmentRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateInventoryAdjustmentResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateInventoryAdjustmentResponse, ResponseError>(
+  ): ApiPromise<UpdateInventoryAdjustmentResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/inventory/adjustments/update"),
+        urlTemplate: this.#servers.default("/v2/inventory/adjustments/update"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: updateInventoryAdjustmentRequestSchema },
       },
       {
         success: { kind: "json", schema: updateInventoryAdjustmentResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -771,25 +835,29 @@ export class Inventory {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updateInventoryAdjustmentReason(
     request: Inventory.UpdateInventoryAdjustmentReasonRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateInventoryAdjustmentReasonResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateInventoryAdjustmentReasonResponse, ResponseError>(
+  ): ApiPromise<UpdateInventoryAdjustmentReasonResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/inventory/adjustment-reasons/update"),
+        urlTemplate: this.#servers.default("/v2/inventory/adjustment-reasons/update"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: updateInventoryAdjustmentReasonRequestSchema },
       },
       {
         success: { kind: "json", schema: updateInventoryAdjustmentReasonResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

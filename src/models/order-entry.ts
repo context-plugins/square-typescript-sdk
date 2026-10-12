@@ -23,7 +23,7 @@ export type OrderEntry = {
 
 export const orderEntrySchema: Schema<OrderEntry> = s.object<OrderEntry>({
   orderId: s.optionalNullable(s.string()),
-  version: s.optional(s.number()),
+  version: s.optional(s.int()),
   locationId: s.optionalNullable(s.string()),
   _keysMap: {
     orderId: "order_id",

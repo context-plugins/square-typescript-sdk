@@ -12,7 +12,7 @@ export type LoyaltyEventExpirePoints = {
 export const loyaltyEventExpirePointsSchema: Schema<LoyaltyEventExpirePoints> =
   s.object<LoyaltyEventExpirePoints>({
     loyaltyProgramId: s.string(),
-    points: s.number(),
+    points: s.int(),
     _keysMap: {
       loyaltyProgramId: "loyalty_program_id",
     },

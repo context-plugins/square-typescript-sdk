@@ -42,7 +42,7 @@ export const breakTypeSchema: Schema<BreakType> = s.object<BreakType>({
   breakName: s.string(),
   expectedDuration: s.string(),
   isPaid: s.boolean(),
-  version: s.optional(s.number()),
+  version: s.optional(s.int()),
   createdAt: s.optional(s.string()),
   updatedAt: s.optional(s.string()),
   _keysMap: {

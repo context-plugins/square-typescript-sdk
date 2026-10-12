@@ -72,7 +72,7 @@ export const bulkUpdateCustomerDataSchema: Schema<BulkUpdateCustomerData> = s.ob
   note: s.optionalNullable(s.string()),
   birthday: s.optionalNullable(s.string()),
   taxIds: s.optional(s.lazy(() => customerTaxIdsSchema)),
-  version: s.optional(s.number()),
+  version: s.optional(s.int()),
   _keysMap: {
     givenName: "given_name",
     familyName: "family_name",

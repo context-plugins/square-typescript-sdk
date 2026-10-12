@@ -18,7 +18,7 @@ export const loyaltyEventCreateRewardSchema: Schema<LoyaltyEventCreateReward> =
   s.object<LoyaltyEventCreateReward>({
     loyaltyProgramId: s.string(),
     rewardId: s.optional(s.string()),
-    points: s.number(),
+    points: s.int(),
     _keysMap: {
       loyaltyProgramId: "loyalty_program_id",
       rewardId: "reward_id",

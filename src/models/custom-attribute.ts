@@ -66,7 +66,7 @@ export type CustomAttribute = {
 export const customAttributeSchema: Schema<CustomAttribute> = s.object<CustomAttribute>({
   key: s.optionalNullable(s.string()),
   value: s.optionalNullable(s.record(s.string(), s.unknown())),
-  version: s.optional(s.number()),
+  version: s.optional(s.int()),
   visibility: s.optional(s.lazy(() => customAttributeDefinitionVisibilitySchema)),
   definition: s.optional(s.lazy(() => customAttributeDefinitionSchema)),
   updatedAt: s.optional(s.string()),

@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   addGroupToCustomerResponseSchema,
@@ -118,29 +119,32 @@ export class Customers {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   addGroupToCustomer(
     request: Customers.AddGroupToCustomerRequest,
     options?: RequestOptions,
-  ): ApiPromise<AddGroupToCustomerResponse, ResponseError> {
-    return this.#rawClient.execute<AddGroupToCustomerResponse, ResponseError>(
+  ): ApiPromise<AddGroupToCustomerResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/customers/{customer_id}/groups/{group_id}"),
+        urlTemplate: this.#servers.default("/v2/customers/{customer_id}/groups/{group_id}"),
         auth: this.#auth.oauth2,
         pathParams: [
           { name: "customer_id", value: request.customerId, schema: s.string() },
           { name: "group_id", value: request.groupId, schema: s.string() },
         ],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: addGroupToCustomerResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -164,25 +168,29 @@ export class Customers {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   bulkCreateCustomers(
     request: Customers.BulkCreateCustomersRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BulkCreateCustomersResponse, ResponseError> {
-    return this.#rawClient.execute<BulkCreateCustomersResponse, ResponseError>(
+  ): ApiPromise<BulkCreateCustomersResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/customers/bulk-create"),
+        urlTemplate: this.#servers.default("/v2/customers/bulk-create"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: bulkCreateCustomersRequestSchema },
       },
       {
         success: { kind: "json", schema: bulkCreateCustomersResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -198,25 +206,29 @@ export class Customers {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   bulkDeleteCustomers(
     request: Customers.BulkDeleteCustomersRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BulkDeleteCustomersResponse, ResponseError> {
-    return this.#rawClient.execute<BulkDeleteCustomersResponse, ResponseError>(
+  ): ApiPromise<BulkDeleteCustomersResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/customers/bulk-delete"),
+        urlTemplate: this.#servers.default("/v2/customers/bulk-delete"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: bulkDeleteCustomersRequestSchema },
       },
       {
         success: { kind: "json", schema: bulkDeleteCustomersResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -232,25 +244,29 @@ export class Customers {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   bulkRetrieveCustomers(
     request: Customers.BulkRetrieveCustomersRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BulkRetrieveCustomersResponse, ResponseError> {
-    return this.#rawClient.execute<BulkRetrieveCustomersResponse, ResponseError>(
+  ): ApiPromise<BulkRetrieveCustomersResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/customers/bulk-retrieve"),
+        urlTemplate: this.#servers.default("/v2/customers/bulk-retrieve"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: bulkRetrieveCustomersRequestSchema },
       },
       {
         success: { kind: "json", schema: bulkRetrieveCustomersResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -266,25 +282,29 @@ export class Customers {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   bulkUpdateCustomers(
     request: Customers.BulkUpdateCustomersRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BulkUpdateCustomersResponse, ResponseError> {
-    return this.#rawClient.execute<BulkUpdateCustomersResponse, ResponseError>(
+  ): ApiPromise<BulkUpdateCustomersResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/customers/bulk-update"),
+        urlTemplate: this.#servers.default("/v2/customers/bulk-update"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: bulkUpdateCustomersRequestSchema },
       },
       {
         success: { kind: "json", schema: bulkUpdateCustomersResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -306,25 +326,29 @@ export class Customers {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createCustomer(
     request: Customers.CreateCustomerRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateCustomerResponse, ResponseError> {
-    return this.#rawClient.execute<CreateCustomerResponse, ResponseError>(
+  ): ApiPromise<CreateCustomerResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/customers"),
+        urlTemplate: this.#servers.default("/v2/customers"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createCustomerRequestSchema },
       },
       {
         success: { kind: "json", schema: createCustomerResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -342,28 +366,31 @@ export class Customers {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    *
    * @deprecated
    */
   createCustomerCard(
     request: Customers.CreateCustomerCardRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateCustomerCardResponse, ResponseError> {
-    return this.#rawClient.execute<CreateCustomerCardResponse, ResponseError>(
+  ): ApiPromise<CreateCustomerCardResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/customers/{customer_id}/cards"),
+        urlTemplate: this.#servers.default("/v2/customers/{customer_id}/cards"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "customer_id", value: request.customerId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createCustomerCardRequestSchema },
       },
       {
         success: { kind: "json", schema: createCustomerCardResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -380,27 +407,29 @@ export class Customers {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   deleteCustomer(
     request: Customers.DeleteCustomerRequest,
     options?: RequestOptions,
-  ): ApiPromise<DeleteCustomerResponse, ResponseError> {
-    return this.#rawClient.execute<DeleteCustomerResponse, ResponseError>(
+  ): ApiPromise<DeleteCustomerResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v2/customers/{customer_id}"),
+        urlTemplate: this.#servers.default("/v2/customers/{customer_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "customer_id", value: request.customerId, schema: s.string() }],
-        query: [{ name: "version", value: request.version, schema: s.optional(s.number()) }],
+        query: [{ name: "version", value: request.version, schema: s.optional(s.int()) }],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: deleteCustomerResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -414,31 +443,34 @@ export class Customers {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    *
    * @deprecated
    */
   deleteCustomerCard(
     request: Customers.DeleteCustomerCardRequest,
     options?: RequestOptions,
-  ): ApiPromise<DeleteCustomerCardResponse, ResponseError> {
-    return this.#rawClient.execute<DeleteCustomerCardResponse, ResponseError>(
+  ): ApiPromise<DeleteCustomerCardResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v2/customers/{customer_id}/cards/{card_id}"),
+        urlTemplate: this.#servers.default("/v2/customers/{customer_id}/cards/{card_id}"),
         auth: this.#auth.oauth2,
         pathParams: [
           { name: "customer_id", value: request.customerId, schema: s.string() },
           { name: "card_id", value: request.cardId, schema: s.string() },
         ],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: deleteCustomerCardResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -457,23 +489,25 @@ export class Customers {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listCustomers(
     request: Customers.ListCustomersRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListCustomersResponse, ResponseError> {
-    return this.#rawClient.execute<ListCustomersResponse, ResponseError>(
+  ): ApiPromise<ListCustomersResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/customers"),
+        urlTemplate: this.#servers.default("/v2/customers"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
           {
             name: "sort_field",
             value: request.sortField,
@@ -482,11 +516,12 @@ export class Customers {
           { name: "sort_order", value: request.sortOrder, schema: s.optional(s.lazy(() => sortOrderSchema)) },
           { name: "count", value: request.count, schema: s.defaulted(s.boolean(), false) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listCustomersResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -503,29 +538,32 @@ export class Customers {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   removeGroupFromCustomer(
     request: Customers.RemoveGroupFromCustomerRequest,
     options?: RequestOptions,
-  ): ApiPromise<RemoveGroupFromCustomerResponse, ResponseError> {
-    return this.#rawClient.execute<RemoveGroupFromCustomerResponse, ResponseError>(
+  ): ApiPromise<RemoveGroupFromCustomerResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v2/customers/{customer_id}/groups/{group_id}"),
+        urlTemplate: this.#servers.default("/v2/customers/{customer_id}/groups/{group_id}"),
         auth: this.#auth.oauth2,
         pathParams: [
           { name: "customer_id", value: request.customerId, schema: s.string() },
           { name: "group_id", value: request.groupId, schema: s.string() },
         ],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: removeGroupFromCustomerResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -539,26 +577,29 @@ export class Customers {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveCustomer(
     request: Customers.RetrieveCustomerRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveCustomerResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveCustomerResponse, ResponseError>(
+  ): ApiPromise<RetrieveCustomerResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/customers/{customer_id}"),
+        urlTemplate: this.#servers.default("/v2/customers/{customer_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "customer_id", value: request.customerId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveCustomerResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -581,25 +622,29 @@ export class Customers {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   searchCustomers(
     request: Customers.SearchCustomersRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<SearchCustomersResponse, ResponseError> {
-    return this.#rawClient.execute<SearchCustomersResponse, ResponseError>(
+  ): ApiPromise<SearchCustomersResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/customers/search"),
+        urlTemplate: this.#servers.default("/v2/customers/search"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: searchCustomersRequestSchema },
       },
       {
         success: { kind: "json", schema: searchCustomersResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -618,26 +663,29 @@ export class Customers {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updateCustomer(
     request: Customers.UpdateCustomerRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateCustomerResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateCustomerResponse, ResponseError>(
+  ): ApiPromise<UpdateCustomerResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/customers/{customer_id}"),
+        urlTemplate: this.#servers.default("/v2/customers/{customer_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "customer_id", value: request.customerId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: updateCustomerRequestSchema },
       },
       {
         success: { kind: "json", schema: updateCustomerResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

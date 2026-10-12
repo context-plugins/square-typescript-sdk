@@ -4,16 +4,17 @@
 
 Accessor: `client.orders` · Source: `src/resources/orders.ts` · 8 operations · Request types: namespace `Orders`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### batchRetrieveOrders
 
-- **Signature**: `batchRetrieveOrders(request: Orders.BatchRetrieveOrdersRequestParams, options?: RequestOptions): ApiPromise<BatchRetrieveOrdersResponse, ResponseError>`
+- **Signature**: `batchRetrieveOrders(request: Orders.BatchRetrieveOrdersRequestParams, options?: RequestOptions): ApiPromise<BatchRetrieveOrdersResponse, ApiError>`
 - **Wire**: `POST /v2/orders/batch-retrieve`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BatchRetrieveOrdersResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Orders.BatchRetrieveOrdersRequestParams` (1):
 
@@ -28,12 +29,13 @@ Accessor: `client.orders` · Source: `src/resources/orders.ts` · 8 operations �
 
 ### calculateOrder
 
-- **Signature**: `calculateOrder(request: Orders.CalculateOrderRequestParams, options?: RequestOptions): ApiPromise<CalculateOrderResponse, ResponseError>`
+- **Signature**: `calculateOrder(request: Orders.CalculateOrderRequestParams, options?: RequestOptions): ApiPromise<CalculateOrderResponse, ApiError>`
 - **Wire**: `POST /v2/orders/calculate`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CalculateOrderResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Orders.CalculateOrderRequestParams` (1):
 
@@ -48,12 +50,13 @@ Accessor: `client.orders` · Source: `src/resources/orders.ts` · 8 operations �
 
 ### cloneOrder
 
-- **Signature**: `cloneOrder(request: Orders.CloneOrderRequestParams, options?: RequestOptions): ApiPromise<CloneOrderResponse, ResponseError>`
+- **Signature**: `cloneOrder(request: Orders.CloneOrderRequestParams, options?: RequestOptions): ApiPromise<CloneOrderResponse, ApiError>`
 - **Wire**: `POST /v2/orders/clone`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CloneOrderResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Orders.CloneOrderRequestParams` (1):
 
@@ -68,12 +71,13 @@ Accessor: `client.orders` · Source: `src/resources/orders.ts` · 8 operations �
 
 ### createOrder
 
-- **Signature**: `createOrder(request: Orders.CreateOrderRequestParams, options?: RequestOptions): ApiPromise<CreateOrderResponse, ResponseError>`
+- **Signature**: `createOrder(request: Orders.CreateOrderRequestParams, options?: RequestOptions): ApiPromise<CreateOrderResponse, ApiError>`
 - **Wire**: `POST /v2/orders`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateOrderResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Orders.CreateOrderRequestParams` (1):
 
@@ -88,12 +92,13 @@ Accessor: `client.orders` · Source: `src/resources/orders.ts` · 8 operations �
 
 ### payOrder
 
-- **Signature**: `payOrder(request: Orders.PayOrderRequestParams, options?: RequestOptions): ApiPromise<PayOrderResponse, ResponseError>`
+- **Signature**: `payOrder(request: Orders.PayOrderRequestParams, options?: RequestOptions): ApiPromise<PayOrderResponse, ApiError>`
 - **Wire**: `POST /v2/orders/{order_id}/pay`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `PayOrderResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Orders.PayOrderRequestParams` (2):
 
@@ -109,12 +114,12 @@ Accessor: `client.orders` · Source: `src/resources/orders.ts` · 8 operations �
 
 ### retrieveOrder
 
-- **Signature**: `retrieveOrder(request: Orders.RetrieveOrderRequest, options?: RequestOptions): ApiPromise<RetrieveOrderResponse, ResponseError>`
+- **Signature**: `retrieveOrder(request: Orders.RetrieveOrderRequest, options?: RequestOptions): ApiPromise<RetrieveOrderResponse, ApiError>`
 - **Wire**: `GET /v2/orders/{order_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveOrderResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Orders.RetrieveOrderRequest` (1):
 
@@ -128,12 +133,13 @@ Accessor: `client.orders` · Source: `src/resources/orders.ts` · 8 operations �
 
 ### searchOrders
 
-- **Signature**: `searchOrders(request: Orders.SearchOrdersRequestParams, options?: RequestOptions): ApiPromise<SearchOrdersResponse, ResponseError>`
+- **Signature**: `searchOrders(request: Orders.SearchOrdersRequestParams, options?: RequestOptions): ApiPromise<SearchOrdersResponse, ApiError>`
 - **Wire**: `POST /v2/orders/search`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `SearchOrdersResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Orders.SearchOrdersRequestParams` (1):
 
@@ -148,12 +154,13 @@ Accessor: `client.orders` · Source: `src/resources/orders.ts` · 8 operations �
 
 ### updateOrder
 
-- **Signature**: `updateOrder(request: Orders.UpdateOrderRequestParams, options?: RequestOptions): ApiPromise<UpdateOrderResponse, ResponseError>`
+- **Signature**: `updateOrder(request: Orders.UpdateOrderRequestParams, options?: RequestOptions): ApiPromise<UpdateOrderResponse, ApiError>`
 - **Wire**: `PUT /v2/orders/{order_id}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateOrderResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Orders.UpdateOrderRequestParams` (2):
 

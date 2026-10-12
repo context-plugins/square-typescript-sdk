@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   createGiftCardRequestSchema,
@@ -77,25 +78,29 @@ export class GiftCards {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createGiftCard(
     request: GiftCards.CreateGiftCardRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateGiftCardResponse, ResponseError> {
-    return this.#rawClient.execute<CreateGiftCardResponse, ResponseError>(
+  ): ApiPromise<CreateGiftCardResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/gift-cards"),
+        urlTemplate: this.#servers.default("/v2/gift-cards"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createGiftCardRequestSchema },
       },
       {
         success: { kind: "json", schema: createGiftCardResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -109,26 +114,29 @@ export class GiftCards {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   linkCustomerToGiftCard(
     request: GiftCards.LinkCustomerToGiftCardRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<LinkCustomerToGiftCardResponse, ResponseError> {
-    return this.#rawClient.execute<LinkCustomerToGiftCardResponse, ResponseError>(
+  ): ApiPromise<LinkCustomerToGiftCardResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/gift-cards/{gift_card_id}/link-customer"),
+        urlTemplate: this.#servers.default("/v2/gift-cards/{gift_card_id}/link-customer"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "gift_card_id", value: request.giftCardId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: linkCustomerToGiftCardRequestSchema },
       },
       {
         success: { kind: "json", schema: linkCustomerToGiftCardResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -143,32 +151,35 @@ export class GiftCards {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listGiftCards(
     request: GiftCards.ListGiftCardsRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListGiftCardsResponse, ResponseError> {
-    return this.#rawClient.execute<ListGiftCardsResponse, ResponseError>(
+  ): ApiPromise<ListGiftCardsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/gift-cards"),
+        urlTemplate: this.#servers.default("/v2/gift-cards"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
           { name: "type", value: request.type, schema: s.optional(s.string()) },
           { name: "state", value: request.state, schema: s.optional(s.string()) },
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
           { name: "customer_id", value: request.customerId, schema: s.optional(s.string()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listGiftCardsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -182,26 +193,29 @@ export class GiftCards {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveGiftCard(
     request: GiftCards.RetrieveGiftCardRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveGiftCardResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveGiftCardResponse, ResponseError>(
+  ): ApiPromise<RetrieveGiftCardResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/gift-cards/{id}"),
+        urlTemplate: this.#servers.default("/v2/gift-cards/{id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "id", value: request.id, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveGiftCardResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -215,25 +229,29 @@ export class GiftCards {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveGiftCardFromGan(
     request: GiftCards.RetrieveGiftCardFromGanRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveGiftCardFromGanResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveGiftCardFromGanResponse, ResponseError>(
+  ): ApiPromise<RetrieveGiftCardFromGanResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/gift-cards/from-gan"),
+        urlTemplate: this.#servers.default("/v2/gift-cards/from-gan"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: retrieveGiftCardFromGanRequestSchema },
       },
       {
         success: { kind: "json", schema: retrieveGiftCardFromGanResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -247,25 +265,29 @@ export class GiftCards {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveGiftCardFromNonce(
     request: GiftCards.RetrieveGiftCardFromNonceRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveGiftCardFromNonceResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveGiftCardFromNonceResponse, ResponseError>(
+  ): ApiPromise<RetrieveGiftCardFromNonceResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/gift-cards/from-nonce"),
+        urlTemplate: this.#servers.default("/v2/gift-cards/from-nonce"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: retrieveGiftCardFromNonceRequestSchema },
       },
       {
         success: { kind: "json", schema: retrieveGiftCardFromNonceResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -279,26 +301,29 @@ export class GiftCards {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   unlinkCustomerFromGiftCard(
     request: GiftCards.UnlinkCustomerFromGiftCardRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UnlinkCustomerFromGiftCardResponse, ResponseError> {
-    return this.#rawClient.execute<UnlinkCustomerFromGiftCardResponse, ResponseError>(
+  ): ApiPromise<UnlinkCustomerFromGiftCardResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/gift-cards/{gift_card_id}/unlink-customer"),
+        urlTemplate: this.#servers.default("/v2/gift-cards/{gift_card_id}/unlink-customer"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "gift_card_id", value: request.giftCardId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: unlinkCustomerFromGiftCardRequestSchema },
       },
       {
         success: { kind: "json", schema: unlinkCustomerFromGiftCardResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

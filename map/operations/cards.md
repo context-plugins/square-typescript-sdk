@@ -4,16 +4,17 @@
 
 Accessor: `client.cards` · Source: `src/resources/cards.ts` · 4 operations · Request types: namespace `Cards`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### createCard
 
-- **Signature**: `createCard(request: Cards.CreateCardRequestParams, options?: RequestOptions): ApiPromise<CreateCardResponse, ResponseError>`
+- **Signature**: `createCard(request: Cards.CreateCardRequestParams, options?: RequestOptions): ApiPromise<CreateCardResponse, ApiError>`
 - **Wire**: `POST /v2/cards`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateCardResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Cards.CreateCardRequestParams` (1):
 
@@ -28,12 +29,13 @@ Accessor: `client.cards` · Source: `src/resources/cards.ts` · 4 operations · 
 
 ### disableCard
 
-- **Signature**: `disableCard(request: Cards.DisableCardRequest, options?: RequestOptions): ApiPromise<DisableCardResponse, ResponseError>`
+- **Signature**: `disableCard(request: Cards.DisableCardRequest, options?: RequestOptions): ApiPromise<DisableCardResponse, ApiError>`
 - **Wire**: `POST /v2/cards/{card_id}/disable`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DisableCardResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Cards.DisableCardRequest` (1):
 
@@ -47,12 +49,12 @@ Accessor: `client.cards` · Source: `src/resources/cards.ts` · 4 operations · 
 
 ### listCards
 
-- **Signature**: `listCards(request: Cards.ListCardsRequest, options?: RequestOptions): ApiPromise<ListCardsResponse, ResponseError>`
+- **Signature**: `listCards(request: Cards.ListCardsRequest, options?: RequestOptions): ApiPromise<ListCardsResponse, ApiError>`
 - **Wire**: `GET /v2/cards`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListCardsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Cards.ListCardsRequest` (5):
 
@@ -71,12 +73,12 @@ Accessor: `client.cards` · Source: `src/resources/cards.ts` · 4 operations · 
 
 ### retrieveCard
 
-- **Signature**: `retrieveCard(request: Cards.RetrieveCardRequest, options?: RequestOptions): ApiPromise<RetrieveCardResponse, ResponseError>`
+- **Signature**: `retrieveCard(request: Cards.RetrieveCardRequest, options?: RequestOptions): ApiPromise<RetrieveCardResponse, ApiError>`
 - **Wire**: `GET /v2/cards/{card_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveCardResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Cards.RetrieveCardRequest` (1):
 

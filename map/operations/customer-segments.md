@@ -4,16 +4,16 @@
 
 Accessor: `client.customerSegments` · Source: `src/resources/customer-segments.ts` · 2 operations · Request types: namespace `CustomerSegments`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### listCustomerSegments
 
-- **Signature**: `listCustomerSegments(request: CustomerSegments.ListCustomerSegmentsRequest, options?: RequestOptions): ApiPromise<ListCustomerSegmentsResponse, ResponseError>`
+- **Signature**: `listCustomerSegments(request: CustomerSegments.ListCustomerSegmentsRequest, options?: RequestOptions): ApiPromise<ListCustomerSegmentsResponse, ApiError>`
 - **Wire**: `GET /v2/customers/segments`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListCustomerSegmentsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `CustomerSegments.ListCustomerSegmentsRequest` (2):
 
@@ -28,12 +28,12 @@ Accessor: `client.customerSegments` · Source: `src/resources/customer-segments.
 
 ### retrieveCustomerSegment
 
-- **Signature**: `retrieveCustomerSegment(request: CustomerSegments.RetrieveCustomerSegmentRequest, options?: RequestOptions): ApiPromise<RetrieveCustomerSegmentResponse, ResponseError>`
+- **Signature**: `retrieveCustomerSegment(request: CustomerSegments.RetrieveCustomerSegmentRequest, options?: RequestOptions): ApiPromise<RetrieveCustomerSegmentResponse, ApiError>`
 - **Wire**: `GET /v2/customers/segments/{segment_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveCustomerSegmentResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `CustomerSegments.RetrieveCustomerSegmentRequest` (1):
 

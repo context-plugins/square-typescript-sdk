@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   deleteSnippetResponseSchema,
@@ -46,26 +47,29 @@ export class Snippets {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   deleteSnippet(
     request: Snippets.DeleteSnippetRequest,
     options?: RequestOptions,
-  ): ApiPromise<DeleteSnippetResponse, ResponseError> {
-    return this.#rawClient.execute<DeleteSnippetResponse, ResponseError>(
+  ): ApiPromise<DeleteSnippetResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v2/sites/{site_id}/snippet"),
+        urlTemplate: this.#servers.default("/v2/sites/{site_id}/snippet"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "site_id", value: request.siteId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: deleteSnippetResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -88,26 +92,29 @@ export class Snippets {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveSnippet(
     request: Snippets.RetrieveSnippetRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveSnippetResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveSnippetResponse, ResponseError>(
+  ): ApiPromise<RetrieveSnippetResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/sites/{site_id}/snippet"),
+        urlTemplate: this.#servers.default("/v2/sites/{site_id}/snippet"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "site_id", value: request.siteId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveSnippetResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -131,26 +138,29 @@ export class Snippets {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   upsertSnippet(
     request: Snippets.UpsertSnippetRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpsertSnippetResponse, ResponseError> {
-    return this.#rawClient.execute<UpsertSnippetResponse, ResponseError>(
+  ): ApiPromise<UpsertSnippetResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/sites/{site_id}/snippet"),
+        urlTemplate: this.#servers.default("/v2/sites/{site_id}/snippet"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "site_id", value: request.siteId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: upsertSnippetRequestSchema },
       },
       {
         success: { kind: "json", schema: upsertSnippetResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

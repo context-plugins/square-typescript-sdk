@@ -30,7 +30,7 @@ export type InvoicePaymentReminder = {
 
 export const invoicePaymentReminderSchema: Schema<InvoicePaymentReminder> = s.object<InvoicePaymentReminder>({
   uid: s.optional(s.string()),
-  relativeScheduledDays: s.optionalNullable(s.number()),
+  relativeScheduledDays: s.optionalNullable(s.int()),
   message: s.optionalNullable(s.string()),
   status: s.optional(s.lazy(() => invoicePaymentReminderStatusSchema)),
   sentAt: s.optional(s.string()),

@@ -52,7 +52,7 @@ export const orderReturnLineItemModifierSchema: Schema<OrderReturnLineItemModifi
     uid: s.optionalNullable(s.string()),
     sourceModifierUid: s.optionalNullable(s.string()),
     catalogObjectId: s.optionalNullable(s.string()),
-    catalogVersion: s.optionalNullable(s.number()),
+    catalogVersion: s.optionalNullable(s.int()),
     name: s.optionalNullable(s.string()),
     basePriceMoney: s.optional(s.lazy(() => moneySchema)),
     totalPriceMoney: s.optional(s.lazy(() => moneySchema)),

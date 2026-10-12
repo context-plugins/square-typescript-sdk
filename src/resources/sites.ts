@@ -1,8 +1,8 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
 import { listSitesResponseSchema, type ListSitesResponse } from "../models/list-sites-response.js";
 import type { Servers } from "../servers.js";
 
@@ -31,22 +31,26 @@ export class Sites {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
-  listSites(options?: RequestOptions): ApiPromise<ListSitesResponse, ResponseError> {
-    return this.#rawClient.execute<ListSitesResponse, ResponseError>(
+  listSites(options?: RequestOptions): ApiPromise<ListSitesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/sites"),
+        urlTemplate: this.#servers.default("/v2/sites"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listSitesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

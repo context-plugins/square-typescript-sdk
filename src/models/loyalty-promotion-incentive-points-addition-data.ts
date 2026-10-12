@@ -17,7 +17,7 @@ export type LoyaltyPromotionIncentivePointsAdditionData = {
 
 export const loyaltyPromotionIncentivePointsAdditionDataSchema: Schema<LoyaltyPromotionIncentivePointsAdditionData> =
   s.object<LoyaltyPromotionIncentivePointsAdditionData>({
-    pointsAddition: s.number(),
+    pointsAddition: s.int(),
     _keysMap: {
       pointsAddition: "points_addition",
     },

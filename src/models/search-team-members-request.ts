@@ -18,6 +18,6 @@ export type SearchTeamMembersRequest = {
 export const searchTeamMembersRequestSchema: Schema<SearchTeamMembersRequest> =
   s.object<SearchTeamMembersRequest>({
     query: s.optional(s.lazy(() => searchTeamMembersQuerySchema)),
-    limit: s.optional(s.number()),
+    limit: s.optional(s.int()),
     cursor: s.optional(s.string()),
   });

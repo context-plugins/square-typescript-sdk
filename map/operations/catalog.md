@@ -4,16 +4,17 @@
 
 Accessor: `client.catalog` · Source: `src/resources/catalog.ts` · 14 operations · Request types: namespace `Catalog`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### batchDeleteCatalogObjects
 
-- **Signature**: `batchDeleteCatalogObjects(request: Catalog.BatchDeleteCatalogObjectsRequestParams, options?: RequestOptions): ApiPromise<BatchDeleteCatalogObjectsResponse, ResponseError>`
+- **Signature**: `batchDeleteCatalogObjects(request: Catalog.BatchDeleteCatalogObjectsRequestParams, options?: RequestOptions): ApiPromise<BatchDeleteCatalogObjectsResponse, ApiError>`
 - **Wire**: `POST /v2/catalog/batch-delete`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BatchDeleteCatalogObjectsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Catalog.BatchDeleteCatalogObjectsRequestParams` (1):
 
@@ -28,12 +29,13 @@ Accessor: `client.catalog` · Source: `src/resources/catalog.ts` · 14 operation
 
 ### batchRetrieveCatalogObjects
 
-- **Signature**: `batchRetrieveCatalogObjects(request: Catalog.BatchRetrieveCatalogObjectsRequestParams, options?: RequestOptions): ApiPromise<BatchRetrieveCatalogObjectsResponse, ResponseError>`
+- **Signature**: `batchRetrieveCatalogObjects(request: Catalog.BatchRetrieveCatalogObjectsRequestParams, options?: RequestOptions): ApiPromise<BatchRetrieveCatalogObjectsResponse, ApiError>`
 - **Wire**: `POST /v2/catalog/batch-retrieve`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BatchRetrieveCatalogObjectsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Catalog.BatchRetrieveCatalogObjectsRequestParams` (1):
 
@@ -48,12 +50,13 @@ Accessor: `client.catalog` · Source: `src/resources/catalog.ts` · 14 operation
 
 ### batchUpsertCatalogObjects
 
-- **Signature**: `batchUpsertCatalogObjects(request: Catalog.BatchUpsertCatalogObjectsRequestParams, options?: RequestOptions): ApiPromise<BatchUpsertCatalogObjectsResponse, ResponseError>`
+- **Signature**: `batchUpsertCatalogObjects(request: Catalog.BatchUpsertCatalogObjectsRequestParams, options?: RequestOptions): ApiPromise<BatchUpsertCatalogObjectsResponse, ApiError>`
 - **Wire**: `POST /v2/catalog/batch-upsert`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BatchUpsertCatalogObjectsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Catalog.BatchUpsertCatalogObjectsRequestParams` (1):
 
@@ -68,12 +71,12 @@ Accessor: `client.catalog` · Source: `src/resources/catalog.ts` · 14 operation
 
 ### catalogInfo
 
-- **Signature**: `catalogInfo(options?: RequestOptions): ApiPromise<CatalogInfoResponse, ResponseError>`
+- **Signature**: `catalogInfo(options?: RequestOptions): ApiPromise<CatalogInfoResponse, ApiError>`
 - **Wire**: `GET /v2/catalog/info`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `CatalogInfoResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 | Type | Schema value | Source |
 | --- | --- | --- |
@@ -81,25 +84,35 @@ Accessor: `client.catalog` · Source: `src/resources/catalog.ts` · 14 operation
 
 ### createCatalogImage
 
-- **Signature**: `createCatalogImage(options?: RequestOptions): ApiPromise<CreateCatalogImageResponse, ResponseError>`
+- **Signature**: `createCatalogImage(request: Catalog.CreateCatalogImageRequestParams, options?: RequestOptions): ApiPromise<CreateCatalogImageResponse, ApiError>`
 - **Wire**: `POST /v2/catalog/images`
 - **Auth**: `oauth2`
-- **Request body**: none — no `Content-Type` header is sent
+- **Request body**: `multipart/form-data` — every field marked `form`. `image_file` is a file part, framed as bytes rather than encoded. The platform writes the boundary, or the SDK does when a file part streams
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateCatalogImageResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
+
+**Fields** — `Catalog.CreateCatalogImageRequestParams` (2):
+
+| Field | Channel | Wire | Type | Req |
+| --- | --- | --- | --- | --- |
+| `request` | `form` | — | `CreateCatalogImageRequest` | no |
+| `imageFile` | `form` | `image_file` | `FileInput` | no |
 
 | Type | Schema value | Source |
 | --- | --- | --- |
+| `CreateCatalogImageRequest` | `createCatalogImageRequestSchema` | `src/models/create-catalog-image-request.ts` |
 | `CreateCatalogImageResponse` | `createCatalogImageResponseSchema` | `src/models/create-catalog-image-response.ts` |
 
 ### deleteCatalogObject
 
-- **Signature**: `deleteCatalogObject(request: Catalog.DeleteCatalogObjectRequest, options?: RequestOptions): ApiPromise<DeleteCatalogObjectResponse, ResponseError>`
+- **Signature**: `deleteCatalogObject(request: Catalog.DeleteCatalogObjectRequest, options?: RequestOptions): ApiPromise<DeleteCatalogObjectResponse, ApiError>`
 - **Wire**: `DELETE /v2/catalog/object/{object_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DeleteCatalogObjectResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Catalog.DeleteCatalogObjectRequest` (1):
 
@@ -113,12 +126,12 @@ Accessor: `client.catalog` · Source: `src/resources/catalog.ts` · 14 operation
 
 ### listCatalog
 
-- **Signature**: `listCatalog(request: Catalog.ListCatalogRequest, options?: RequestOptions): ApiPromise<ListCatalogResponse, ResponseError>`
+- **Signature**: `listCatalog(request: Catalog.ListCatalogRequest, options?: RequestOptions): ApiPromise<ListCatalogResponse, ApiError>`
 - **Wire**: `GET /v2/catalog/list`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListCatalogResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Catalog.ListCatalogRequest` (3):
 
@@ -134,12 +147,12 @@ Accessor: `client.catalog` · Source: `src/resources/catalog.ts` · 14 operation
 
 ### retrieveCatalogObject
 
-- **Signature**: `retrieveCatalogObject(request: Catalog.RetrieveCatalogObjectRequest, options?: RequestOptions): ApiPromise<RetrieveCatalogObjectResponse, ResponseError>`
+- **Signature**: `retrieveCatalogObject(request: Catalog.RetrieveCatalogObjectRequest, options?: RequestOptions): ApiPromise<RetrieveCatalogObjectResponse, ApiError>`
 - **Wire**: `GET /v2/catalog/object/{object_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveCatalogObjectResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Catalog.RetrieveCatalogObjectRequest` (4):
 
@@ -156,12 +169,13 @@ Accessor: `client.catalog` · Source: `src/resources/catalog.ts` · 14 operation
 
 ### searchCatalogItems
 
-- **Signature**: `searchCatalogItems(request: Catalog.SearchCatalogItemsRequestParams, options?: RequestOptions): ApiPromise<SearchCatalogItemsResponse, ResponseError>`
+- **Signature**: `searchCatalogItems(request: Catalog.SearchCatalogItemsRequestParams, options?: RequestOptions): ApiPromise<SearchCatalogItemsResponse, ApiError>`
 - **Wire**: `POST /v2/catalog/search-catalog-items`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `SearchCatalogItemsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Catalog.SearchCatalogItemsRequestParams` (1):
 
@@ -176,12 +190,13 @@ Accessor: `client.catalog` · Source: `src/resources/catalog.ts` · 14 operation
 
 ### searchCatalogObjects
 
-- **Signature**: `searchCatalogObjects(request: Catalog.SearchCatalogObjectsRequestParams, options?: RequestOptions): ApiPromise<SearchCatalogObjectsResponse, ResponseError>`
+- **Signature**: `searchCatalogObjects(request: Catalog.SearchCatalogObjectsRequestParams, options?: RequestOptions): ApiPromise<SearchCatalogObjectsResponse, ApiError>`
 - **Wire**: `POST /v2/catalog/search`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `SearchCatalogObjectsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Catalog.SearchCatalogObjectsRequestParams` (1):
 
@@ -196,31 +211,36 @@ Accessor: `client.catalog` · Source: `src/resources/catalog.ts` · 14 operation
 
 ### updateCatalogImage
 
-- **Signature**: `updateCatalogImage(request: Catalog.UpdateCatalogImageRequestParams, options?: RequestOptions): ApiPromise<UpdateCatalogImageResponse, ResponseError>`
+- **Signature**: `updateCatalogImage(request: Catalog.UpdateCatalogImageRequestParams, options?: RequestOptions): ApiPromise<UpdateCatalogImageResponse, ApiError>`
 - **Wire**: `PUT /v2/catalog/images/{image_id}`
 - **Auth**: `oauth2`
-- **Request body**: none — no `Content-Type` header is sent
+- **Request body**: `multipart/form-data` — every field marked `form`. `image_file` is a file part, framed as bytes rather than encoded. The platform writes the boundary, or the SDK does when a file part streams
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateCatalogImageResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `Catalog.UpdateCatalogImageRequestParams` (1):
+**Fields** — `Catalog.UpdateCatalogImageRequestParams` (3):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `imageId` | `path` | `image_id` | `string` | yes |
+| `request` | `form` | — | `UpdateCatalogImageRequest` | no |
+| `imageFile` | `form` | `image_file` | `FileInput` | no |
 
 | Type | Schema value | Source |
 | --- | --- | --- |
+| `UpdateCatalogImageRequest` | `updateCatalogImageRequestSchema` | `src/models/update-catalog-image-request.ts` |
 | `UpdateCatalogImageResponse` | `updateCatalogImageResponseSchema` | `src/models/update-catalog-image-response.ts` |
 
 ### updateItemModifierLists
 
-- **Signature**: `updateItemModifierLists(request: Catalog.UpdateItemModifierListsRequestParams, options?: RequestOptions): ApiPromise<UpdateItemModifierListsResponse, ResponseError>`
+- **Signature**: `updateItemModifierLists(request: Catalog.UpdateItemModifierListsRequestParams, options?: RequestOptions): ApiPromise<UpdateItemModifierListsResponse, ApiError>`
 - **Wire**: `POST /v2/catalog/update-item-modifier-lists`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateItemModifierListsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Catalog.UpdateItemModifierListsRequestParams` (1):
 
@@ -235,12 +255,13 @@ Accessor: `client.catalog` · Source: `src/resources/catalog.ts` · 14 operation
 
 ### updateItemTaxes
 
-- **Signature**: `updateItemTaxes(request: Catalog.UpdateItemTaxesRequestParams, options?: RequestOptions): ApiPromise<UpdateItemTaxesResponse, ResponseError>`
+- **Signature**: `updateItemTaxes(request: Catalog.UpdateItemTaxesRequestParams, options?: RequestOptions): ApiPromise<UpdateItemTaxesResponse, ApiError>`
 - **Wire**: `POST /v2/catalog/update-item-taxes`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateItemTaxesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Catalog.UpdateItemTaxesRequestParams` (1):
 
@@ -255,12 +276,13 @@ Accessor: `client.catalog` · Source: `src/resources/catalog.ts` · 14 operation
 
 ### upsertCatalogObject
 
-- **Signature**: `upsertCatalogObject(request: Catalog.UpsertCatalogObjectRequestParams, options?: RequestOptions): ApiPromise<UpsertCatalogObjectResponse, ResponseError>`
+- **Signature**: `upsertCatalogObject(request: Catalog.UpsertCatalogObjectRequestParams, options?: RequestOptions): ApiPromise<UpsertCatalogObjectResponse, ApiError>`
 - **Wire**: `POST /v2/catalog/object`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpsertCatalogObjectResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Catalog.UpsertCatalogObjectRequestParams` (1):
 

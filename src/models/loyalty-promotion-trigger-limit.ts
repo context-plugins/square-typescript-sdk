@@ -28,6 +28,6 @@ export type LoyaltyPromotionTriggerLimit = {
 
 export const loyaltyPromotionTriggerLimitSchema: Schema<LoyaltyPromotionTriggerLimit> =
   s.object<LoyaltyPromotionTriggerLimit>({
-    times: s.number(),
+    times: s.int(),
     interval: s.optional(s.lazy(() => loyaltyPromotionTriggerLimitIntervalSchema)),
   });

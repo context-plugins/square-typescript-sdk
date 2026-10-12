@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   bulkCreateTeamMembersRequestSchema,
@@ -94,25 +95,29 @@ export class Team {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   bulkCreateTeamMembers(
     request: Team.BulkCreateTeamMembersRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BulkCreateTeamMembersResponse, ResponseError> {
-    return this.#rawClient.execute<BulkCreateTeamMembersResponse, ResponseError>(
+  ): ApiPromise<BulkCreateTeamMembersResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/team-members/bulk-create"),
+        urlTemplate: this.#servers.default("/v2/team-members/bulk-create"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: bulkCreateTeamMembersRequestSchema },
       },
       {
         success: { kind: "json", schema: bulkCreateTeamMembersResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -131,25 +136,29 @@ export class Team {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   bulkUpdateTeamMembers(
     request: Team.BulkUpdateTeamMembersRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BulkUpdateTeamMembersResponse, ResponseError> {
-    return this.#rawClient.execute<BulkUpdateTeamMembersResponse, ResponseError>(
+  ): ApiPromise<BulkUpdateTeamMembersResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/team-members/bulk-update"),
+        urlTemplate: this.#servers.default("/v2/team-members/bulk-update"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: bulkUpdateTeamMembersRequestSchema },
       },
       {
         success: { kind: "json", schema: bulkUpdateTeamMembersResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -165,25 +174,29 @@ export class Team {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createJob(
     request: Team.CreateJobRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateJobResponse, ResponseError> {
-    return this.#rawClient.execute<CreateJobResponse, ResponseError>(
+  ): ApiPromise<CreateJobResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/team-members/jobs"),
+        urlTemplate: this.#servers.default("/v2/team-members/jobs"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createJobRequestSchema },
       },
       {
         success: { kind: "json", schema: createJobResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -203,25 +216,29 @@ export class Team {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createTeamMember(
     request: Team.CreateTeamMemberRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateTeamMemberResponse, ResponseError> {
-    return this.#rawClient.execute<CreateTeamMemberResponse, ResponseError>(
+  ): ApiPromise<CreateTeamMemberResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/team-members"),
+        urlTemplate: this.#servers.default("/v2/team-members"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createTeamMemberRequestSchema },
       },
       {
         success: { kind: "json", schema: createTeamMemberResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -235,26 +252,26 @@ export class Team {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
-  listJobs(
-    request: Team.ListJobsRequest,
-    options?: RequestOptions,
-  ): ApiPromise<ListJobsResponse, ResponseError> {
-    return this.#rawClient.execute<ListJobsResponse, ResponseError>(
+  listJobs(request: Team.ListJobsRequest, options?: RequestOptions): ApiPromise<ListJobsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/team-members/jobs"),
+        urlTemplate: this.#servers.default("/v2/team-members/jobs"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [{ name: "cursor", value: request.cursor, schema: s.optional(s.string()) }],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listJobsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -268,26 +285,29 @@ export class Team {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveJob(
     request: Team.RetrieveJobRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveJobResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveJobResponse, ResponseError>(
+  ): ApiPromise<RetrieveJobResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/team-members/jobs/{job_id}"),
+        urlTemplate: this.#servers.default("/v2/team-members/jobs/{job_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "job_id", value: request.jobId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveJobResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -302,26 +322,29 @@ export class Team {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveTeamMember(
     request: Team.RetrieveTeamMemberRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveTeamMemberResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveTeamMemberResponse, ResponseError>(
+  ): ApiPromise<RetrieveTeamMemberResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/team-members/{team_member_id}"),
+        urlTemplate: this.#servers.default("/v2/team-members/{team_member_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "team_member_id", value: request.teamMemberId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveTeamMemberResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -341,26 +364,29 @@ export class Team {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveWageSetting(
     request: Team.RetrieveWageSettingRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveWageSettingResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveWageSettingResponse, ResponseError>(
+  ): ApiPromise<RetrieveWageSettingResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/team-members/{team_member_id}/wage-setting"),
+        urlTemplate: this.#servers.default("/v2/team-members/{team_member_id}/wage-setting"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "team_member_id", value: request.teamMemberId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveWageSettingResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -376,25 +402,29 @@ export class Team {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   searchTeamMembers(
     request: Team.SearchTeamMembersRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<SearchTeamMembersResponse, ResponseError> {
-    return this.#rawClient.execute<SearchTeamMembersResponse, ResponseError>(
+  ): ApiPromise<SearchTeamMembersResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/team-members/search"),
+        urlTemplate: this.#servers.default("/v2/team-members/search"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: searchTeamMembersRequestSchema },
       },
       {
         success: { kind: "json", schema: searchTeamMembersResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -410,26 +440,29 @@ export class Team {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updateJob(
     request: Team.UpdateJobRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateJobResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateJobResponse, ResponseError>(
+  ): ApiPromise<UpdateJobResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/team-members/jobs/{job_id}"),
+        urlTemplate: this.#servers.default("/v2/team-members/jobs/{job_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "job_id", value: request.jobId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: updateJobRequestSchema },
       },
       {
         success: { kind: "json", schema: updateJobResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -445,26 +478,29 @@ export class Team {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updateTeamMember(
     request: Team.UpdateTeamMemberRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateTeamMemberResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateTeamMemberResponse, ResponseError>(
+  ): ApiPromise<UpdateTeamMemberResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/team-members/{team_member_id}"),
+        urlTemplate: this.#servers.default("/v2/team-members/{team_member_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "team_member_id", value: request.teamMemberId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: updateTeamMemberRequestSchema },
       },
       {
         success: { kind: "json", schema: updateTeamMemberResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -486,26 +522,29 @@ export class Team {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updateWageSetting(
     request: Team.UpdateWageSettingRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateWageSettingResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateWageSettingResponse, ResponseError>(
+  ): ApiPromise<UpdateWageSettingResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/team-members/{team_member_id}/wage-setting"),
+        urlTemplate: this.#servers.default("/v2/team-members/{team_member_id}/wage-setting"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "team_member_id", value: request.teamMemberId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: updateWageSettingRequestSchema },
       },
       {
         success: { kind: "json", schema: updateWageSettingResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

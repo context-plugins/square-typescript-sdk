@@ -14,7 +14,7 @@ export type LoyaltyEventAdjustPoints = {
 export const loyaltyEventAdjustPointsSchema: Schema<LoyaltyEventAdjustPoints> =
   s.object<LoyaltyEventAdjustPoints>({
     loyaltyProgramId: s.optional(s.string()),
-    points: s.number(),
+    points: s.int(),
     reason: s.optionalNullable(s.string()),
     _keysMap: {
       loyaltyProgramId: "loyalty_program_id",

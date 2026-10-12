@@ -28,6 +28,6 @@ export type SearchEventsRequest = {
 
 export const searchEventsRequestSchema: Schema<SearchEventsRequest> = s.object<SearchEventsRequest>({
   cursor: s.optional(s.string()),
-  limit: s.optional(s.number()),
+  limit: s.optional(s.int()),
   query: s.optional(s.lazy(() => searchEventsQuerySchema)),
 });

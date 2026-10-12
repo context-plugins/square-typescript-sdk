@@ -4,16 +4,16 @@
 
 Accessor: `client.payouts` · Source: `src/resources/payouts.ts` · 3 operations · Request types: namespace `Payouts`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### getPayout
 
-- **Signature**: `getPayout(request: Payouts.GetPayoutRequest, options?: RequestOptions): ApiPromise<GetPayoutResponse, ResponseError>`
+- **Signature**: `getPayout(request: Payouts.GetPayoutRequest, options?: RequestOptions): ApiPromise<GetPayoutResponse, ApiError>`
 - **Wire**: `GET /v2/payouts/{payout_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `GetPayoutResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Payouts.GetPayoutRequest` (1):
 
@@ -27,12 +27,12 @@ Accessor: `client.payouts` · Source: `src/resources/payouts.ts` · 3 operations
 
 ### listPayoutEntries
 
-- **Signature**: `listPayoutEntries(request: Payouts.ListPayoutEntriesRequest, options?: RequestOptions): ApiPromise<ListPayoutEntriesResponse, ResponseError>`
+- **Signature**: `listPayoutEntries(request: Payouts.ListPayoutEntriesRequest, options?: RequestOptions): ApiPromise<ListPayoutEntriesResponse, ApiError>`
 - **Wire**: `GET /v2/payouts/{payout_id}/payout-entries`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListPayoutEntriesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Payouts.ListPayoutEntriesRequest` (4):
 
@@ -50,12 +50,12 @@ Accessor: `client.payouts` · Source: `src/resources/payouts.ts` · 3 operations
 
 ### listPayouts
 
-- **Signature**: `listPayouts(request: Payouts.ListPayoutsRequest, options?: RequestOptions): ApiPromise<ListPayoutsResponse, ResponseError>`
+- **Signature**: `listPayouts(request: Payouts.ListPayoutsRequest, options?: RequestOptions): ApiPromise<ListPayoutsResponse, ApiError>`
 - **Wire**: `GET /v2/payouts`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListPayoutsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Payouts.ListPayoutsRequest` (7):
 

@@ -1,8 +1,10 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
+import * as s from "../core/validation/index.js";
 import {
   registerDomainRequestSchema,
   type RegisterDomainRequest,
@@ -46,25 +48,29 @@ export class ApplePay {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   registerDomain(
     request: ApplePay.RegisterDomainRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<RegisterDomainResponse, ResponseError> {
-    return this.#rawClient.execute<RegisterDomainResponse, ResponseError>(
+  ): ApiPromise<RegisterDomainResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/apple-pay/domains"),
+        urlTemplate: this.#servers.default("/v2/apple-pay/domains"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: registerDomainRequestSchema },
       },
       {
         success: { kind: "json", schema: registerDomainResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

@@ -28,6 +28,6 @@ export type CatalogQuickAmount = {
 export const catalogQuickAmountSchema: Schema<CatalogQuickAmount> = s.object<CatalogQuickAmount>({
   type: catalogQuickAmountTypeSchema,
   amount: moneySchema,
-  score: s.optionalNullable(s.number()),
-  ordinal: s.optionalNullable(s.number()),
+  score: s.optionalNullable(s.int()),
+  ordinal: s.optionalNullable(s.int()),
 });

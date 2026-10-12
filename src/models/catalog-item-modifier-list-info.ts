@@ -60,10 +60,10 @@ export const catalogItemModifierListInfoSchema: Schema<CatalogItemModifierListIn
   s.object<CatalogItemModifierListInfo>({
     modifierListId: s.string(),
     modifierOverrides: s.optionalNullable(s.array(s.lazy(() => catalogModifierOverrideSchema))),
-    minSelectedModifiers: s.optionalNullable(s.number()),
-    maxSelectedModifiers: s.optionalNullable(s.number()),
+    minSelectedModifiers: s.optionalNullable(s.int()),
+    maxSelectedModifiers: s.optionalNullable(s.int()),
     enabled: s.optionalNullable(s.boolean()),
-    ordinal: s.optionalNullable(s.number()),
+    ordinal: s.optionalNullable(s.int()),
     allowQuantities: s.optional(s.lazy(() => catalogModifierToggleOverrideTypeSchema)),
     isConversational: s.optional(s.lazy(() => catalogModifierToggleOverrideTypeSchema)),
     hiddenFromCustomerOverride: s.optional(s.lazy(() => catalogModifierToggleOverrideTypeSchema)),

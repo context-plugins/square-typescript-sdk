@@ -4,16 +4,17 @@
 
 Accessor: `client.merchantCustomAttributes` · Source: `src/resources/merchant-custom-attributes.ts` · 11 operations · Request types: namespace `MerchantCustomAttributes`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### bulkDeleteMerchantCustomAttributes
 
-- **Signature**: `bulkDeleteMerchantCustomAttributes(request: MerchantCustomAttributes.BulkDeleteMerchantCustomAttributesRequestParams, options?: RequestOptions): ApiPromise<BulkDeleteMerchantCustomAttributesResponse, ResponseError>`
+- **Signature**: `bulkDeleteMerchantCustomAttributes(request: MerchantCustomAttributes.BulkDeleteMerchantCustomAttributesRequestParams, options?: RequestOptions): ApiPromise<BulkDeleteMerchantCustomAttributesResponse, ApiError>`
 - **Wire**: `POST /v2/merchants/custom-attributes/bulk-delete`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BulkDeleteMerchantCustomAttributesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `MerchantCustomAttributes.BulkDeleteMerchantCustomAttributesRequestParams` (1):
 
@@ -28,12 +29,13 @@ Accessor: `client.merchantCustomAttributes` · Source: `src/resources/merchant-c
 
 ### bulkUpsertMerchantCustomAttributes
 
-- **Signature**: `bulkUpsertMerchantCustomAttributes(request: MerchantCustomAttributes.BulkUpsertMerchantCustomAttributesRequestParams, options?: RequestOptions): ApiPromise<BulkUpsertMerchantCustomAttributesResponse, ResponseError>`
+- **Signature**: `bulkUpsertMerchantCustomAttributes(request: MerchantCustomAttributes.BulkUpsertMerchantCustomAttributesRequestParams, options?: RequestOptions): ApiPromise<BulkUpsertMerchantCustomAttributesResponse, ApiError>`
 - **Wire**: `POST /v2/merchants/custom-attributes/bulk-upsert`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BulkUpsertMerchantCustomAttributesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `MerchantCustomAttributes.BulkUpsertMerchantCustomAttributesRequestParams` (1):
 
@@ -48,12 +50,13 @@ Accessor: `client.merchantCustomAttributes` · Source: `src/resources/merchant-c
 
 ### createMerchantCustomAttributeDefinition
 
-- **Signature**: `createMerchantCustomAttributeDefinition(request: MerchantCustomAttributes.CreateMerchantCustomAttributeDefinitionRequestParams, options?: RequestOptions): ApiPromise<CreateMerchantCustomAttributeDefinitionResponse, ResponseError>`
+- **Signature**: `createMerchantCustomAttributeDefinition(request: MerchantCustomAttributes.CreateMerchantCustomAttributeDefinitionRequestParams, options?: RequestOptions): ApiPromise<CreateMerchantCustomAttributeDefinitionResponse, ApiError>`
 - **Wire**: `POST /v2/merchants/custom-attribute-definitions`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateMerchantCustomAttributeDefinitionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `MerchantCustomAttributes.CreateMerchantCustomAttributeDefinitionRequestParams` (1):
 
@@ -68,12 +71,13 @@ Accessor: `client.merchantCustomAttributes` · Source: `src/resources/merchant-c
 
 ### deleteMerchantCustomAttribute
 
-- **Signature**: `deleteMerchantCustomAttribute(request: MerchantCustomAttributes.DeleteMerchantCustomAttributeRequest, options?: RequestOptions): ApiPromise<DeleteMerchantCustomAttributeResponse, ResponseError>`
+- **Signature**: `deleteMerchantCustomAttribute(request: MerchantCustomAttributes.DeleteMerchantCustomAttributeRequest, options?: RequestOptions): ApiPromise<DeleteMerchantCustomAttributeResponse, ApiError>`
 - **Wire**: `DELETE /v2/merchants/{merchant_id}/custom-attributes/{key}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DeleteMerchantCustomAttributeResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `MerchantCustomAttributes.DeleteMerchantCustomAttributeRequest` (2):
 
@@ -88,12 +92,13 @@ Accessor: `client.merchantCustomAttributes` · Source: `src/resources/merchant-c
 
 ### deleteMerchantCustomAttributeDefinition
 
-- **Signature**: `deleteMerchantCustomAttributeDefinition(request: MerchantCustomAttributes.DeleteMerchantCustomAttributeDefinitionRequest, options?: RequestOptions): ApiPromise<DeleteMerchantCustomAttributeDefinitionResponse, ResponseError>`
+- **Signature**: `deleteMerchantCustomAttributeDefinition(request: MerchantCustomAttributes.DeleteMerchantCustomAttributeDefinitionRequest, options?: RequestOptions): ApiPromise<DeleteMerchantCustomAttributeDefinitionResponse, ApiError>`
 - **Wire**: `DELETE /v2/merchants/custom-attribute-definitions/{key}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DeleteMerchantCustomAttributeDefinitionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `MerchantCustomAttributes.DeleteMerchantCustomAttributeDefinitionRequest` (1):
 
@@ -107,12 +112,12 @@ Accessor: `client.merchantCustomAttributes` · Source: `src/resources/merchant-c
 
 ### listMerchantCustomAttributeDefinitions
 
-- **Signature**: `listMerchantCustomAttributeDefinitions(request: MerchantCustomAttributes.ListMerchantCustomAttributeDefinitionsRequest, options?: RequestOptions): ApiPromise<ListMerchantCustomAttributeDefinitionsResponse, ResponseError>`
+- **Signature**: `listMerchantCustomAttributeDefinitions(request: MerchantCustomAttributes.ListMerchantCustomAttributeDefinitionsRequest, options?: RequestOptions): ApiPromise<ListMerchantCustomAttributeDefinitionsResponse, ApiError>`
 - **Wire**: `GET /v2/merchants/custom-attribute-definitions`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListMerchantCustomAttributeDefinitionsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `MerchantCustomAttributes.ListMerchantCustomAttributeDefinitionsRequest` (3):
 
@@ -129,12 +134,12 @@ Accessor: `client.merchantCustomAttributes` · Source: `src/resources/merchant-c
 
 ### listMerchantCustomAttributes
 
-- **Signature**: `listMerchantCustomAttributes(request: MerchantCustomAttributes.ListMerchantCustomAttributesRequest, options?: RequestOptions): ApiPromise<ListMerchantCustomAttributesResponse, ResponseError>`
+- **Signature**: `listMerchantCustomAttributes(request: MerchantCustomAttributes.ListMerchantCustomAttributesRequest, options?: RequestOptions): ApiPromise<ListMerchantCustomAttributesResponse, ApiError>`
 - **Wire**: `GET /v2/merchants/{merchant_id}/custom-attributes`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListMerchantCustomAttributesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `MerchantCustomAttributes.ListMerchantCustomAttributesRequest` (5):
 
@@ -153,12 +158,12 @@ Accessor: `client.merchantCustomAttributes` · Source: `src/resources/merchant-c
 
 ### retrieveMerchantCustomAttribute
 
-- **Signature**: `retrieveMerchantCustomAttribute(request: MerchantCustomAttributes.RetrieveMerchantCustomAttributeRequest, options?: RequestOptions): ApiPromise<RetrieveMerchantCustomAttributeResponse, ResponseError>`
+- **Signature**: `retrieveMerchantCustomAttribute(request: MerchantCustomAttributes.RetrieveMerchantCustomAttributeRequest, options?: RequestOptions): ApiPromise<RetrieveMerchantCustomAttributeResponse, ApiError>`
 - **Wire**: `GET /v2/merchants/{merchant_id}/custom-attributes/{key}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveMerchantCustomAttributeResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `MerchantCustomAttributes.RetrieveMerchantCustomAttributeRequest` (4):
 
@@ -175,12 +180,12 @@ Accessor: `client.merchantCustomAttributes` · Source: `src/resources/merchant-c
 
 ### retrieveMerchantCustomAttributeDefinition
 
-- **Signature**: `retrieveMerchantCustomAttributeDefinition(request: MerchantCustomAttributes.RetrieveMerchantCustomAttributeDefinitionRequest, options?: RequestOptions): ApiPromise<RetrieveMerchantCustomAttributeDefinitionResponse, ResponseError>`
+- **Signature**: `retrieveMerchantCustomAttributeDefinition(request: MerchantCustomAttributes.RetrieveMerchantCustomAttributeDefinitionRequest, options?: RequestOptions): ApiPromise<RetrieveMerchantCustomAttributeDefinitionResponse, ApiError>`
 - **Wire**: `GET /v2/merchants/custom-attribute-definitions/{key}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveMerchantCustomAttributeDefinitionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `MerchantCustomAttributes.RetrieveMerchantCustomAttributeDefinitionRequest` (2):
 
@@ -195,12 +200,13 @@ Accessor: `client.merchantCustomAttributes` · Source: `src/resources/merchant-c
 
 ### updateMerchantCustomAttributeDefinition
 
-- **Signature**: `updateMerchantCustomAttributeDefinition(request: MerchantCustomAttributes.UpdateMerchantCustomAttributeDefinitionRequestParams, options?: RequestOptions): ApiPromise<UpdateMerchantCustomAttributeDefinitionResponse, ResponseError>`
+- **Signature**: `updateMerchantCustomAttributeDefinition(request: MerchantCustomAttributes.UpdateMerchantCustomAttributeDefinitionRequestParams, options?: RequestOptions): ApiPromise<UpdateMerchantCustomAttributeDefinitionResponse, ApiError>`
 - **Wire**: `PUT /v2/merchants/custom-attribute-definitions/{key}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateMerchantCustomAttributeDefinitionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `MerchantCustomAttributes.UpdateMerchantCustomAttributeDefinitionRequestParams` (2):
 
@@ -216,12 +222,13 @@ Accessor: `client.merchantCustomAttributes` · Source: `src/resources/merchant-c
 
 ### upsertMerchantCustomAttribute
 
-- **Signature**: `upsertMerchantCustomAttribute(request: MerchantCustomAttributes.UpsertMerchantCustomAttributeRequestParams, options?: RequestOptions): ApiPromise<UpsertMerchantCustomAttributeResponse, ResponseError>`
+- **Signature**: `upsertMerchantCustomAttribute(request: MerchantCustomAttributes.UpsertMerchantCustomAttributeRequestParams, options?: RequestOptions): ApiPromise<UpsertMerchantCustomAttributeResponse, ApiError>`
 - **Wire**: `POST /v2/merchants/{merchant_id}/custom-attributes/{key}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpsertMerchantCustomAttributeResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `MerchantCustomAttributes.UpsertMerchantCustomAttributeRequestParams` (3):
 

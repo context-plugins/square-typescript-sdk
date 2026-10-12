@@ -37,7 +37,7 @@ export const searchOrdersRequestSchema: Schema<SearchOrdersRequest> = s.object<S
   locationIds: s.optional(s.array(s.string())),
   cursor: s.optional(s.string()),
   query: s.optional(s.lazy(() => searchOrdersQuerySchema)),
-  limit: s.optional(s.number()),
+  limit: s.optional(s.int()),
   returnEntries: s.optional(s.boolean()),
   _keysMap: {
     locationIds: "location_ids",

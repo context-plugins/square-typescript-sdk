@@ -74,7 +74,7 @@ export type Booking = {
 
 export const bookingSchema: Schema<Booking> = s.object<Booking>({
   id: s.optional(s.string()),
-  version: s.optional(s.number()),
+  version: s.optional(s.int()),
   status: s.optional(s.lazy(() => bookingStatusSchema)),
   createdAt: s.optional(s.string()),
   updatedAt: s.optional(s.string()),
@@ -84,7 +84,7 @@ export const bookingSchema: Schema<Booking> = s.object<Booking>({
   customerNote: s.optionalNullable(s.string()),
   sellerNote: s.optionalNullable(s.string()),
   appointmentSegments: s.optionalNullable(s.array(s.lazy(() => appointmentSegmentSchema))),
-  transitionTimeMinutes: s.optional(s.number()),
+  transitionTimeMinutes: s.optional(s.int()),
   allDay: s.optional(s.boolean()),
   locationType: s.optional(s.lazy(() => businessAppointmentSettingsBookingLocationTypeSchema)),
   creatorDetails: s.optional(s.lazy(() => bookingCreatorDetailsSchema)),

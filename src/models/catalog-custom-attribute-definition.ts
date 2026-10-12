@@ -98,7 +98,7 @@ export const catalogCustomAttributeDefinitionSchema: Schema<CatalogCustomAttribu
     stringConfig: s.optional(s.lazy(() => catalogCustomAttributeDefinitionStringConfigSchema)),
     numberConfig: s.optional(s.lazy(() => catalogCustomAttributeDefinitionNumberConfigSchema)),
     selectionConfig: s.optional(s.lazy(() => catalogCustomAttributeDefinitionSelectionConfigSchema)),
-    customAttributeUsageCount: s.optional(s.number()),
+    customAttributeUsageCount: s.optional(s.int()),
     key: s.optionalNullable(s.string()),
     _keysMap: {
       sourceApplication: "source_application",

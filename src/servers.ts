@@ -1,5 +1,8 @@
-import type { UrlTemplate } from "./core/api-request.js";
-import { SdkError } from "./core/errors.js";
+import type { ClientOptions } from "./client-options.js";
+import type { ServerBase, UrlTemplate } from "./core/api-request.js";
+import { ConfigurationError } from "./core/errors.js";
+import { resolveBaseUrl } from "./core/url.js";
+import * as s from "./core/validation/index.js";
 
 export const ServerEnvironment = {
   Production: "production",
@@ -8,69 +11,50 @@ export const ServerEnvironment = {
 } as const;
 export type ServerEnvironment = (typeof ServerEnvironment)[keyof typeof ServerEnvironment];
 
-export type DefaultServerOptions = {
-  production?: { baseUrl?: string };
-  sandbox?: { baseUrl?: string };
-  custom?: {
-    baseUrl?: string;
-    /**
-     * Sets the base URL requests are made to. Defaults to `https://connect.squareup.com`
-     *
-     * @default "https://connect.squareup.com"
-     */
-    customUrl?: string;
-  };
-};
-
-export type ServerOptions = {
-  default?: DefaultServerOptions;
-};
-
 export type Servers = {
-  default: (subPath: string) => UrlTemplate;
+  default: <Path extends string>(subPath: Path) => UrlTemplate<Path>;
 };
 
-export const DEFAULT_SERVER_OPTIONS = {
-  default: {
-    production: { baseUrl: "https://connect.squareup.com" },
-    sandbox: { baseUrl: "https://connect.squareupsandbox.com" },
-    custom: { baseUrl: "{custom_url}", customUrl: "https://connect.squareup.com" },
-  },
-} as const satisfies ServerOptions;
+const productionSchemas = {
+  baseUrl: s.of(s.defaulted(s.string(), "https://connect.squareup.com")),
+};
 
-export function buildServers(environment: ServerEnvironment, options: ServerOptions): Servers {
+const sandboxSchemas = {
+  baseUrl: s.of(s.defaulted(s.string(), "https://connect.squareupsandbox.com")),
+};
+
+const customSchemas = {
+  baseUrl: s.of(s.defaulted(s.string(), "{custom_url}")),
+  customUrl: s.of(s.defaulted(s.string(), "https://connect.squareup.com")),
+};
+
+export function buildServers(options: ClientOptions): Servers {
+  const base = {
+    default: resolveBaseUrl(defaultServer(options)),
+  };
   return {
-    default: (s) => defaultServer(environment, s, options.default),
+    default: (subPath) => ({ baseUrl: base.default, subPath }),
   };
 }
 
-function defaultServer(
-  environment: ServerEnvironment,
-  subPath: string,
-  options?: DefaultServerOptions,
-): UrlTemplate {
+function defaultServer(options: ClientOptions): ServerBase {
+  const environment = options.serverEnvironment;
   switch (environment) {
-    case ServerEnvironment.Production: {
-      const production = { ...DEFAULT_SERVER_OPTIONS.default.production, ...options?.production };
-      return { baseUrl: production.baseUrl, subPath };
-    }
-    case ServerEnvironment.Sandbox: {
-      const sandbox = { ...DEFAULT_SERVER_OPTIONS.default.sandbox, ...options?.sandbox };
-      return { baseUrl: sandbox.baseUrl, subPath };
-    }
-    case ServerEnvironment.Custom: {
-      const custom = { ...DEFAULT_SERVER_OPTIONS.default.custom, ...options?.custom };
+    case ServerEnvironment.Production:
+    case undefined:
+      return { baseUrl: productionSchemas.baseUrl.decode(options.serverOptions?.baseUrl) };
+    case ServerEnvironment.Sandbox:
+      return { baseUrl: sandboxSchemas.baseUrl.decode(options.serverOptions?.baseUrl) };
+    case ServerEnvironment.Custom:
       return {
-        baseUrl: custom.baseUrl,
-        subPath,
-        variables: { custom_url: custom.customUrl },
+        baseUrl: customSchemas.baseUrl.decode(options.serverOptions?.baseUrl),
+        variables: { custom_url: customSchemas.customUrl.decode(options.serverOptions?.customUrl) },
       };
-    }
     default:
       unknownEnvironment(environment);
   }
 }
 
 function unknownEnvironment(environment: never): never {
-  throw new SdkError({ message: `Unknown server environment: ${String(environment)}` });
+  throw new ConfigurationError(`Unknown server environment: ${String(environment)}`);
 }

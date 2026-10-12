@@ -21,5 +21,5 @@ export type ListMerchantsResponse = {
 export const listMerchantsResponseSchema: Schema<ListMerchantsResponse> = s.object<ListMerchantsResponse>({
   errors: s.optional(s.array(s.lazy(() => errorSchema))),
   merchant: s.optional(s.array(s.lazy(() => merchantSchema))),
-  cursor: s.optional(s.number()),
+  cursor: s.optional(s.int()),
 });

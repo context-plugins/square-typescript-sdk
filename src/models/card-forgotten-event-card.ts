@@ -28,7 +28,7 @@ export const cardForgottenEventCardSchema: Schema<CardForgottenEventCard> = s.ob
   customerId: s.optionalNullable(s.string()),
   enabled: s.optionalNullable(s.boolean()),
   referenceId: s.optionalNullable(s.string()),
-  version: s.optional(s.number()),
+  version: s.optional(s.int()),
   merchantId: s.optionalNullable(s.string()),
   _keysMap: {
     customerId: "customer_id",

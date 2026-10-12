@@ -4,16 +4,17 @@
 
 Accessor: `client.invoices` · Source: `src/resources/invoices.ts` · 10 operations · Request types: namespace `Invoices`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### cancelInvoice
 
-- **Signature**: `cancelInvoice(request: Invoices.CancelInvoiceRequestParams, options?: RequestOptions): ApiPromise<CancelInvoiceResponse, ResponseError>`
+- **Signature**: `cancelInvoice(request: Invoices.CancelInvoiceRequestParams, options?: RequestOptions): ApiPromise<CancelInvoiceResponse, ApiError>`
 - **Wire**: `POST /v2/invoices/{invoice_id}/cancel`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CancelInvoiceResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Invoices.CancelInvoiceRequestParams` (2):
 
@@ -29,12 +30,13 @@ Accessor: `client.invoices` · Source: `src/resources/invoices.ts` · 10 operati
 
 ### createInvoice
 
-- **Signature**: `createInvoice(request: Invoices.CreateInvoiceRequestParams, options?: RequestOptions): ApiPromise<CreateInvoiceResponse, ResponseError>`
+- **Signature**: `createInvoice(request: Invoices.CreateInvoiceRequestParams, options?: RequestOptions): ApiPromise<CreateInvoiceResponse, ApiError>`
 - **Wire**: `POST /v2/invoices`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateInvoiceResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Invoices.CreateInvoiceRequestParams` (1):
 
@@ -49,31 +51,36 @@ Accessor: `client.invoices` · Source: `src/resources/invoices.ts` · 10 operati
 
 ### createInvoiceAttachment
 
-- **Signature**: `createInvoiceAttachment(request: Invoices.CreateInvoiceAttachmentRequestParams, options?: RequestOptions): ApiPromise<CreateInvoiceAttachmentResponse, ResponseError>`
+- **Signature**: `createInvoiceAttachment(request: Invoices.CreateInvoiceAttachmentRequestParams, options?: RequestOptions): ApiPromise<CreateInvoiceAttachmentResponse, ApiError>`
 - **Wire**: `POST /v2/invoices/{invoice_id}/attachments`
 - **Auth**: `oauth2`
-- **Request body**: none — no `Content-Type` header is sent
+- **Request body**: `multipart/form-data` — every field marked `form`. `image_file` is a file part, framed as bytes rather than encoded. The platform writes the boundary, or the SDK does when a file part streams
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateInvoiceAttachmentResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
-**Fields** — `Invoices.CreateInvoiceAttachmentRequestParams` (1):
+**Fields** — `Invoices.CreateInvoiceAttachmentRequestParams` (3):
 
 | Field | Channel | Wire | Type | Req |
 | --- | --- | --- | --- | --- |
 | `invoiceId` | `path` | `invoice_id` | `string` | yes |
+| `request` | `form` | — | `CreateInvoiceAttachmentRequest` | no |
+| `imageFile` | `form` | `image_file` | `FileInput` | no |
 
 | Type | Schema value | Source |
 | --- | --- | --- |
+| `CreateInvoiceAttachmentRequest` | `createInvoiceAttachmentRequestSchema` | `src/models/create-invoice-attachment-request.ts` |
 | `CreateInvoiceAttachmentResponse` | `createInvoiceAttachmentResponseSchema` | `src/models/create-invoice-attachment-response.ts` |
 
 ### deleteInvoice
 
-- **Signature**: `deleteInvoice(request: Invoices.DeleteInvoiceRequest, options?: RequestOptions): ApiPromise<DeleteInvoiceResponse, ResponseError>`
+- **Signature**: `deleteInvoice(request: Invoices.DeleteInvoiceRequest, options?: RequestOptions): ApiPromise<DeleteInvoiceResponse, ApiError>`
 - **Wire**: `DELETE /v2/invoices/{invoice_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DeleteInvoiceResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Invoices.DeleteInvoiceRequest` (2):
 
@@ -88,12 +95,13 @@ Accessor: `client.invoices` · Source: `src/resources/invoices.ts` · 10 operati
 
 ### deleteInvoiceAttachment
 
-- **Signature**: `deleteInvoiceAttachment(request: Invoices.DeleteInvoiceAttachmentRequest, options?: RequestOptions): ApiPromise<DeleteInvoiceAttachmentResponse, ResponseError>`
+- **Signature**: `deleteInvoiceAttachment(request: Invoices.DeleteInvoiceAttachmentRequest, options?: RequestOptions): ApiPromise<DeleteInvoiceAttachmentResponse, ApiError>`
 - **Wire**: `DELETE /v2/invoices/{invoice_id}/attachments/{attachment_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DeleteInvoiceAttachmentResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Invoices.DeleteInvoiceAttachmentRequest` (2):
 
@@ -108,12 +116,12 @@ Accessor: `client.invoices` · Source: `src/resources/invoices.ts` · 10 operati
 
 ### getInvoice
 
-- **Signature**: `getInvoice(request: Invoices.GetInvoiceRequest, options?: RequestOptions): ApiPromise<GetInvoiceResponse, ResponseError>`
+- **Signature**: `getInvoice(request: Invoices.GetInvoiceRequest, options?: RequestOptions): ApiPromise<GetInvoiceResponse, ApiError>`
 - **Wire**: `GET /v2/invoices/{invoice_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `GetInvoiceResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Invoices.GetInvoiceRequest` (1):
 
@@ -127,12 +135,12 @@ Accessor: `client.invoices` · Source: `src/resources/invoices.ts` · 10 operati
 
 ### listInvoices
 
-- **Signature**: `listInvoices(request: Invoices.ListInvoicesRequest, options?: RequestOptions): ApiPromise<ListInvoicesResponse, ResponseError>`
+- **Signature**: `listInvoices(request: Invoices.ListInvoicesRequest, options?: RequestOptions): ApiPromise<ListInvoicesResponse, ApiError>`
 - **Wire**: `GET /v2/invoices`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListInvoicesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Invoices.ListInvoicesRequest` (3):
 
@@ -148,12 +156,13 @@ Accessor: `client.invoices` · Source: `src/resources/invoices.ts` · 10 operati
 
 ### publishInvoice
 
-- **Signature**: `publishInvoice(request: Invoices.PublishInvoiceRequestParams, options?: RequestOptions): ApiPromise<PublishInvoiceResponse, ResponseError>`
+- **Signature**: `publishInvoice(request: Invoices.PublishInvoiceRequestParams, options?: RequestOptions): ApiPromise<PublishInvoiceResponse, ApiError>`
 - **Wire**: `POST /v2/invoices/{invoice_id}/publish`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `PublishInvoiceResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Invoices.PublishInvoiceRequestParams` (2):
 
@@ -169,12 +178,13 @@ Accessor: `client.invoices` · Source: `src/resources/invoices.ts` · 10 operati
 
 ### searchInvoices
 
-- **Signature**: `searchInvoices(request: Invoices.SearchInvoicesRequestParams, options?: RequestOptions): ApiPromise<SearchInvoicesResponse, ResponseError>`
+- **Signature**: `searchInvoices(request: Invoices.SearchInvoicesRequestParams, options?: RequestOptions): ApiPromise<SearchInvoicesResponse, ApiError>`
 - **Wire**: `POST /v2/invoices/search`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `SearchInvoicesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Invoices.SearchInvoicesRequestParams` (1):
 
@@ -189,12 +199,13 @@ Accessor: `client.invoices` · Source: `src/resources/invoices.ts` · 10 operati
 
 ### updateInvoice
 
-- **Signature**: `updateInvoice(request: Invoices.UpdateInvoiceRequestParams, options?: RequestOptions): ApiPromise<UpdateInvoiceResponse, ResponseError>`
+- **Signature**: `updateInvoice(request: Invoices.UpdateInvoiceRequestParams, options?: RequestOptions): ApiPromise<UpdateInvoiceResponse, ApiError>`
 - **Wire**: `PUT /v2/invoices/{invoice_id}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateInvoiceResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Invoices.UpdateInvoiceRequestParams` (2):
 

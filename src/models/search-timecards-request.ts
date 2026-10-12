@@ -14,6 +14,6 @@ export type SearchTimecardsRequest = {
 
 export const searchTimecardsRequestSchema: Schema<SearchTimecardsRequest> = s.object<SearchTimecardsRequest>({
   query: s.optional(s.lazy(() => timecardQuerySchema)),
-  limit: s.optional(s.number()),
+  limit: s.optional(s.int()),
   cursor: s.optional(s.string()),
 });

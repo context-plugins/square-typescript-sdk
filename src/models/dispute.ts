@@ -70,7 +70,7 @@ export const disputeSchema: Schema<Dispute> = s.object<Dispute>({
   brandDisputeId: s.optionalNullable(s.string()),
   reportedDate: s.optionalNullable(s.string()),
   reportedAt: s.optionalNullable(s.string()),
-  version: s.optional(s.number()),
+  version: s.optional(s.int()),
   locationId: s.optionalNullable(s.string()),
   _keysMap: {
     disputeId: "dispute_id",

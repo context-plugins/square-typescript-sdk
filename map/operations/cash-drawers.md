@@ -4,16 +4,16 @@
 
 Accessor: `client.cashDrawers` · Source: `src/resources/cash-drawers.ts` · 3 operations · Request types: namespace `CashDrawers`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### listCashDrawerShiftEvents
 
-- **Signature**: `listCashDrawerShiftEvents(request: CashDrawers.ListCashDrawerShiftEventsRequest, options?: RequestOptions): ApiPromise<ListCashDrawerShiftEventsResponse, ResponseError>`
+- **Signature**: `listCashDrawerShiftEvents(request: CashDrawers.ListCashDrawerShiftEventsRequest, options?: RequestOptions): ApiPromise<ListCashDrawerShiftEventsResponse, ApiError>`
 - **Wire**: `GET /v2/cash-drawers/shifts/{shift_id}/events`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListCashDrawerShiftEventsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `CashDrawers.ListCashDrawerShiftEventsRequest` (4):
 
@@ -30,12 +30,12 @@ Accessor: `client.cashDrawers` · Source: `src/resources/cash-drawers.ts` · 3 o
 
 ### listCashDrawerShifts
 
-- **Signature**: `listCashDrawerShifts(request: CashDrawers.ListCashDrawerShiftsRequest, options?: RequestOptions): ApiPromise<ListCashDrawerShiftsResponse, ResponseError>`
+- **Signature**: `listCashDrawerShifts(request: CashDrawers.ListCashDrawerShiftsRequest, options?: RequestOptions): ApiPromise<ListCashDrawerShiftsResponse, ApiError>`
 - **Wire**: `GET /v2/cash-drawers/shifts`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListCashDrawerShiftsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `CashDrawers.ListCashDrawerShiftsRequest` (6):
 
@@ -55,12 +55,12 @@ Accessor: `client.cashDrawers` · Source: `src/resources/cash-drawers.ts` · 3 o
 
 ### retrieveCashDrawerShift
 
-- **Signature**: `retrieveCashDrawerShift(request: CashDrawers.RetrieveCashDrawerShiftRequest, options?: RequestOptions): ApiPromise<RetrieveCashDrawerShiftResponse, ResponseError>`
+- **Signature**: `retrieveCashDrawerShift(request: CashDrawers.RetrieveCashDrawerShiftRequest, options?: RequestOptions): ApiPromise<RetrieveCashDrawerShiftResponse, ApiError>`
 - **Wire**: `GET /v2/cash-drawers/shifts/{shift_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveCashDrawerShiftResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `CashDrawers.RetrieveCashDrawerShiftRequest` (2):
 

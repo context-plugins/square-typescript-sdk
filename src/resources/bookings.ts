@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   bulkRetrieveBookingsRequestSchema,
@@ -93,25 +94,29 @@ export class Bookings {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   bulkRetrieveBookings(
     request: Bookings.BulkRetrieveBookingsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BulkRetrieveBookingsResponse, ResponseError> {
-    return this.#rawClient.execute<BulkRetrieveBookingsResponse, ResponseError>(
+  ): ApiPromise<BulkRetrieveBookingsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/bookings/bulk-retrieve"),
+        urlTemplate: this.#servers.default("/v2/bookings/bulk-retrieve"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: bulkRetrieveBookingsRequestSchema },
       },
       {
         success: { kind: "json", schema: bulkRetrieveBookingsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -125,20 +130,24 @@ export class Bookings {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   bulkRetrieveTeamMemberBookingProfiles(
     request: Bookings.BulkRetrieveTeamMemberBookingProfilesRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BulkRetrieveTeamMemberBookingProfilesResponse, ResponseError> {
-    return this.#rawClient.execute<BulkRetrieveTeamMemberBookingProfilesResponse, ResponseError>(
+  ): ApiPromise<BulkRetrieveTeamMemberBookingProfilesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/bookings/team-member-booking-profiles/bulk-retrieve"),
+        urlTemplate: this.#servers.default("/v2/bookings/team-member-booking-profiles/bulk-retrieve"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: {
           kind: "json",
           value: request.body,
@@ -147,7 +156,7 @@ export class Bookings {
       },
       {
         success: { kind: "json", schema: bulkRetrieveTeamMemberBookingProfilesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -168,26 +177,29 @@ export class Bookings {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   cancelBooking(
     request: Bookings.CancelBookingRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CancelBookingResponse, ResponseError> {
-    return this.#rawClient.execute<CancelBookingResponse, ResponseError>(
+  ): ApiPromise<CancelBookingResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/bookings/{booking_id}/cancel"),
+        urlTemplate: this.#servers.default("/v2/bookings/{booking_id}/cancel"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "booking_id", value: request.bookingId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: cancelBookingRequestSchema },
       },
       {
         success: { kind: "json", schema: cancelBookingResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -215,25 +227,29 @@ export class Bookings {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createBooking(
     request: Bookings.CreateBookingRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateBookingResponse, ResponseError> {
-    return this.#rawClient.execute<CreateBookingResponse, ResponseError>(
+  ): ApiPromise<CreateBookingResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/bookings"),
+        urlTemplate: this.#servers.default("/v2/bookings"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createBookingRequestSchema },
       },
       {
         success: { kind: "json", schema: createBookingResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -251,22 +267,24 @@ export class Bookings {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listBookings(
     request: Bookings.ListBookingsRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListBookingsResponse, ResponseError> {
-    return this.#rawClient.execute<ListBookingsResponse, ResponseError>(
+  ): ApiPromise<ListBookingsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/bookings"),
+        urlTemplate: this.#servers.default("/v2/bookings"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
           { name: "customer_id", value: request.customerId, schema: s.optional(s.string()) },
           { name: "team_member_id", value: request.teamMemberId, schema: s.optional(s.string()) },
@@ -274,11 +292,12 @@ export class Bookings {
           { name: "start_at_min", value: request.startAtMin, schema: s.optional(s.string()) },
           { name: "start_at_max", value: request.startAtMax, schema: s.optional(s.string()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listBookingsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -292,29 +311,32 @@ export class Bookings {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listLocationBookingProfiles(
     request: Bookings.ListLocationBookingProfilesRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListLocationBookingProfilesResponse, ResponseError> {
-    return this.#rawClient.execute<ListLocationBookingProfilesResponse, ResponseError>(
+  ): ApiPromise<ListLocationBookingProfilesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/bookings/location-booking-profiles"),
+        urlTemplate: this.#servers.default("/v2/bookings/location-booking-profiles"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listLocationBookingProfilesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -328,31 +350,34 @@ export class Bookings {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listTeamMemberBookingProfiles(
     request: Bookings.ListTeamMemberBookingProfilesRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListTeamMemberBookingProfilesResponse, ResponseError> {
-    return this.#rawClient.execute<ListTeamMemberBookingProfilesResponse, ResponseError>(
+  ): ApiPromise<ListTeamMemberBookingProfilesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/bookings/team-member-booking-profiles"),
+        urlTemplate: this.#servers.default("/v2/bookings/team-member-booking-profiles"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
           { name: "bookable_only", value: request.bookableOnly, schema: s.defaulted(s.boolean(), false) },
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
           { name: "location_id", value: request.locationId, schema: s.optional(s.string()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listTeamMemberBookingProfilesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -370,26 +395,29 @@ export class Bookings {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveBooking(
     request: Bookings.RetrieveBookingRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveBookingResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveBookingResponse, ResponseError>(
+  ): ApiPromise<RetrieveBookingResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/bookings/{booking_id}"),
+        urlTemplate: this.#servers.default("/v2/bookings/{booking_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "booking_id", value: request.bookingId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveBookingResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -403,24 +431,28 @@ export class Bookings {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveBusinessBookingProfile(
     options?: RequestOptions,
-  ): ApiPromise<RetrieveBusinessBookingProfileResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveBusinessBookingProfileResponse, ResponseError>(
+  ): ApiPromise<RetrieveBusinessBookingProfileResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/bookings/business-booking-profile"),
+        urlTemplate: this.#servers.default("/v2/bookings/business-booking-profile"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveBusinessBookingProfileResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -434,26 +466,29 @@ export class Bookings {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveLocationBookingProfile(
     request: Bookings.RetrieveLocationBookingProfileRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveLocationBookingProfileResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveLocationBookingProfileResponse, ResponseError>(
+  ): ApiPromise<RetrieveLocationBookingProfileResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/bookings/location-booking-profiles/{location_id}"),
+        urlTemplate: this.#servers.default("/v2/bookings/location-booking-profiles/{location_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "location_id", value: request.locationId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveLocationBookingProfileResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -467,26 +502,29 @@ export class Bookings {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveTeamMemberBookingProfile(
     request: Bookings.RetrieveTeamMemberBookingProfileRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveTeamMemberBookingProfileResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveTeamMemberBookingProfileResponse, ResponseError>(
+  ): ApiPromise<RetrieveTeamMemberBookingProfileResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/bookings/team-member-booking-profiles/{team_member_id}"),
+        urlTemplate: this.#servers.default("/v2/bookings/team-member-booking-profiles/{team_member_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "team_member_id", value: request.teamMemberId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveTeamMemberBookingProfileResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -504,25 +542,29 @@ export class Bookings {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   searchAvailability(
     request: Bookings.SearchAvailabilityRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<SearchAvailabilityResponse, ResponseError> {
-    return this.#rawClient.execute<SearchAvailabilityResponse, ResponseError>(
+  ): ApiPromise<SearchAvailabilityResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/bookings/availability/search"),
+        urlTemplate: this.#servers.default("/v2/bookings/availability/search"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: searchAvailabilityRequestSchema },
       },
       {
         success: { kind: "json", schema: searchAvailabilityResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -543,26 +585,29 @@ export class Bookings {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updateBooking(
     request: Bookings.UpdateBookingRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateBookingResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateBookingResponse, ResponseError>(
+  ): ApiPromise<UpdateBookingResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/bookings/{booking_id}"),
+        urlTemplate: this.#servers.default("/v2/bookings/{booking_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "booking_id", value: request.bookingId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: updateBookingRequestSchema },
       },
       {
         success: { kind: "json", schema: updateBookingResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

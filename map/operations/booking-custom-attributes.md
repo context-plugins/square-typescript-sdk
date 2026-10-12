@@ -4,16 +4,17 @@
 
 Accessor: `client.bookingCustomAttributes` · Source: `src/resources/booking-custom-attributes.ts` · 11 operations · Request types: namespace `BookingCustomAttributes`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### bulkDeleteBookingCustomAttributes
 
-- **Signature**: `bulkDeleteBookingCustomAttributes(request: BookingCustomAttributes.BulkDeleteBookingCustomAttributesRequestParams, options?: RequestOptions): ApiPromise<BulkDeleteBookingCustomAttributesResponse, ResponseError>`
+- **Signature**: `bulkDeleteBookingCustomAttributes(request: BookingCustomAttributes.BulkDeleteBookingCustomAttributesRequestParams, options?: RequestOptions): ApiPromise<BulkDeleteBookingCustomAttributesResponse, ApiError>`
 - **Wire**: `POST /v2/bookings/custom-attributes/bulk-delete`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BulkDeleteBookingCustomAttributesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `BookingCustomAttributes.BulkDeleteBookingCustomAttributesRequestParams` (1):
 
@@ -28,12 +29,13 @@ Accessor: `client.bookingCustomAttributes` · Source: `src/resources/booking-cus
 
 ### bulkUpsertBookingCustomAttributes
 
-- **Signature**: `bulkUpsertBookingCustomAttributes(request: BookingCustomAttributes.BulkUpsertBookingCustomAttributesRequestParams, options?: RequestOptions): ApiPromise<BulkUpsertBookingCustomAttributesResponse, ResponseError>`
+- **Signature**: `bulkUpsertBookingCustomAttributes(request: BookingCustomAttributes.BulkUpsertBookingCustomAttributesRequestParams, options?: RequestOptions): ApiPromise<BulkUpsertBookingCustomAttributesResponse, ApiError>`
 - **Wire**: `POST /v2/bookings/custom-attributes/bulk-upsert`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BulkUpsertBookingCustomAttributesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `BookingCustomAttributes.BulkUpsertBookingCustomAttributesRequestParams` (1):
 
@@ -48,12 +50,13 @@ Accessor: `client.bookingCustomAttributes` · Source: `src/resources/booking-cus
 
 ### createBookingCustomAttributeDefinition
 
-- **Signature**: `createBookingCustomAttributeDefinition(request: BookingCustomAttributes.CreateBookingCustomAttributeDefinitionRequestParams, options?: RequestOptions): ApiPromise<CreateBookingCustomAttributeDefinitionResponse, ResponseError>`
+- **Signature**: `createBookingCustomAttributeDefinition(request: BookingCustomAttributes.CreateBookingCustomAttributeDefinitionRequestParams, options?: RequestOptions): ApiPromise<CreateBookingCustomAttributeDefinitionResponse, ApiError>`
 - **Wire**: `POST /v2/bookings/custom-attribute-definitions`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateBookingCustomAttributeDefinitionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `BookingCustomAttributes.CreateBookingCustomAttributeDefinitionRequestParams` (1):
 
@@ -68,12 +71,13 @@ Accessor: `client.bookingCustomAttributes` · Source: `src/resources/booking-cus
 
 ### deleteBookingCustomAttribute
 
-- **Signature**: `deleteBookingCustomAttribute(request: BookingCustomAttributes.DeleteBookingCustomAttributeRequest, options?: RequestOptions): ApiPromise<DeleteBookingCustomAttributeResponse, ResponseError>`
+- **Signature**: `deleteBookingCustomAttribute(request: BookingCustomAttributes.DeleteBookingCustomAttributeRequest, options?: RequestOptions): ApiPromise<DeleteBookingCustomAttributeResponse, ApiError>`
 - **Wire**: `DELETE /v2/bookings/{booking_id}/custom-attributes/{key}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DeleteBookingCustomAttributeResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `BookingCustomAttributes.DeleteBookingCustomAttributeRequest` (2):
 
@@ -88,12 +92,13 @@ Accessor: `client.bookingCustomAttributes` · Source: `src/resources/booking-cus
 
 ### deleteBookingCustomAttributeDefinition
 
-- **Signature**: `deleteBookingCustomAttributeDefinition(request: BookingCustomAttributes.DeleteBookingCustomAttributeDefinitionRequest, options?: RequestOptions): ApiPromise<DeleteBookingCustomAttributeDefinitionResponse, ResponseError>`
+- **Signature**: `deleteBookingCustomAttributeDefinition(request: BookingCustomAttributes.DeleteBookingCustomAttributeDefinitionRequest, options?: RequestOptions): ApiPromise<DeleteBookingCustomAttributeDefinitionResponse, ApiError>`
 - **Wire**: `DELETE /v2/bookings/custom-attribute-definitions/{key}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DeleteBookingCustomAttributeDefinitionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `BookingCustomAttributes.DeleteBookingCustomAttributeDefinitionRequest` (1):
 
@@ -107,12 +112,12 @@ Accessor: `client.bookingCustomAttributes` · Source: `src/resources/booking-cus
 
 ### listBookingCustomAttributeDefinitions
 
-- **Signature**: `listBookingCustomAttributeDefinitions(request: BookingCustomAttributes.ListBookingCustomAttributeDefinitionsRequest, options?: RequestOptions): ApiPromise<ListBookingCustomAttributeDefinitionsResponse, ResponseError>`
+- **Signature**: `listBookingCustomAttributeDefinitions(request: BookingCustomAttributes.ListBookingCustomAttributeDefinitionsRequest, options?: RequestOptions): ApiPromise<ListBookingCustomAttributeDefinitionsResponse, ApiError>`
 - **Wire**: `GET /v2/bookings/custom-attribute-definitions`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListBookingCustomAttributeDefinitionsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `BookingCustomAttributes.ListBookingCustomAttributeDefinitionsRequest` (2):
 
@@ -127,12 +132,12 @@ Accessor: `client.bookingCustomAttributes` · Source: `src/resources/booking-cus
 
 ### listBookingCustomAttributes
 
-- **Signature**: `listBookingCustomAttributes(request: BookingCustomAttributes.ListBookingCustomAttributesRequest, options?: RequestOptions): ApiPromise<ListBookingCustomAttributesResponse, ResponseError>`
+- **Signature**: `listBookingCustomAttributes(request: BookingCustomAttributes.ListBookingCustomAttributesRequest, options?: RequestOptions): ApiPromise<ListBookingCustomAttributesResponse, ApiError>`
 - **Wire**: `GET /v2/bookings/{booking_id}/custom-attributes`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListBookingCustomAttributesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `BookingCustomAttributes.ListBookingCustomAttributesRequest` (4):
 
@@ -149,12 +154,12 @@ Accessor: `client.bookingCustomAttributes` · Source: `src/resources/booking-cus
 
 ### retrieveBookingCustomAttribute
 
-- **Signature**: `retrieveBookingCustomAttribute(request: BookingCustomAttributes.RetrieveBookingCustomAttributeRequest, options?: RequestOptions): ApiPromise<RetrieveBookingCustomAttributeResponse, ResponseError>`
+- **Signature**: `retrieveBookingCustomAttribute(request: BookingCustomAttributes.RetrieveBookingCustomAttributeRequest, options?: RequestOptions): ApiPromise<RetrieveBookingCustomAttributeResponse, ApiError>`
 - **Wire**: `GET /v2/bookings/{booking_id}/custom-attributes/{key}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveBookingCustomAttributeResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `BookingCustomAttributes.RetrieveBookingCustomAttributeRequest` (4):
 
@@ -171,12 +176,12 @@ Accessor: `client.bookingCustomAttributes` · Source: `src/resources/booking-cus
 
 ### retrieveBookingCustomAttributeDefinition
 
-- **Signature**: `retrieveBookingCustomAttributeDefinition(request: BookingCustomAttributes.RetrieveBookingCustomAttributeDefinitionRequest, options?: RequestOptions): ApiPromise<RetrieveBookingCustomAttributeDefinitionResponse, ResponseError>`
+- **Signature**: `retrieveBookingCustomAttributeDefinition(request: BookingCustomAttributes.RetrieveBookingCustomAttributeDefinitionRequest, options?: RequestOptions): ApiPromise<RetrieveBookingCustomAttributeDefinitionResponse, ApiError>`
 - **Wire**: `GET /v2/bookings/custom-attribute-definitions/{key}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveBookingCustomAttributeDefinitionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `BookingCustomAttributes.RetrieveBookingCustomAttributeDefinitionRequest` (2):
 
@@ -191,12 +196,13 @@ Accessor: `client.bookingCustomAttributes` · Source: `src/resources/booking-cus
 
 ### updateBookingCustomAttributeDefinition
 
-- **Signature**: `updateBookingCustomAttributeDefinition(request: BookingCustomAttributes.UpdateBookingCustomAttributeDefinitionRequestParams, options?: RequestOptions): ApiPromise<UpdateBookingCustomAttributeDefinitionResponse, ResponseError>`
+- **Signature**: `updateBookingCustomAttributeDefinition(request: BookingCustomAttributes.UpdateBookingCustomAttributeDefinitionRequestParams, options?: RequestOptions): ApiPromise<UpdateBookingCustomAttributeDefinitionResponse, ApiError>`
 - **Wire**: `PUT /v2/bookings/custom-attribute-definitions/{key}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateBookingCustomAttributeDefinitionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `BookingCustomAttributes.UpdateBookingCustomAttributeDefinitionRequestParams` (2):
 
@@ -212,12 +218,13 @@ Accessor: `client.bookingCustomAttributes` · Source: `src/resources/booking-cus
 
 ### upsertBookingCustomAttribute
 
-- **Signature**: `upsertBookingCustomAttribute(request: BookingCustomAttributes.UpsertBookingCustomAttributeRequestParams, options?: RequestOptions): ApiPromise<UpsertBookingCustomAttributeResponse, ResponseError>`
+- **Signature**: `upsertBookingCustomAttribute(request: BookingCustomAttributes.UpsertBookingCustomAttributeRequestParams, options?: RequestOptions): ApiPromise<UpsertBookingCustomAttributeResponse, ApiError>`
 - **Wire**: `PUT /v2/bookings/{booking_id}/custom-attributes/{key}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpsertBookingCustomAttributeResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `BookingCustomAttributes.UpsertBookingCustomAttributeRequestParams` (3):
 

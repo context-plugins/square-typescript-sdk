@@ -39,7 +39,7 @@ export type SearchSubscriptionsRequest = {
 export const searchSubscriptionsRequestSchema: Schema<SearchSubscriptionsRequest> =
   s.object<SearchSubscriptionsRequest>({
     cursor: s.optional(s.string()),
-    limit: s.optional(s.number()),
+    limit: s.optional(s.int()),
     query: s.optional(s.lazy(() => searchSubscriptionsQuerySchema)),
     include: s.optional(s.array(s.string())),
   });

@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   bulkDeleteLocationCustomAttributesRequestSchema,
@@ -92,25 +93,29 @@ export class LocationCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   bulkDeleteLocationCustomAttributes(
     request: LocationCustomAttributes.BulkDeleteLocationCustomAttributesRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BulkDeleteLocationCustomAttributesResponse, ResponseError> {
-    return this.#rawClient.execute<BulkDeleteLocationCustomAttributesResponse, ResponseError>(
+  ): ApiPromise<BulkDeleteLocationCustomAttributesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/locations/custom-attributes/bulk-delete"),
+        urlTemplate: this.#servers.default("/v2/locations/custom-attributes/bulk-delete"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: bulkDeleteLocationCustomAttributesRequestSchema },
       },
       {
         success: { kind: "json", schema: bulkDeleteLocationCustomAttributesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -133,25 +138,29 @@ export class LocationCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   bulkUpsertLocationCustomAttributes(
     request: LocationCustomAttributes.BulkUpsertLocationCustomAttributesRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BulkUpsertLocationCustomAttributesResponse, ResponseError> {
-    return this.#rawClient.execute<BulkUpsertLocationCustomAttributesResponse, ResponseError>(
+  ): ApiPromise<BulkUpsertLocationCustomAttributesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/locations/custom-attributes/bulk-upsert"),
+        urlTemplate: this.#servers.default("/v2/locations/custom-attributes/bulk-upsert"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: bulkUpsertLocationCustomAttributesRequestSchema },
       },
       {
         success: { kind: "json", schema: bulkUpsertLocationCustomAttributesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -172,20 +181,24 @@ export class LocationCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createLocationCustomAttributeDefinition(
     request: LocationCustomAttributes.CreateLocationCustomAttributeDefinitionRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateLocationCustomAttributeDefinitionResponse, ResponseError> {
-    return this.#rawClient.execute<CreateLocationCustomAttributeDefinitionResponse, ResponseError>(
+  ): ApiPromise<CreateLocationCustomAttributeDefinitionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/locations/custom-attribute-definitions"),
+        urlTemplate: this.#servers.default("/v2/locations/custom-attribute-definitions"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: {
           kind: "json",
           value: request.body,
@@ -194,7 +207,7 @@ export class LocationCustomAttributes {
       },
       {
         success: { kind: "json", schema: createLocationCustomAttributeDefinitionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -210,29 +223,32 @@ export class LocationCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   deleteLocationCustomAttribute(
     request: LocationCustomAttributes.DeleteLocationCustomAttributeRequest,
     options?: RequestOptions,
-  ): ApiPromise<DeleteLocationCustomAttributeResponse, ResponseError> {
-    return this.#rawClient.execute<DeleteLocationCustomAttributeResponse, ResponseError>(
+  ): ApiPromise<DeleteLocationCustomAttributeResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v2/locations/{location_id}/custom-attributes/{key}"),
+        urlTemplate: this.#servers.default("/v2/locations/{location_id}/custom-attributes/{key}"),
         auth: this.#auth.oauth2,
         pathParams: [
           { name: "location_id", value: request.locationId, schema: s.string() },
           { name: "key", value: request.key, schema: s.string() },
         ],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: deleteLocationCustomAttributeResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -249,26 +265,29 @@ export class LocationCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   deleteLocationCustomAttributeDefinition(
     request: LocationCustomAttributes.DeleteLocationCustomAttributeDefinitionRequest,
     options?: RequestOptions,
-  ): ApiPromise<DeleteLocationCustomAttributeDefinitionResponse, ResponseError> {
-    return this.#rawClient.execute<DeleteLocationCustomAttributeDefinitionResponse, ResponseError>(
+  ): ApiPromise<DeleteLocationCustomAttributeDefinitionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v2/locations/custom-attribute-definitions/{key}"),
+        urlTemplate: this.#servers.default("/v2/locations/custom-attribute-definitions/{key}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "key", value: request.key, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: deleteLocationCustomAttributeDefinitionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -286,34 +305,37 @@ export class LocationCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listLocationCustomAttributeDefinitions(
     request: LocationCustomAttributes.ListLocationCustomAttributeDefinitionsRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListLocationCustomAttributeDefinitionsResponse, ResponseError> {
-    return this.#rawClient.execute<ListLocationCustomAttributeDefinitionsResponse, ResponseError>(
+  ): ApiPromise<ListLocationCustomAttributeDefinitionsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/locations/custom-attribute-definitions"),
+        urlTemplate: this.#servers.default("/v2/locations/custom-attribute-definitions"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
           {
             name: "visibility_filter",
             value: request.visibilityFilter,
             schema: s.optional(s.lazy(() => visibilityFilterSchema)),
           },
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listLocationCustomAttributeDefinitionsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -331,19 +353,20 @@ export class LocationCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listLocationCustomAttributes(
     request: LocationCustomAttributes.ListLocationCustomAttributesRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListLocationCustomAttributesResponse, ResponseError> {
-    return this.#rawClient.execute<ListLocationCustomAttributesResponse, ResponseError>(
+  ): ApiPromise<ListLocationCustomAttributesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/locations/{location_id}/custom-attributes"),
+        urlTemplate: this.#servers.default("/v2/locations/{location_id}/custom-attributes"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "location_id", value: request.locationId, schema: s.string() }],
         query: [
@@ -352,7 +375,7 @@ export class LocationCustomAttributes {
             value: request.visibilityFilter,
             schema: s.optional(s.lazy(() => visibilityFilterSchema)),
           },
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
           {
             name: "with_definitions",
@@ -360,11 +383,12 @@ export class LocationCustomAttributes {
             schema: s.defaulted(s.boolean(), false),
           },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listLocationCustomAttributesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -381,19 +405,20 @@ export class LocationCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveLocationCustomAttribute(
     request: LocationCustomAttributes.RetrieveLocationCustomAttributeRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveLocationCustomAttributeResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveLocationCustomAttributeResponse, ResponseError>(
+  ): ApiPromise<RetrieveLocationCustomAttributeResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/locations/{location_id}/custom-attributes/{key}"),
+        urlTemplate: this.#servers.default("/v2/locations/{location_id}/custom-attributes/{key}"),
         auth: this.#auth.oauth2,
         pathParams: [
           { name: "location_id", value: request.locationId, schema: s.string() },
@@ -401,13 +426,14 @@ export class LocationCustomAttributes {
         ],
         query: [
           { name: "with_definition", value: request.withDefinition, schema: s.defaulted(s.boolean(), false) },
-          { name: "version", value: request.version, schema: s.optional(s.number()) },
+          { name: "version", value: request.version, schema: s.optional(s.int()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveLocationCustomAttributeResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -424,27 +450,29 @@ export class LocationCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveLocationCustomAttributeDefinition(
     request: LocationCustomAttributes.RetrieveLocationCustomAttributeDefinitionRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveLocationCustomAttributeDefinitionResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveLocationCustomAttributeDefinitionResponse, ResponseError>(
+  ): ApiPromise<RetrieveLocationCustomAttributeDefinitionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/locations/custom-attribute-definitions/{key}"),
+        urlTemplate: this.#servers.default("/v2/locations/custom-attribute-definitions/{key}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "key", value: request.key, schema: s.string() }],
-        query: [{ name: "version", value: request.version, schema: s.optional(s.number()) }],
+        query: [{ name: "version", value: request.version, schema: s.optional(s.int()) }],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveLocationCustomAttributeDefinitionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -461,21 +489,24 @@ export class LocationCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updateLocationCustomAttributeDefinition(
     request: LocationCustomAttributes.UpdateLocationCustomAttributeDefinitionRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateLocationCustomAttributeDefinitionResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateLocationCustomAttributeDefinitionResponse, ResponseError>(
+  ): ApiPromise<UpdateLocationCustomAttributeDefinitionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/locations/custom-attribute-definitions/{key}"),
+        urlTemplate: this.#servers.default("/v2/locations/custom-attribute-definitions/{key}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "key", value: request.key, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: {
           kind: "json",
           value: request.body,
@@ -484,7 +515,7 @@ export class LocationCustomAttributes {
       },
       {
         success: { kind: "json", schema: updateLocationCustomAttributeDefinitionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -503,29 +534,32 @@ export class LocationCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   upsertLocationCustomAttribute(
     request: LocationCustomAttributes.UpsertLocationCustomAttributeRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpsertLocationCustomAttributeResponse, ResponseError> {
-    return this.#rawClient.execute<UpsertLocationCustomAttributeResponse, ResponseError>(
+  ): ApiPromise<UpsertLocationCustomAttributeResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/locations/{location_id}/custom-attributes/{key}"),
+        urlTemplate: this.#servers.default("/v2/locations/{location_id}/custom-attributes/{key}"),
         auth: this.#auth.oauth2,
         pathParams: [
           { name: "location_id", value: request.locationId, schema: s.string() },
           { name: "key", value: request.key, schema: s.string() },
         ],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: upsertLocationCustomAttributeRequestSchema },
       },
       {
         success: { kind: "json", schema: upsertLocationCustomAttributeResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

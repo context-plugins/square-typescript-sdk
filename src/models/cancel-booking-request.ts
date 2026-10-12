@@ -10,7 +10,7 @@ export type CancelBookingRequest = {
 
 export const cancelBookingRequestSchema: Schema<CancelBookingRequest> = s.object<CancelBookingRequest>({
   idempotencyKey: s.optionalNullable(s.string()),
-  bookingVersion: s.optionalNullable(s.number()),
+  bookingVersion: s.optionalNullable(s.int()),
   _keysMap: {
     idempotencyKey: "idempotency_key",
     bookingVersion: "booking_version",

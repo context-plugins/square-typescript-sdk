@@ -16,8 +16,8 @@ export type CatalogQueryRange = {
 
 export const catalogQueryRangeSchema: Schema<CatalogQueryRange> = s.object<CatalogQueryRange>({
   attributeName: s.string(),
-  attributeMinValue: s.optionalNullable(s.number()),
-  attributeMaxValue: s.optionalNullable(s.number()),
+  attributeMinValue: s.optionalNullable(s.int()),
+  attributeMaxValue: s.optionalNullable(s.int()),
   _keysMap: {
     attributeName: "attribute_name",
     attributeMinValue: "attribute_min_value",

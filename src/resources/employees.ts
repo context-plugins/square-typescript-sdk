@@ -1,8 +1,8 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
 import * as s from "../core/validation/index.js";
 import { employeeStatusSchema, type EmployeeStatus } from "../models/employee-status.js";
 import {
@@ -31,33 +31,36 @@ export class Employees {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    *
    * @deprecated
    */
   listEmployees(
     request: Employees.ListEmployeesRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListEmployeesResponse, ResponseError> {
-    return this.#rawClient.execute<ListEmployeesResponse, ResponseError>(
+  ): ApiPromise<ListEmployeesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/employees"),
+        urlTemplate: this.#servers.default("/v2/employees"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
           { name: "location_id", value: request.locationId, schema: s.optional(s.string()) },
           { name: "status", value: request.status, schema: s.optional(s.lazy(() => employeeStatusSchema)) },
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listEmployeesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -68,28 +71,31 @@ export class Employees {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    *
    * @deprecated
    */
   retrieveEmployee(
     request: Employees.RetrieveEmployeeRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveEmployeeResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveEmployeeResponse, ResponseError>(
+  ): ApiPromise<RetrieveEmployeeResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/employees/{id}"),
+        urlTemplate: this.#servers.default("/v2/employees/{id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "id", value: request.id, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveEmployeeResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

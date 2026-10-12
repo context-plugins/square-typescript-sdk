@@ -23,6 +23,6 @@ export type SearchInvoicesRequest = {
 
 export const searchInvoicesRequestSchema: Schema<SearchInvoicesRequest> = s.object<SearchInvoicesRequest>({
   query: invoiceQuerySchema,
-  limit: s.optional(s.number()),
+  limit: s.optional(s.int()),
   cursor: s.optional(s.string()),
 });

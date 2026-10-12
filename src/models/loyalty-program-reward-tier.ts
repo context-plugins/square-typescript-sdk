@@ -26,7 +26,7 @@ export type LoyaltyProgramRewardTier = {
 export const loyaltyProgramRewardTierSchema: Schema<LoyaltyProgramRewardTier> =
   s.object<LoyaltyProgramRewardTier>({
     id: s.optional(s.string()),
-    points: s.number(),
+    points: s.int(),
     name: s.optional(s.string()),
     createdAt: s.optional(s.string()),
     pricingRuleReference: catalogObjectReferenceSchema,

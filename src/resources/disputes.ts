@@ -1,13 +1,19 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
+import type { FileInput } from "../core/binary.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   acceptDisputeResponseSchema,
   type AcceptDisputeResponse,
 } from "../models/accept-dispute-response.js";
+import {
+  createDisputeEvidenceFileRequestSchema,
+  type CreateDisputeEvidenceFileRequest,
+} from "../models/create-dispute-evidence-file-request.js";
 import {
   createDisputeEvidenceFileResponseSchema,
   type CreateDisputeEvidenceFileResponse,
@@ -67,26 +73,29 @@ export class Disputes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   acceptDispute(
     request: Disputes.AcceptDisputeRequest,
     options?: RequestOptions,
-  ): ApiPromise<AcceptDisputeResponse, ResponseError> {
-    return this.#rawClient.execute<AcceptDisputeResponse, ResponseError>(
+  ): ApiPromise<AcceptDisputeResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/disputes/{dispute_id}/accept"),
+        urlTemplate: this.#servers.default("/v2/disputes/{dispute_id}/accept"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "dispute_id", value: request.disputeId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: acceptDisputeResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -101,26 +110,40 @@ export class Disputes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createDisputeEvidenceFile(
     request: Disputes.CreateDisputeEvidenceFileRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateDisputeEvidenceFileResponse, ResponseError> {
-    return this.#rawClient.execute<CreateDisputeEvidenceFileResponse, ResponseError>(
+  ): ApiPromise<CreateDisputeEvidenceFileResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/disputes/{dispute_id}/evidence-files"),
+        urlTemplate: this.#servers.default("/v2/disputes/{dispute_id}/evidence-files"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "dispute_id", value: request.disputeId, schema: s.string() }],
-        body: { kind: "empty" },
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
+        body: {
+          kind: "multipart",
+          value: [
+            {
+              kind: "text",
+              name: "request",
+              value: request.request,
+              schema: s.optional(s.lazy(() => createDisputeEvidenceFileRequestSchema)),
+            },
+            { kind: "file", name: "image_file", value: request.imageFile },
+          ],
+        },
       },
       {
         success: { kind: "json", schema: createDisputeEvidenceFileResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -134,26 +157,29 @@ export class Disputes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createDisputeEvidenceText(
     request: Disputes.CreateDisputeEvidenceTextRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateDisputeEvidenceTextResponse, ResponseError> {
-    return this.#rawClient.execute<CreateDisputeEvidenceTextResponse, ResponseError>(
+  ): ApiPromise<CreateDisputeEvidenceTextResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/disputes/{dispute_id}/evidence-text"),
+        urlTemplate: this.#servers.default("/v2/disputes/{dispute_id}/evidence-text"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "dispute_id", value: request.disputeId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createDisputeEvidenceTextRequestSchema },
       },
       {
         success: { kind: "json", schema: createDisputeEvidenceTextResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -168,29 +194,32 @@ export class Disputes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   deleteDisputeEvidence(
     request: Disputes.DeleteDisputeEvidenceRequest,
     options?: RequestOptions,
-  ): ApiPromise<DeleteDisputeEvidenceResponse, ResponseError> {
-    return this.#rawClient.execute<DeleteDisputeEvidenceResponse, ResponseError>(
+  ): ApiPromise<DeleteDisputeEvidenceResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v2/disputes/{dispute_id}/evidence/{evidence_id}"),
+        urlTemplate: this.#servers.default("/v2/disputes/{dispute_id}/evidence/{evidence_id}"),
         auth: this.#auth.oauth2,
         pathParams: [
           { name: "dispute_id", value: request.disputeId, schema: s.string() },
           { name: "evidence_id", value: request.evidenceId, schema: s.string() },
         ],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: deleteDisputeEvidenceResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -204,27 +233,29 @@ export class Disputes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listDisputeEvidence(
     request: Disputes.ListDisputeEvidenceRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListDisputeEvidenceResponse, ResponseError> {
-    return this.#rawClient.execute<ListDisputeEvidenceResponse, ResponseError>(
+  ): ApiPromise<ListDisputeEvidenceResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/disputes/{dispute_id}/evidence"),
+        urlTemplate: this.#servers.default("/v2/disputes/{dispute_id}/evidence"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "dispute_id", value: request.disputeId, schema: s.string() }],
         query: [{ name: "cursor", value: request.cursor, schema: s.optional(s.string()) }],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listDisputeEvidenceResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -238,30 +269,33 @@ export class Disputes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listDisputes(
     request: Disputes.ListDisputesRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListDisputesResponse, ResponseError> {
-    return this.#rawClient.execute<ListDisputesResponse, ResponseError>(
+  ): ApiPromise<ListDisputesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/disputes"),
+        urlTemplate: this.#servers.default("/v2/disputes"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
           { name: "states", value: request.states, schema: s.optional(s.lazy(() => disputeStateSchema)) },
           { name: "location_id", value: request.locationId, schema: s.optional(s.string()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listDisputesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -275,26 +309,29 @@ export class Disputes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveDispute(
     request: Disputes.RetrieveDisputeRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveDisputeResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveDisputeResponse, ResponseError>(
+  ): ApiPromise<RetrieveDisputeResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/disputes/{dispute_id}"),
+        urlTemplate: this.#servers.default("/v2/disputes/{dispute_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "dispute_id", value: request.disputeId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveDisputeResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -311,29 +348,32 @@ export class Disputes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveDisputeEvidence(
     request: Disputes.RetrieveDisputeEvidenceRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveDisputeEvidenceResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveDisputeEvidenceResponse, ResponseError>(
+  ): ApiPromise<RetrieveDisputeEvidenceResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/disputes/{dispute_id}/evidence/{evidence_id}"),
+        urlTemplate: this.#servers.default("/v2/disputes/{dispute_id}/evidence/{evidence_id}"),
         auth: this.#auth.oauth2,
         pathParams: [
           { name: "dispute_id", value: request.disputeId, schema: s.string() },
           { name: "evidence_id", value: request.evidenceId, schema: s.string() },
         ],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveDisputeEvidenceResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -353,26 +393,29 @@ export class Disputes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   submitEvidence(
     request: Disputes.SubmitEvidenceRequest,
     options?: RequestOptions,
-  ): ApiPromise<SubmitEvidenceResponse, ResponseError> {
-    return this.#rawClient.execute<SubmitEvidenceResponse, ResponseError>(
+  ): ApiPromise<SubmitEvidenceResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/disputes/{dispute_id}/submit-evidence"),
+        urlTemplate: this.#servers.default("/v2/disputes/{dispute_id}/submit-evidence"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "dispute_id", value: request.disputeId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: submitEvidenceResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -388,6 +431,9 @@ export namespace Disputes {
   export type CreateDisputeEvidenceFileRequestParams = {
     /** The ID of the dispute for which you want to upload evidence. */
     disputeId: string;
+    /** Defines the parameters for a `CreateDisputeEvidenceFile` request. */
+    request?: CreateDisputeEvidenceFileRequest;
+    imageFile?: FileInput;
   };
 
   export type CreateDisputeEvidenceTextRequestParams = {

@@ -19,5 +19,5 @@ export const searchTerminalActionsRequestSchema: Schema<SearchTerminalActionsReq
   s.object<SearchTerminalActionsRequest>({
     query: s.optional(s.lazy(() => terminalActionQuerySchema)),
     cursor: s.optional(s.string()),
-    limit: s.optional(s.number()),
+    limit: s.optional(s.int()),
   });

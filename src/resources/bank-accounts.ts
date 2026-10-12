@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   createBankAccountRequestSchema,
@@ -49,25 +50,29 @@ export class BankAccounts {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createBankAccount(
     request: BankAccounts.CreateBankAccountRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateBankAccountResponse, ResponseError> {
-    return this.#rawClient.execute<CreateBankAccountResponse, ResponseError>(
+  ): ApiPromise<CreateBankAccountResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/bank-accounts"),
+        urlTemplate: this.#servers.default("/v2/bank-accounts"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createBankAccountRequestSchema },
       },
       {
         success: { kind: "json", schema: createBankAccountResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -81,26 +86,29 @@ export class BankAccounts {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   disableBankAccount(
     request: BankAccounts.DisableBankAccountRequest,
     options?: RequestOptions,
-  ): ApiPromise<DisableBankAccountResponse, ResponseError> {
-    return this.#rawClient.execute<DisableBankAccountResponse, ResponseError>(
+  ): ApiPromise<DisableBankAccountResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/bank-accounts/{bank_account_id}/disable"),
+        urlTemplate: this.#servers.default("/v2/bank-accounts/{bank_account_id}/disable"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "bank_account_id", value: request.bankAccountId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: disableBankAccountResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -115,26 +123,29 @@ export class BankAccounts {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   getBankAccount(
     request: BankAccounts.GetBankAccountRequest,
     options?: RequestOptions,
-  ): ApiPromise<GetBankAccountResponse, ResponseError> {
-    return this.#rawClient.execute<GetBankAccountResponse, ResponseError>(
+  ): ApiPromise<GetBankAccountResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/bank-accounts/{bank_account_id}"),
+        urlTemplate: this.#servers.default("/v2/bank-accounts/{bank_account_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "bank_account_id", value: request.bankAccountId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: getBankAccountResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -148,26 +159,29 @@ export class BankAccounts {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   getBankAccountByV1Id(
     request: BankAccounts.GetBankAccountByV1IdRequest,
     options?: RequestOptions,
-  ): ApiPromise<GetBankAccountByV1IdResponse, ResponseError> {
-    return this.#rawClient.execute<GetBankAccountByV1IdResponse, ResponseError>(
+  ): ApiPromise<GetBankAccountByV1IdResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/bank-accounts/by-v1-id/{v1_bank_account_id}"),
+        urlTemplate: this.#servers.default("/v2/bank-accounts/by-v1-id/{v1_bank_account_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "v1_bank_account_id", value: request.v1BankAccountId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: getBankAccountByV1IdResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -181,31 +195,34 @@ export class BankAccounts {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listBankAccounts(
     request: BankAccounts.ListBankAccountsRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListBankAccountsResponse, ResponseError> {
-    return this.#rawClient.execute<ListBankAccountsResponse, ResponseError>(
+  ): ApiPromise<ListBankAccountsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/bank-accounts"),
+        urlTemplate: this.#servers.default("/v2/bank-accounts"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
           { name: "location_id", value: request.locationId, schema: s.optional(s.string()) },
           { name: "customer_id", value: request.customerId, schema: s.optional(s.string()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listBankAccountsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   cancelTerminalActionResponseSchema,
@@ -109,26 +110,29 @@ export class Terminal {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   cancelTerminalAction(
     request: Terminal.CancelTerminalActionRequest,
     options?: RequestOptions,
-  ): ApiPromise<CancelTerminalActionResponse, ResponseError> {
-    return this.#rawClient.execute<CancelTerminalActionResponse, ResponseError>(
+  ): ApiPromise<CancelTerminalActionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/terminals/actions/{action_id}/cancel"),
+        urlTemplate: this.#servers.default("/v2/terminals/actions/{action_id}/cancel"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "action_id", value: request.actionId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: cancelTerminalActionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -142,26 +146,29 @@ export class Terminal {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   cancelTerminalCheckout(
     request: Terminal.CancelTerminalCheckoutRequest,
     options?: RequestOptions,
-  ): ApiPromise<CancelTerminalCheckoutResponse, ResponseError> {
-    return this.#rawClient.execute<CancelTerminalCheckoutResponse, ResponseError>(
+  ): ApiPromise<CancelTerminalCheckoutResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/terminals/checkouts/{checkout_id}/cancel"),
+        urlTemplate: this.#servers.default("/v2/terminals/checkouts/{checkout_id}/cancel"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "checkout_id", value: request.checkoutId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: cancelTerminalCheckoutResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -176,26 +183,29 @@ export class Terminal {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   cancelTerminalRefund(
     request: Terminal.CancelTerminalRefundRequest,
     options?: RequestOptions,
-  ): ApiPromise<CancelTerminalRefundResponse, ResponseError> {
-    return this.#rawClient.execute<CancelTerminalRefundResponse, ResponseError>(
+  ): ApiPromise<CancelTerminalRefundResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/terminals/refunds/{terminal_refund_id}/cancel"),
+        urlTemplate: this.#servers.default("/v2/terminals/refunds/{terminal_refund_id}/cancel"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "terminal_refund_id", value: request.terminalRefundId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: cancelTerminalRefundResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -209,25 +219,29 @@ export class Terminal {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createTerminalAction(
     request: Terminal.CreateTerminalActionRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateTerminalActionResponse, ResponseError> {
-    return this.#rawClient.execute<CreateTerminalActionResponse, ResponseError>(
+  ): ApiPromise<CreateTerminalActionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/terminals/actions"),
+        urlTemplate: this.#servers.default("/v2/terminals/actions"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createTerminalActionRequestSchema },
       },
       {
         success: { kind: "json", schema: createTerminalActionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -242,25 +256,29 @@ export class Terminal {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createTerminalCheckout(
     request: Terminal.CreateTerminalCheckoutRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateTerminalCheckoutResponse, ResponseError> {
-    return this.#rawClient.execute<CreateTerminalCheckoutResponse, ResponseError>(
+  ): ApiPromise<CreateTerminalCheckoutResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/terminals/checkouts"),
+        urlTemplate: this.#servers.default("/v2/terminals/checkouts"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createTerminalCheckoutRequestSchema },
       },
       {
         success: { kind: "json", schema: createTerminalCheckoutResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -277,25 +295,29 @@ export class Terminal {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createTerminalRefund(
     request: Terminal.CreateTerminalRefundRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateTerminalRefundResponse, ResponseError> {
-    return this.#rawClient.execute<CreateTerminalRefundResponse, ResponseError>(
+  ): ApiPromise<CreateTerminalRefundResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/terminals/refunds"),
+        urlTemplate: this.#servers.default("/v2/terminals/refunds"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createTerminalRefundRequestSchema },
       },
       {
         success: { kind: "json", schema: createTerminalRefundResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -313,26 +335,29 @@ export class Terminal {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   dismissTerminalAction(
     request: Terminal.DismissTerminalActionRequest,
     options?: RequestOptions,
-  ): ApiPromise<DismissTerminalActionResponse, ResponseError> {
-    return this.#rawClient.execute<DismissTerminalActionResponse, ResponseError>(
+  ): ApiPromise<DismissTerminalActionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/terminals/actions/{action_id}/dismiss"),
+        urlTemplate: this.#servers.default("/v2/terminals/actions/{action_id}/dismiss"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "action_id", value: request.actionId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: dismissTerminalActionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -346,26 +371,29 @@ export class Terminal {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   dismissTerminalCheckout(
     request: Terminal.DismissTerminalCheckoutRequest,
     options?: RequestOptions,
-  ): ApiPromise<DismissTerminalCheckoutResponse, ResponseError> {
-    return this.#rawClient.execute<DismissTerminalCheckoutResponse, ResponseError>(
+  ): ApiPromise<DismissTerminalCheckoutResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/terminals/checkouts/{checkout_id}/dismiss"),
+        urlTemplate: this.#servers.default("/v2/terminals/checkouts/{checkout_id}/dismiss"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "checkout_id", value: request.checkoutId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: dismissTerminalCheckoutResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -379,26 +407,29 @@ export class Terminal {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   dismissTerminalRefund(
     request: Terminal.DismissTerminalRefundRequest,
     options?: RequestOptions,
-  ): ApiPromise<DismissTerminalRefundResponse, ResponseError> {
-    return this.#rawClient.execute<DismissTerminalRefundResponse, ResponseError>(
+  ): ApiPromise<DismissTerminalRefundResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/terminals/refunds/{terminal_refund_id}/dismiss"),
+        urlTemplate: this.#servers.default("/v2/terminals/refunds/{terminal_refund_id}/dismiss"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "terminal_refund_id", value: request.terminalRefundId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: dismissTerminalRefundResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -413,26 +444,29 @@ export class Terminal {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   getTerminalAction(
     request: Terminal.GetTerminalActionRequest,
     options?: RequestOptions,
-  ): ApiPromise<GetTerminalActionResponse, ResponseError> {
-    return this.#rawClient.execute<GetTerminalActionResponse, ResponseError>(
+  ): ApiPromise<GetTerminalActionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/terminals/actions/{action_id}"),
+        urlTemplate: this.#servers.default("/v2/terminals/actions/{action_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "action_id", value: request.actionId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: getTerminalActionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -447,26 +481,29 @@ export class Terminal {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   getTerminalCheckout(
     request: Terminal.GetTerminalCheckoutRequest,
     options?: RequestOptions,
-  ): ApiPromise<GetTerminalCheckoutResponse, ResponseError> {
-    return this.#rawClient.execute<GetTerminalCheckoutResponse, ResponseError>(
+  ): ApiPromise<GetTerminalCheckoutResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/terminals/checkouts/{checkout_id}"),
+        urlTemplate: this.#servers.default("/v2/terminals/checkouts/{checkout_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "checkout_id", value: request.checkoutId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: getTerminalCheckoutResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -481,26 +518,29 @@ export class Terminal {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   getTerminalRefund(
     request: Terminal.GetTerminalRefundRequest,
     options?: RequestOptions,
-  ): ApiPromise<GetTerminalRefundResponse, ResponseError> {
-    return this.#rawClient.execute<GetTerminalRefundResponse, ResponseError>(
+  ): ApiPromise<GetTerminalRefundResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/terminals/refunds/{terminal_refund_id}"),
+        urlTemplate: this.#servers.default("/v2/terminals/refunds/{terminal_refund_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "terminal_refund_id", value: request.terminalRefundId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: getTerminalRefundResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -515,25 +555,29 @@ export class Terminal {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   searchTerminalActions(
     request: Terminal.SearchTerminalActionsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<SearchTerminalActionsResponse, ResponseError> {
-    return this.#rawClient.execute<SearchTerminalActionsResponse, ResponseError>(
+  ): ApiPromise<SearchTerminalActionsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/terminals/actions/search"),
+        urlTemplate: this.#servers.default("/v2/terminals/actions/search"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: searchTerminalActionsRequestSchema },
       },
       {
         success: { kind: "json", schema: searchTerminalActionsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -549,25 +593,29 @@ export class Terminal {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   searchTerminalCheckouts(
     request: Terminal.SearchTerminalCheckoutsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<SearchTerminalCheckoutsResponse, ResponseError> {
-    return this.#rawClient.execute<SearchTerminalCheckoutsResponse, ResponseError>(
+  ): ApiPromise<SearchTerminalCheckoutsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/terminals/checkouts/search"),
+        urlTemplate: this.#servers.default("/v2/terminals/checkouts/search"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: searchTerminalCheckoutsRequestSchema },
       },
       {
         success: { kind: "json", schema: searchTerminalCheckoutsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -582,25 +630,29 @@ export class Terminal {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   searchTerminalRefunds(
     request: Terminal.SearchTerminalRefundsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<SearchTerminalRefundsResponse, ResponseError> {
-    return this.#rawClient.execute<SearchTerminalRefundsResponse, ResponseError>(
+  ): ApiPromise<SearchTerminalRefundsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/terminals/refunds/search"),
+        urlTemplate: this.#servers.default("/v2/terminals/refunds/search"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: searchTerminalRefundsRequestSchema },
       },
       {
         success: { kind: "json", schema: searchTerminalRefundsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

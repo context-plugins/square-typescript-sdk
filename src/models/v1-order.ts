@@ -107,7 +107,7 @@ export const v1OrderSchema: Schema<V1Order> = s.object<V1Order>({
   orderHistory: s.optionalNullable(s.array(s.lazy(() => v1OrderHistoryEntrySchema))),
   promoCode: s.optionalNullable(s.string()),
   btcReceiveAddress: s.optionalNullable(s.string()),
-  btcPriceSatoshi: s.optionalNullable(s.number()),
+  btcPriceSatoshi: s.optionalNullable(s.float64()),
   _keysMap: {
     buyerEmail: "buyer_email",
     recipientName: "recipient_name",

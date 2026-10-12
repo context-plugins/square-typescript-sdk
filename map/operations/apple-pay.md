@@ -4,16 +4,17 @@
 
 Accessor: `client.applePay` · Source: `src/resources/apple-pay.ts` · 1 operation · Request types: namespace `ApplePay`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### registerDomain
 
-- **Signature**: `registerDomain(request: ApplePay.RegisterDomainRequestParams, options?: RequestOptions): ApiPromise<RegisterDomainResponse, ResponseError>`
+- **Signature**: `registerDomain(request: ApplePay.RegisterDomainRequestParams, options?: RequestOptions): ApiPromise<RegisterDomainResponse, ApiError>`
 - **Wire**: `POST /v2/apple-pay/domains`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `RegisterDomainResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `ApplePay.RegisterDomainRequestParams` (1):
 

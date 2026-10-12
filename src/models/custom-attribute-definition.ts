@@ -84,7 +84,7 @@ export const customAttributeDefinitionSchema: Schema<CustomAttributeDefinition> 
     name: s.optionalNullable(s.string()),
     description: s.optionalNullable(s.string()),
     visibility: s.optional(s.lazy(() => customAttributeDefinitionVisibilitySchema)),
-    version: s.optional(s.number()),
+    version: s.optional(s.int()),
     updatedAt: s.optional(s.string()),
     createdAt: s.optional(s.string()),
     _keysMap: {

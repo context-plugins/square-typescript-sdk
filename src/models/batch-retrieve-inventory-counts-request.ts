@@ -42,7 +42,7 @@ export const batchRetrieveInventoryCountsRequestSchema: Schema<BatchRetrieveInve
     updatedAfter: s.optionalNullable(s.string()),
     cursor: s.optionalNullable(s.string()),
     states: s.optionalNullable(s.array(s.lazy(() => inventoryStateSchema))),
-    limit: s.optionalNullable(s.number()),
+    limit: s.optionalNullable(s.int()),
     _keysMap: {
       catalogObjectIds: "catalog_object_ids",
       locationIds: "location_ids",

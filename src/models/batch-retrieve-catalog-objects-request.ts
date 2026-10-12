@@ -47,7 +47,7 @@ export const batchRetrieveCatalogObjectsRequestSchema: Schema<BatchRetrieveCatal
   s.object<BatchRetrieveCatalogObjectsRequest>({
     objectIds: s.array(s.string()),
     includeRelatedObjects: s.optionalNullable(s.boolean()),
-    catalogVersion: s.optionalNullable(s.number()),
+    catalogVersion: s.optionalNullable(s.int()),
     includeDeletedObjects: s.optionalNullable(s.boolean()),
     includeCategoryPathToRoot: s.optionalNullable(s.boolean()),
     _keysMap: {

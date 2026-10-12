@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   bulkDeleteBookingCustomAttributesRequestSchema,
@@ -96,25 +97,29 @@ export class BookingCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   bulkDeleteBookingCustomAttributes(
     request: BookingCustomAttributes.BulkDeleteBookingCustomAttributesRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BulkDeleteBookingCustomAttributesResponse, ResponseError> {
-    return this.#rawClient.execute<BulkDeleteBookingCustomAttributesResponse, ResponseError>(
+  ): ApiPromise<BulkDeleteBookingCustomAttributesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/bookings/custom-attributes/bulk-delete"),
+        urlTemplate: this.#servers.default("/v2/bookings/custom-attributes/bulk-delete"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: bulkDeleteBookingCustomAttributesRequestSchema },
       },
       {
         success: { kind: "json", schema: bulkDeleteBookingCustomAttributesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -135,25 +140,29 @@ export class BookingCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   bulkUpsertBookingCustomAttributes(
     request: BookingCustomAttributes.BulkUpsertBookingCustomAttributesRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BulkUpsertBookingCustomAttributesResponse, ResponseError> {
-    return this.#rawClient.execute<BulkUpsertBookingCustomAttributesResponse, ResponseError>(
+  ): ApiPromise<BulkUpsertBookingCustomAttributesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/bookings/custom-attributes/bulk-upsert"),
+        urlTemplate: this.#servers.default("/v2/bookings/custom-attributes/bulk-upsert"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: bulkUpsertBookingCustomAttributesRequestSchema },
       },
       {
         success: { kind: "json", schema: bulkUpsertBookingCustomAttributesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -174,20 +183,24 @@ export class BookingCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createBookingCustomAttributeDefinition(
     request: BookingCustomAttributes.CreateBookingCustomAttributeDefinitionRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateBookingCustomAttributeDefinitionResponse, ResponseError> {
-    return this.#rawClient.execute<CreateBookingCustomAttributeDefinitionResponse, ResponseError>(
+  ): ApiPromise<CreateBookingCustomAttributeDefinitionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/bookings/custom-attribute-definitions"),
+        urlTemplate: this.#servers.default("/v2/bookings/custom-attribute-definitions"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: {
           kind: "json",
           value: request.body,
@@ -196,7 +209,7 @@ export class BookingCustomAttributes {
       },
       {
         success: { kind: "json", schema: createBookingCustomAttributeDefinitionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -217,29 +230,32 @@ export class BookingCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   deleteBookingCustomAttribute(
     request: BookingCustomAttributes.DeleteBookingCustomAttributeRequest,
     options?: RequestOptions,
-  ): ApiPromise<DeleteBookingCustomAttributeResponse, ResponseError> {
-    return this.#rawClient.execute<DeleteBookingCustomAttributeResponse, ResponseError>(
+  ): ApiPromise<DeleteBookingCustomAttributeResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v2/bookings/{booking_id}/custom-attributes/{key}"),
+        urlTemplate: this.#servers.default("/v2/bookings/{booking_id}/custom-attributes/{key}"),
         auth: this.#auth.oauth2,
         pathParams: [
           { name: "booking_id", value: request.bookingId, schema: s.string() },
           { name: "key", value: request.key, schema: s.string() },
         ],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: deleteBookingCustomAttributeResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -260,26 +276,29 @@ export class BookingCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   deleteBookingCustomAttributeDefinition(
     request: BookingCustomAttributes.DeleteBookingCustomAttributeDefinitionRequest,
     options?: RequestOptions,
-  ): ApiPromise<DeleteBookingCustomAttributeDefinitionResponse, ResponseError> {
-    return this.#rawClient.execute<DeleteBookingCustomAttributeDefinitionResponse, ResponseError>(
+  ): ApiPromise<DeleteBookingCustomAttributeDefinitionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v2/bookings/custom-attribute-definitions/{key}"),
+        urlTemplate: this.#servers.default("/v2/bookings/custom-attribute-definitions/{key}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "key", value: request.key, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: deleteBookingCustomAttributeDefinitionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -297,29 +316,32 @@ export class BookingCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listBookingCustomAttributeDefinitions(
     request: BookingCustomAttributes.ListBookingCustomAttributeDefinitionsRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListBookingCustomAttributeDefinitionsResponse, ResponseError> {
-    return this.#rawClient.execute<ListBookingCustomAttributeDefinitionsResponse, ResponseError>(
+  ): ApiPromise<ListBookingCustomAttributeDefinitionsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/bookings/custom-attribute-definitions"),
+        urlTemplate: this.#servers.default("/v2/bookings/custom-attribute-definitions"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listBookingCustomAttributeDefinitionsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -337,23 +359,24 @@ export class BookingCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listBookingCustomAttributes(
     request: BookingCustomAttributes.ListBookingCustomAttributesRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListBookingCustomAttributesResponse, ResponseError> {
-    return this.#rawClient.execute<ListBookingCustomAttributesResponse, ResponseError>(
+  ): ApiPromise<ListBookingCustomAttributesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/bookings/{booking_id}/custom-attributes"),
+        urlTemplate: this.#servers.default("/v2/bookings/{booking_id}/custom-attributes"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "booking_id", value: request.bookingId, schema: s.string() }],
         query: [
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
           {
             name: "with_definitions",
@@ -361,11 +384,12 @@ export class BookingCustomAttributes {
             schema: s.defaulted(s.boolean(), false),
           },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listBookingCustomAttributesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -383,19 +407,20 @@ export class BookingCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveBookingCustomAttribute(
     request: BookingCustomAttributes.RetrieveBookingCustomAttributeRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveBookingCustomAttributeResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveBookingCustomAttributeResponse, ResponseError>(
+  ): ApiPromise<RetrieveBookingCustomAttributeResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/bookings/{booking_id}/custom-attributes/{key}"),
+        urlTemplate: this.#servers.default("/v2/bookings/{booking_id}/custom-attributes/{key}"),
         auth: this.#auth.oauth2,
         pathParams: [
           { name: "booking_id", value: request.bookingId, schema: s.string() },
@@ -403,13 +428,14 @@ export class BookingCustomAttributes {
         ],
         query: [
           { name: "with_definition", value: request.withDefinition, schema: s.defaulted(s.boolean(), false) },
-          { name: "version", value: request.version, schema: s.optional(s.number()) },
+          { name: "version", value: request.version, schema: s.optional(s.int()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveBookingCustomAttributeResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -427,27 +453,29 @@ export class BookingCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveBookingCustomAttributeDefinition(
     request: BookingCustomAttributes.RetrieveBookingCustomAttributeDefinitionRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveBookingCustomAttributeDefinitionResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveBookingCustomAttributeDefinitionResponse, ResponseError>(
+  ): ApiPromise<RetrieveBookingCustomAttributeDefinitionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/bookings/custom-attribute-definitions/{key}"),
+        urlTemplate: this.#servers.default("/v2/bookings/custom-attribute-definitions/{key}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "key", value: request.key, schema: s.string() }],
-        query: [{ name: "version", value: request.version, schema: s.optional(s.number()) }],
+        query: [{ name: "version", value: request.version, schema: s.optional(s.int()) }],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveBookingCustomAttributeDefinitionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -468,21 +496,24 @@ export class BookingCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updateBookingCustomAttributeDefinition(
     request: BookingCustomAttributes.UpdateBookingCustomAttributeDefinitionRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateBookingCustomAttributeDefinitionResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateBookingCustomAttributeDefinitionResponse, ResponseError>(
+  ): ApiPromise<UpdateBookingCustomAttributeDefinitionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/bookings/custom-attribute-definitions/{key}"),
+        urlTemplate: this.#servers.default("/v2/bookings/custom-attribute-definitions/{key}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "key", value: request.key, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: {
           kind: "json",
           value: request.body,
@@ -491,7 +522,7 @@ export class BookingCustomAttributes {
       },
       {
         success: { kind: "json", schema: updateBookingCustomAttributeDefinitionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -512,29 +543,32 @@ export class BookingCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   upsertBookingCustomAttribute(
     request: BookingCustomAttributes.UpsertBookingCustomAttributeRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpsertBookingCustomAttributeResponse, ResponseError> {
-    return this.#rawClient.execute<UpsertBookingCustomAttributeResponse, ResponseError>(
+  ): ApiPromise<UpsertBookingCustomAttributeResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/bookings/{booking_id}/custom-attributes/{key}"),
+        urlTemplate: this.#servers.default("/v2/bookings/{booking_id}/custom-attributes/{key}"),
         auth: this.#auth.oauth2,
         pathParams: [
           { name: "booking_id", value: request.bookingId, schema: s.string() },
           { name: "key", value: request.key, schema: s.string() },
         ],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: upsertBookingCustomAttributeRequestSchema },
       },
       {
         success: { kind: "json", schema: upsertBookingCustomAttributeResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

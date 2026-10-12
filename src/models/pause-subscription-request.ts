@@ -37,7 +37,7 @@ export type PauseSubscriptionRequest = {
 export const pauseSubscriptionRequestSchema: Schema<PauseSubscriptionRequest> =
   s.object<PauseSubscriptionRequest>({
     pauseEffectiveDate: s.optionalNullable(s.string()),
-    pauseCycleDuration: s.optionalNullable(s.number()),
+    pauseCycleDuration: s.optionalNullable(s.int()),
     resumeEffectiveDate: s.optionalNullable(s.string()),
     resumeChangeTiming: s.optional(s.lazy(() => changeTimingSchema)),
     pauseReason: s.optionalNullable(s.string()),

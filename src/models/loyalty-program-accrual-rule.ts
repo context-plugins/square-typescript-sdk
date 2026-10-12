@@ -43,7 +43,7 @@ export type LoyaltyProgramAccrualRule = {
 export const loyaltyProgramAccrualRuleSchema: Schema<LoyaltyProgramAccrualRule> =
   s.object<LoyaltyProgramAccrualRule>({
     accrualType: loyaltyProgramAccrualRuleTypeSchema,
-    points: s.optionalNullable(s.number()),
+    points: s.optionalNullable(s.int()),
     visitData: s.optional(s.lazy(() => loyaltyProgramAccrualRuleVisitDataSchema)),
     spendData: s.optional(s.lazy(() => loyaltyProgramAccrualRuleSpendDataSchema)),
     itemVariationData: s.optional(s.lazy(() => loyaltyProgramAccrualRuleItemVariationDataSchema)),

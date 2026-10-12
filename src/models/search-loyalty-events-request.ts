@@ -22,6 +22,6 @@ export type SearchLoyaltyEventsRequest = {
 export const searchLoyaltyEventsRequestSchema: Schema<SearchLoyaltyEventsRequest> =
   s.object<SearchLoyaltyEventsRequest>({
     query: s.optional(s.lazy(() => loyaltyEventQuerySchema)),
-    limit: s.optional(s.number()),
+    limit: s.optional(s.int()),
     cursor: s.optional(s.string()),
   });

@@ -1,11 +1,12 @@
 import * as s from "../core/validation/index.js";
 import type { Schema } from "../core/validation/schema.js";
+import { invoiceSortFieldSchema, type InvoiceSortField } from "./invoice-sort-field.js";
 import { sortOrderSchema, type SortOrder } from "./sort-order.js";
 
 /** Identifies the sort field and sort order. */
 export type InvoiceSort = {
   /** The field to use for sorting. */
-  field: "INVOICE_SORT_DATE";
+  field: InvoiceSortField;
   /**
    * The order (e.g., chronological or alphabetical) in which results from a request are returned.
    */
@@ -13,6 +14,6 @@ export type InvoiceSort = {
 };
 
 export const invoiceSortSchema: Schema<InvoiceSort> = s.object<InvoiceSort>({
-  field: s.literal("INVOICE_SORT_DATE"),
+  field: invoiceSortFieldSchema,
   order: s.optional(s.lazy(() => sortOrderSchema)),
 });

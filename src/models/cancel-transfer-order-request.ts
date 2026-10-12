@@ -15,7 +15,7 @@ export type CancelTransferOrderRequest = {
 export const cancelTransferOrderRequestSchema: Schema<CancelTransferOrderRequest> =
   s.object<CancelTransferOrderRequest>({
     idempotencyKey: s.string(),
-    version: s.optional(s.number()),
+    version: s.optional(s.int()),
     _keysMap: {
       idempotencyKey: "idempotency_key",
     },

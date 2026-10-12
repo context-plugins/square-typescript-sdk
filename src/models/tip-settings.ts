@@ -40,7 +40,7 @@ export const tipSettingsSchema: Schema<TipSettings> = s.object<TipSettings>({
   allowTipping: s.optionalNullable(s.boolean()),
   separateTipScreen: s.optionalNullable(s.boolean()),
   customTipField: s.optionalNullable(s.boolean()),
-  tipPercentages: s.optionalNullable(s.array(s.number())),
+  tipPercentages: s.optionalNullable(s.array(s.int())),
   smartTipping: s.optionalNullable(s.boolean()),
   _keysMap: {
     allowTipping: "allow_tipping",

@@ -89,7 +89,7 @@ export const customerSchema: Schema<Customer> = s.object<Customer>({
   creationSource: s.optional(s.lazy(() => customerCreationSourceSchema)),
   groupIds: s.optionalNullable(s.array(s.string())),
   segmentIds: s.optionalNullable(s.array(s.string())),
-  version: s.optional(s.number()),
+  version: s.optional(s.int()),
   taxIds: s.optional(s.lazy(() => customerTaxIdsSchema)),
   _keysMap: {
     createdAt: "created_at",

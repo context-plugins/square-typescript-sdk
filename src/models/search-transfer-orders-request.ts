@@ -16,5 +16,5 @@ export const searchTransferOrdersRequestSchema: Schema<SearchTransferOrdersReque
   s.object<SearchTransferOrdersRequest>({
     query: s.optional(s.lazy(() => transferOrderQuerySchema)),
     cursor: s.optional(s.string()),
-    limit: s.optional(s.number()),
+    limit: s.optional(s.int()),
   });

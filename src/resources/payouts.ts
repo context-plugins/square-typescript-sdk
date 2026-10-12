@@ -1,8 +1,8 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
 import * as s from "../core/validation/index.js";
 import { getPayoutResponseSchema, type GetPayoutResponse } from "../models/get-payout-response.js";
 import {
@@ -34,26 +34,29 @@ export class Payouts {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   getPayout(
     request: Payouts.GetPayoutRequest,
     options?: RequestOptions,
-  ): ApiPromise<GetPayoutResponse, ResponseError> {
-    return this.#rawClient.execute<GetPayoutResponse, ResponseError>(
+  ): ApiPromise<GetPayoutResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/payouts/{payout_id}"),
+        urlTemplate: this.#servers.default("/v2/payouts/{payout_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "payout_id", value: request.payoutId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: getPayoutResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -68,31 +71,33 @@ export class Payouts {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listPayoutEntries(
     request: Payouts.ListPayoutEntriesRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListPayoutEntriesResponse, ResponseError> {
-    return this.#rawClient.execute<ListPayoutEntriesResponse, ResponseError>(
+  ): ApiPromise<ListPayoutEntriesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/payouts/{payout_id}/payout-entries"),
+        urlTemplate: this.#servers.default("/v2/payouts/{payout_id}/payout-entries"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "payout_id", value: request.payoutId, schema: s.string() }],
         query: [
           { name: "sort_order", value: request.sortOrder, schema: s.optional(s.lazy(() => sortOrderSchema)) },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listPayoutEntriesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -108,20 +113,22 @@ export class Payouts {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listPayouts(
     request: Payouts.ListPayoutsRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListPayoutsResponse, ResponseError> {
-    return this.#rawClient.execute<ListPayoutsResponse, ResponseError>(
+  ): ApiPromise<ListPayoutsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/payouts"),
+        urlTemplate: this.#servers.default("/v2/payouts"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
           { name: "location_id", value: request.locationId, schema: s.optional(s.string()) },
           { name: "status", value: request.status, schema: s.optional(s.lazy(() => payoutStatusSchema)) },
@@ -129,13 +136,14 @@ export class Payouts {
           { name: "end_time", value: request.endTime, schema: s.optional(s.string()) },
           { name: "sort_order", value: request.sortOrder, schema: s.optional(s.lazy(() => sortOrderSchema)) },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listPayoutsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

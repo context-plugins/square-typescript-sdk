@@ -93,7 +93,7 @@ export const updateCustomerRequestSchema: Schema<UpdateCustomerRequest> = s.obje
   referenceId: s.optionalNullable(s.string()),
   note: s.optionalNullable(s.string()),
   birthday: s.optionalNullable(s.string()),
-  version: s.optional(s.number()),
+  version: s.optional(s.int()),
   taxIds: s.optional(s.lazy(() => customerTaxIdsSchema)),
   _keysMap: {
     givenName: "given_name",

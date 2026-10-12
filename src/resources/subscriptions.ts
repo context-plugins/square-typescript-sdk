@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import { bulkSwapPlanRequestSchema, type BulkSwapPlanRequest } from "../models/bulk-swap-plan-request.js";
 import { bulkSwapPlanResponseSchema, type BulkSwapPlanResponse } from "../models/bulk-swap-plan-response.js";
@@ -95,25 +96,29 @@ export class Subscriptions {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   bulkSwapPlan(
     request: Subscriptions.BulkSwapPlanRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BulkSwapPlanResponse, ResponseError> {
-    return this.#rawClient.execute<BulkSwapPlanResponse, ResponseError>(
+  ): ApiPromise<BulkSwapPlanResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/subscriptions/bulk-swap-plan"),
+        urlTemplate: this.#servers.default("/v2/subscriptions/bulk-swap-plan"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: bulkSwapPlanRequestSchema },
       },
       {
         success: { kind: "json", schema: bulkSwapPlanResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -129,26 +134,29 @@ export class Subscriptions {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   cancelSubscription(
     request: Subscriptions.CancelSubscriptionRequest,
     options?: RequestOptions,
-  ): ApiPromise<CancelSubscriptionResponse, ResponseError> {
-    return this.#rawClient.execute<CancelSubscriptionResponse, ResponseError>(
+  ): ApiPromise<CancelSubscriptionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/subscriptions/{subscription_id}/cancel"),
+        urlTemplate: this.#servers.default("/v2/subscriptions/{subscription_id}/cancel"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "subscription_id", value: request.subscriptionId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: cancelSubscriptionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -164,26 +172,29 @@ export class Subscriptions {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   changeBillingAnchorDate(
     request: Subscriptions.ChangeBillingAnchorDateRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<ChangeBillingAnchorDateResponse, ResponseError> {
-    return this.#rawClient.execute<ChangeBillingAnchorDateResponse, ResponseError>(
+  ): ApiPromise<ChangeBillingAnchorDateResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/subscriptions/{subscription_id}/billing-anchor"),
+        urlTemplate: this.#servers.default("/v2/subscriptions/{subscription_id}/billing-anchor"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "subscription_id", value: request.subscriptionId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: changeBillingAnchorDateRequestSchema },
       },
       {
         success: { kind: "json", schema: changeBillingAnchorDateResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -205,25 +216,29 @@ export class Subscriptions {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createSubscription(
     request: Subscriptions.CreateSubscriptionRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateSubscriptionResponse, ResponseError> {
-    return this.#rawClient.execute<CreateSubscriptionResponse, ResponseError>(
+  ): ApiPromise<CreateSubscriptionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/subscriptions"),
+        urlTemplate: this.#servers.default("/v2/subscriptions"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createSubscriptionRequestSchema },
       },
       {
         success: { kind: "json", schema: createSubscriptionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -237,29 +252,32 @@ export class Subscriptions {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   deleteSubscriptionAction(
     request: Subscriptions.DeleteSubscriptionActionRequest,
     options?: RequestOptions,
-  ): ApiPromise<DeleteSubscriptionActionResponse, ResponseError> {
-    return this.#rawClient.execute<DeleteSubscriptionActionResponse, ResponseError>(
+  ): ApiPromise<DeleteSubscriptionActionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v2/subscriptions/{subscription_id}/actions/{action_id}"),
+        urlTemplate: this.#servers.default("/v2/subscriptions/{subscription_id}/actions/{action_id}"),
         auth: this.#auth.oauth2,
         pathParams: [
           { name: "subscription_id", value: request.subscriptionId, schema: s.string() },
           { name: "action_id", value: request.actionId, schema: s.string() },
         ],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: deleteSubscriptionActionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -274,30 +292,32 @@ export class Subscriptions {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listSubscriptionEvents(
     request: Subscriptions.ListSubscriptionEventsRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListSubscriptionEventsResponse, ResponseError> {
-    return this.#rawClient.execute<ListSubscriptionEventsResponse, ResponseError>(
+  ): ApiPromise<ListSubscriptionEventsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/subscriptions/{subscription_id}/events"),
+        urlTemplate: this.#servers.default("/v2/subscriptions/{subscription_id}/events"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "subscription_id", value: request.subscriptionId, schema: s.string() }],
         query: [
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listSubscriptionEventsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -311,26 +331,29 @@ export class Subscriptions {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   pauseSubscription(
     request: Subscriptions.PauseSubscriptionRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<PauseSubscriptionResponse, ResponseError> {
-    return this.#rawClient.execute<PauseSubscriptionResponse, ResponseError>(
+  ): ApiPromise<PauseSubscriptionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/subscriptions/{subscription_id}/pause"),
+        urlTemplate: this.#servers.default("/v2/subscriptions/{subscription_id}/pause"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "subscription_id", value: request.subscriptionId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: pauseSubscriptionRequestSchema },
       },
       {
         success: { kind: "json", schema: pauseSubscriptionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -344,26 +367,29 @@ export class Subscriptions {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   resumeSubscription(
     request: Subscriptions.ResumeSubscriptionRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<ResumeSubscriptionResponse, ResponseError> {
-    return this.#rawClient.execute<ResumeSubscriptionResponse, ResponseError>(
+  ): ApiPromise<ResumeSubscriptionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/subscriptions/{subscription_id}/resume"),
+        urlTemplate: this.#servers.default("/v2/subscriptions/{subscription_id}/resume"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "subscription_id", value: request.subscriptionId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: resumeSubscriptionRequestSchema },
       },
       {
         success: { kind: "json", schema: resumeSubscriptionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -377,27 +403,29 @@ export class Subscriptions {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveSubscription(
     request: Subscriptions.RetrieveSubscriptionRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveSubscriptionResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveSubscriptionResponse, ResponseError>(
+  ): ApiPromise<RetrieveSubscriptionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/subscriptions/{subscription_id}"),
+        urlTemplate: this.#servers.default("/v2/subscriptions/{subscription_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "subscription_id", value: request.subscriptionId, schema: s.string() }],
         query: [{ name: "include", value: request.include, schema: s.optional(s.string()) }],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveSubscriptionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -420,25 +448,29 @@ export class Subscriptions {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   searchSubscriptions(
     request: Subscriptions.SearchSubscriptionsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<SearchSubscriptionsResponse, ResponseError> {
-    return this.#rawClient.execute<SearchSubscriptionsResponse, ResponseError>(
+  ): ApiPromise<SearchSubscriptionsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/subscriptions/search"),
+        urlTemplate: this.#servers.default("/v2/subscriptions/search"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: searchSubscriptionsRequestSchema },
       },
       {
         success: { kind: "json", schema: searchSubscriptionsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -454,26 +486,29 @@ export class Subscriptions {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   swapPlan(
     request: Subscriptions.SwapPlanRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<SwapPlanResponse, ResponseError> {
-    return this.#rawClient.execute<SwapPlanResponse, ResponseError>(
+  ): ApiPromise<SwapPlanResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/subscriptions/{subscription_id}/swap-plan"),
+        urlTemplate: this.#servers.default("/v2/subscriptions/{subscription_id}/swap-plan"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "subscription_id", value: request.subscriptionId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: swapPlanRequestSchema },
       },
       {
         success: { kind: "json", schema: swapPlanResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -488,26 +523,29 @@ export class Subscriptions {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updateSubscription(
     request: Subscriptions.UpdateSubscriptionRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateSubscriptionResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateSubscriptionResponse, ResponseError>(
+  ): ApiPromise<UpdateSubscriptionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/subscriptions/{subscription_id}"),
+        urlTemplate: this.#servers.default("/v2/subscriptions/{subscription_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "subscription_id", value: request.subscriptionId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: updateSubscriptionRequestSchema },
       },
       {
         success: { kind: "json", schema: updateSubscriptionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

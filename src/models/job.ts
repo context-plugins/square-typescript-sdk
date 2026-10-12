@@ -37,7 +37,7 @@ export const jobSchema: Schema<Job> = s.object<Job>({
   isTipEligible: s.optionalNullable(s.boolean()),
   createdAt: s.optional(s.string()),
   updatedAt: s.optional(s.string()),
-  version: s.optional(s.number()),
+  version: s.optional(s.int()),
   _keysMap: {
     isTipEligible: "is_tip_eligible",
     createdAt: "created_at",

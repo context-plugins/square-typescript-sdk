@@ -20,7 +20,7 @@ export type ChangeBillingAnchorDateRequest = {
 
 export const changeBillingAnchorDateRequestSchema: Schema<ChangeBillingAnchorDateRequest> =
   s.object<ChangeBillingAnchorDateRequest>({
-    monthlyBillingAnchorDate: s.optionalNullable(s.number()),
+    monthlyBillingAnchorDate: s.optionalNullable(s.int()),
     effectiveDate: s.optionalNullable(s.string()),
     _keysMap: {
       monthlyBillingAnchorDate: "monthly_billing_anchor_date",

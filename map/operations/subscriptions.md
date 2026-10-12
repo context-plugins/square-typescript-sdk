@@ -4,16 +4,17 @@
 
 Accessor: `client.subscriptions` · Source: `src/resources/subscriptions.ts` · 12 operations · Request types: namespace `Subscriptions`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### bulkSwapPlan
 
-- **Signature**: `bulkSwapPlan(request: Subscriptions.BulkSwapPlanRequestParams, options?: RequestOptions): ApiPromise<BulkSwapPlanResponse, ResponseError>`
+- **Signature**: `bulkSwapPlan(request: Subscriptions.BulkSwapPlanRequestParams, options?: RequestOptions): ApiPromise<BulkSwapPlanResponse, ApiError>`
 - **Wire**: `POST /v2/subscriptions/bulk-swap-plan`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BulkSwapPlanResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Subscriptions.BulkSwapPlanRequestParams` (1):
 
@@ -28,12 +29,13 @@ Accessor: `client.subscriptions` · Source: `src/resources/subscriptions.ts` · 
 
 ### cancelSubscription
 
-- **Signature**: `cancelSubscription(request: Subscriptions.CancelSubscriptionRequest, options?: RequestOptions): ApiPromise<CancelSubscriptionResponse, ResponseError>`
+- **Signature**: `cancelSubscription(request: Subscriptions.CancelSubscriptionRequest, options?: RequestOptions): ApiPromise<CancelSubscriptionResponse, ApiError>`
 - **Wire**: `POST /v2/subscriptions/{subscription_id}/cancel`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CancelSubscriptionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Subscriptions.CancelSubscriptionRequest` (1):
 
@@ -47,12 +49,13 @@ Accessor: `client.subscriptions` · Source: `src/resources/subscriptions.ts` · 
 
 ### changeBillingAnchorDate
 
-- **Signature**: `changeBillingAnchorDate(request: Subscriptions.ChangeBillingAnchorDateRequestParams, options?: RequestOptions): ApiPromise<ChangeBillingAnchorDateResponse, ResponseError>`
+- **Signature**: `changeBillingAnchorDate(request: Subscriptions.ChangeBillingAnchorDateRequestParams, options?: RequestOptions): ApiPromise<ChangeBillingAnchorDateResponse, ApiError>`
 - **Wire**: `POST /v2/subscriptions/{subscription_id}/billing-anchor`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `ChangeBillingAnchorDateResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Subscriptions.ChangeBillingAnchorDateRequestParams` (2):
 
@@ -68,12 +71,13 @@ Accessor: `client.subscriptions` · Source: `src/resources/subscriptions.ts` · 
 
 ### createSubscription
 
-- **Signature**: `createSubscription(request: Subscriptions.CreateSubscriptionRequestParams, options?: RequestOptions): ApiPromise<CreateSubscriptionResponse, ResponseError>`
+- **Signature**: `createSubscription(request: Subscriptions.CreateSubscriptionRequestParams, options?: RequestOptions): ApiPromise<CreateSubscriptionResponse, ApiError>`
 - **Wire**: `POST /v2/subscriptions`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateSubscriptionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Subscriptions.CreateSubscriptionRequestParams` (1):
 
@@ -88,12 +92,13 @@ Accessor: `client.subscriptions` · Source: `src/resources/subscriptions.ts` · 
 
 ### deleteSubscriptionAction
 
-- **Signature**: `deleteSubscriptionAction(request: Subscriptions.DeleteSubscriptionActionRequest, options?: RequestOptions): ApiPromise<DeleteSubscriptionActionResponse, ResponseError>`
+- **Signature**: `deleteSubscriptionAction(request: Subscriptions.DeleteSubscriptionActionRequest, options?: RequestOptions): ApiPromise<DeleteSubscriptionActionResponse, ApiError>`
 - **Wire**: `DELETE /v2/subscriptions/{subscription_id}/actions/{action_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DeleteSubscriptionActionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Subscriptions.DeleteSubscriptionActionRequest` (2):
 
@@ -108,12 +113,12 @@ Accessor: `client.subscriptions` · Source: `src/resources/subscriptions.ts` · 
 
 ### listSubscriptionEvents
 
-- **Signature**: `listSubscriptionEvents(request: Subscriptions.ListSubscriptionEventsRequest, options?: RequestOptions): ApiPromise<ListSubscriptionEventsResponse, ResponseError>`
+- **Signature**: `listSubscriptionEvents(request: Subscriptions.ListSubscriptionEventsRequest, options?: RequestOptions): ApiPromise<ListSubscriptionEventsResponse, ApiError>`
 - **Wire**: `GET /v2/subscriptions/{subscription_id}/events`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListSubscriptionEventsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Subscriptions.ListSubscriptionEventsRequest` (3):
 
@@ -129,12 +134,13 @@ Accessor: `client.subscriptions` · Source: `src/resources/subscriptions.ts` · 
 
 ### pauseSubscription
 
-- **Signature**: `pauseSubscription(request: Subscriptions.PauseSubscriptionRequestParams, options?: RequestOptions): ApiPromise<PauseSubscriptionResponse, ResponseError>`
+- **Signature**: `pauseSubscription(request: Subscriptions.PauseSubscriptionRequestParams, options?: RequestOptions): ApiPromise<PauseSubscriptionResponse, ApiError>`
 - **Wire**: `POST /v2/subscriptions/{subscription_id}/pause`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `PauseSubscriptionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Subscriptions.PauseSubscriptionRequestParams` (2):
 
@@ -150,12 +156,13 @@ Accessor: `client.subscriptions` · Source: `src/resources/subscriptions.ts` · 
 
 ### resumeSubscription
 
-- **Signature**: `resumeSubscription(request: Subscriptions.ResumeSubscriptionRequestParams, options?: RequestOptions): ApiPromise<ResumeSubscriptionResponse, ResponseError>`
+- **Signature**: `resumeSubscription(request: Subscriptions.ResumeSubscriptionRequestParams, options?: RequestOptions): ApiPromise<ResumeSubscriptionResponse, ApiError>`
 - **Wire**: `POST /v2/subscriptions/{subscription_id}/resume`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `ResumeSubscriptionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Subscriptions.ResumeSubscriptionRequestParams` (2):
 
@@ -171,12 +178,12 @@ Accessor: `client.subscriptions` · Source: `src/resources/subscriptions.ts` · 
 
 ### retrieveSubscription
 
-- **Signature**: `retrieveSubscription(request: Subscriptions.RetrieveSubscriptionRequest, options?: RequestOptions): ApiPromise<RetrieveSubscriptionResponse, ResponseError>`
+- **Signature**: `retrieveSubscription(request: Subscriptions.RetrieveSubscriptionRequest, options?: RequestOptions): ApiPromise<RetrieveSubscriptionResponse, ApiError>`
 - **Wire**: `GET /v2/subscriptions/{subscription_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveSubscriptionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Subscriptions.RetrieveSubscriptionRequest` (2):
 
@@ -191,12 +198,13 @@ Accessor: `client.subscriptions` · Source: `src/resources/subscriptions.ts` · 
 
 ### searchSubscriptions
 
-- **Signature**: `searchSubscriptions(request: Subscriptions.SearchSubscriptionsRequestParams, options?: RequestOptions): ApiPromise<SearchSubscriptionsResponse, ResponseError>`
+- **Signature**: `searchSubscriptions(request: Subscriptions.SearchSubscriptionsRequestParams, options?: RequestOptions): ApiPromise<SearchSubscriptionsResponse, ApiError>`
 - **Wire**: `POST /v2/subscriptions/search`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `SearchSubscriptionsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Subscriptions.SearchSubscriptionsRequestParams` (1):
 
@@ -211,12 +219,13 @@ Accessor: `client.subscriptions` · Source: `src/resources/subscriptions.ts` · 
 
 ### swapPlan
 
-- **Signature**: `swapPlan(request: Subscriptions.SwapPlanRequestParams, options?: RequestOptions): ApiPromise<SwapPlanResponse, ResponseError>`
+- **Signature**: `swapPlan(request: Subscriptions.SwapPlanRequestParams, options?: RequestOptions): ApiPromise<SwapPlanResponse, ApiError>`
 - **Wire**: `POST /v2/subscriptions/{subscription_id}/swap-plan`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `SwapPlanResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Subscriptions.SwapPlanRequestParams` (2):
 
@@ -232,12 +241,13 @@ Accessor: `client.subscriptions` · Source: `src/resources/subscriptions.ts` · 
 
 ### updateSubscription
 
-- **Signature**: `updateSubscription(request: Subscriptions.UpdateSubscriptionRequestParams, options?: RequestOptions): ApiPromise<UpdateSubscriptionResponse, ResponseError>`
+- **Signature**: `updateSubscription(request: Subscriptions.UpdateSubscriptionRequestParams, options?: RequestOptions): ApiPromise<UpdateSubscriptionResponse, ApiError>`
 - **Wire**: `PUT /v2/subscriptions/{subscription_id}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateSubscriptionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Subscriptions.UpdateSubscriptionRequestParams` (2):
 

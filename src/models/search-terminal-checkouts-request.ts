@@ -19,5 +19,5 @@ export const searchTerminalCheckoutsRequestSchema: Schema<SearchTerminalCheckout
   s.object<SearchTerminalCheckoutsRequest>({
     query: s.optional(s.lazy(() => terminalCheckoutQuerySchema)),
     cursor: s.optional(s.string()),
-    limit: s.optional(s.number()),
+    limit: s.optional(s.int()),
   });

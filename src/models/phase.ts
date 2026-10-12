@@ -15,7 +15,7 @@ export type Phase = {
 
 export const phaseSchema: Schema<Phase> = s.object<Phase>({
   uid: s.optionalNullable(s.string()),
-  ordinal: s.optionalNullable(s.number()),
+  ordinal: s.optionalNullable(s.int()),
   orderTemplateId: s.optionalNullable(s.string()),
   planPhaseUid: s.optionalNullable(s.string()),
   _keysMap: {

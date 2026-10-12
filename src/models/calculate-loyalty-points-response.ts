@@ -19,8 +19,8 @@ export type CalculateLoyaltyPointsResponse = {
 export const calculateLoyaltyPointsResponseSchema: Schema<CalculateLoyaltyPointsResponse> =
   s.object<CalculateLoyaltyPointsResponse>({
     errors: s.optional(s.array(s.lazy(() => errorSchema))),
-    points: s.optional(s.number()),
-    promotionPoints: s.optional(s.number()),
+    points: s.optional(s.int()),
+    promotionPoints: s.optional(s.int()),
     _keysMap: {
       promotionPoints: "promotion_points",
     },

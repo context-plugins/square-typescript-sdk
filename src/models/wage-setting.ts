@@ -34,7 +34,7 @@ export const wageSettingSchema: Schema<WageSetting> = s.object<WageSetting>({
   teamMemberId: s.optionalNullable(s.string()),
   jobAssignments: s.optionalNullable(s.array(s.lazy(() => jobAssignmentSchema))),
   isOvertimeExempt: s.optionalNullable(s.boolean()),
-  version: s.optional(s.number()),
+  version: s.optional(s.int()),
   createdAt: s.optional(s.string()),
   updatedAt: s.optional(s.string()),
   _keysMap: {

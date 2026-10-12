@@ -92,7 +92,7 @@ export const shiftSchema: Schema<Shift> = s.object<Shift>({
   wage: s.optional(s.lazy(() => shiftWageSchema)),
   breaks: s.optionalNullable(s.array(s.lazy(() => breakSchema))),
   status: s.optional(s.lazy(() => shiftStatusSchema)),
-  version: s.optional(s.number()),
+  version: s.optional(s.int()),
   createdAt: s.optional(s.string()),
   updatedAt: s.optional(s.string()),
   teamMemberId: s.optionalNullable(s.string()),

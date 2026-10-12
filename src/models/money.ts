@@ -26,6 +26,6 @@ export type Money = {
 };
 
 export const moneySchema: Schema<Money> = s.object<Money>({
-  amount: s.optionalNullable(s.number()),
+  amount: s.optionalNullable(s.int()),
   currency: s.optional(s.lazy(() => currencySchema)),
 });

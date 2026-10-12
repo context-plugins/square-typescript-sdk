@@ -28,7 +28,7 @@ export type CatalogMeasurementUnit = {
 
 export const catalogMeasurementUnitSchema: Schema<CatalogMeasurementUnit> = s.object<CatalogMeasurementUnit>({
   measurementUnit: s.optional(s.lazy(() => measurementUnitSchema)),
-  precision: s.optionalNullable(s.number()),
+  precision: s.optionalNullable(s.int()),
   _keysMap: {
     measurementUnit: "measurement_unit",
   },

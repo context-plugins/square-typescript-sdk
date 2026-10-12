@@ -19,7 +19,7 @@ export const updateTransferOrderRequestSchema: Schema<UpdateTransferOrderRequest
   s.object<UpdateTransferOrderRequest>({
     idempotencyKey: s.string(),
     transferOrder: updateTransferOrderDataSchema,
-    version: s.optional(s.number()),
+    version: s.optional(s.int()),
     _keysMap: {
       idempotencyKey: "idempotency_key",
       transferOrder: "transfer_order",

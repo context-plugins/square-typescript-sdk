@@ -32,7 +32,7 @@ export const channelSchema: Schema<Channel> = s.object<Channel>({
   id: s.optional(s.string()),
   merchantId: s.optional(s.string()),
   name: s.optionalNullable(s.string()),
-  version: s.optional(s.number()),
+  version: s.optional(s.int()),
   reference: s.optional(s.lazy(() => referenceSchema)),
   status: s.optional(s.lazy(() => channelStatusSchema)),
   createdAt: s.optional(s.string()),

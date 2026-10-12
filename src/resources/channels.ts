@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   bulkRetrieveChannelsRequestSchema,
@@ -37,25 +38,29 @@ export class Channels {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   bulkRetrieveChannels(
     request: Channels.BulkRetrieveChannelsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BulkRetrieveChannelsResponse, ResponseError> {
-    return this.#rawClient.execute<BulkRetrieveChannelsResponse, ResponseError>(
+  ): ApiPromise<BulkRetrieveChannelsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/channels/bulk-retrieve"),
+        urlTemplate: this.#servers.default("/v2/channels/bulk-retrieve"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: bulkRetrieveChannelsRequestSchema },
       },
       {
         success: { kind: "json", schema: bulkRetrieveChannelsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -66,20 +71,22 @@ export class Channels {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listChannels(
     request: Channels.ListChannelsRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListChannelsResponse, ResponseError> {
-    return this.#rawClient.execute<ListChannelsResponse, ResponseError>(
+  ): ApiPromise<ListChannelsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/channels"),
+        urlTemplate: this.#servers.default("/v2/channels"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
           {
             name: "reference_type",
@@ -89,13 +96,14 @@ export class Channels {
           { name: "reference_id", value: request.referenceId, schema: s.optional(s.string()) },
           { name: "status", value: request.status, schema: s.optional(s.lazy(() => channelStatusSchema)) },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listChannelsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -106,26 +114,29 @@ export class Channels {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveChannel(
     request: Channels.RetrieveChannelRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveChannelResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveChannelResponse, ResponseError>(
+  ): ApiPromise<RetrieveChannelResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/channels/{channel_id}"),
+        urlTemplate: this.#servers.default("/v2/channels/{channel_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "channel_id", value: request.channelId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveChannelResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

@@ -1,8 +1,8 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
 import * as s from "../core/validation/index.js";
 import {
   listCustomerSegmentsResponseSchema,
@@ -33,29 +33,32 @@ export class CustomerSegments {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listCustomerSegments(
     request: CustomerSegments.ListCustomerSegmentsRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListCustomerSegmentsResponse, ResponseError> {
-    return this.#rawClient.execute<ListCustomerSegmentsResponse, ResponseError>(
+  ): ApiPromise<ListCustomerSegmentsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/customers/segments"),
+        urlTemplate: this.#servers.default("/v2/customers/segments"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listCustomerSegmentsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -69,26 +72,29 @@ export class CustomerSegments {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveCustomerSegment(
     request: CustomerSegments.RetrieveCustomerSegmentRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveCustomerSegmentResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveCustomerSegmentResponse, ResponseError>(
+  ): ApiPromise<RetrieveCustomerSegmentResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/customers/segments/{segment_id}"),
+        urlTemplate: this.#servers.default("/v2/customers/segments/{segment_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "segment_id", value: request.segmentId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveCustomerSegmentResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

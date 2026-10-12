@@ -20,7 +20,7 @@ export const loyaltyEventAccumulatePromotionPointsSchema: Schema<LoyaltyEventAcc
   s.object<LoyaltyEventAccumulatePromotionPoints>({
     loyaltyProgramId: s.optional(s.string()),
     loyaltyPromotionId: s.optional(s.string()),
-    points: s.number(),
+    points: s.int(),
     orderId: s.string(),
     _keysMap: {
       loyaltyProgramId: "loyalty_program_id",

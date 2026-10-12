@@ -110,7 +110,7 @@ export const orderReturnServiceChargeSchema: Schema<OrderReturnServiceCharge> =
     sourceServiceChargeUid: s.optionalNullable(s.string()),
     name: s.optionalNullable(s.string()),
     catalogObjectId: s.optionalNullable(s.string()),
-    catalogVersion: s.optionalNullable(s.number()),
+    catalogVersion: s.optionalNullable(s.int()),
     percentage: s.optionalNullable(s.string()),
     amountMoney: s.optional(s.lazy(() => moneySchema)),
     appliedMoney: s.optional(s.lazy(() => moneySchema)),

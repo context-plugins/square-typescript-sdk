@@ -1,6 +1,7 @@
 import * as s from "../core/validation/index.js";
 import type { Schema } from "../core/validation/schema.js";
 import { deviceCodeStatusSchema, type DeviceCodeStatus } from "./device-code-status.js";
+import { productTypeSchema, type ProductType } from "./product-type.js";
 
 export type DeviceCode = {
   /** The unique id for this device code. */
@@ -11,7 +12,7 @@ export type DeviceCode = {
   code?: string;
   /** The unique id of the device that used this code. Populated when the device is paired up. */
   deviceId?: string;
-  productType: "TERMINAL_API";
+  productType: ProductType;
   /** The location assigned to this code. */
   locationId?: string | null;
   /** DeviceCode.Status enum. */
@@ -31,7 +32,7 @@ export const deviceCodeSchema: Schema<DeviceCode> = s.object<DeviceCode>({
   name: s.optionalNullable(s.string()),
   code: s.optional(s.string()),
   deviceId: s.optional(s.string()),
-  productType: s.literal("TERMINAL_API"),
+  productType: productTypeSchema,
   locationId: s.optionalNullable(s.string()),
   status: s.optional(s.lazy(() => deviceCodeStatusSchema)),
   pairBy: s.optional(s.string()),

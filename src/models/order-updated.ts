@@ -26,7 +26,7 @@ export type OrderUpdated = {
 
 export const orderUpdatedSchema: Schema<OrderUpdated> = s.object<OrderUpdated>({
   orderId: s.optionalNullable(s.string()),
-  version: s.optional(s.number()),
+  version: s.optional(s.int()),
   locationId: s.optionalNullable(s.string()),
   state: s.optional(s.lazy(() => orderStateSchema)),
   createdAt: s.optional(s.string()),

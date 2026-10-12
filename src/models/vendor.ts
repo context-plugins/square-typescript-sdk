@@ -54,7 +54,7 @@ export const vendorSchema: Schema<Vendor> = s.object<Vendor>({
   contacts: s.optionalNullable(s.array(s.lazy(() => vendorContactSchema))),
   accountNumber: s.optionalNullable(s.string()),
   note: s.optionalNullable(s.string()),
-  version: s.optional(s.number()),
+  version: s.optional(s.int()),
   status: s.optional(s.lazy(() => vendorStatusSchema)),
   _keysMap: {
     createdAt: "created_at",

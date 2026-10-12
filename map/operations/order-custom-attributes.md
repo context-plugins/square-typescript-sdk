@@ -4,16 +4,17 @@
 
 Accessor: `client.orderCustomAttributes` · Source: `src/resources/order-custom-attributes.ts` · 11 operations · Request types: namespace `OrderCustomAttributes`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### bulkDeleteOrderCustomAttributes
 
-- **Signature**: `bulkDeleteOrderCustomAttributes(request: OrderCustomAttributes.BulkDeleteOrderCustomAttributesRequestParams, options?: RequestOptions): ApiPromise<BulkDeleteOrderCustomAttributesResponse, ResponseError>`
+- **Signature**: `bulkDeleteOrderCustomAttributes(request: OrderCustomAttributes.BulkDeleteOrderCustomAttributesRequestParams, options?: RequestOptions): ApiPromise<BulkDeleteOrderCustomAttributesResponse, ApiError>`
 - **Wire**: `POST /v2/orders/custom-attributes/bulk-delete`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BulkDeleteOrderCustomAttributesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `OrderCustomAttributes.BulkDeleteOrderCustomAttributesRequestParams` (1):
 
@@ -28,12 +29,13 @@ Accessor: `client.orderCustomAttributes` · Source: `src/resources/order-custom-
 
 ### bulkUpsertOrderCustomAttributes
 
-- **Signature**: `bulkUpsertOrderCustomAttributes(request: OrderCustomAttributes.BulkUpsertOrderCustomAttributesRequestParams, options?: RequestOptions): ApiPromise<BulkUpsertOrderCustomAttributesResponse, ResponseError>`
+- **Signature**: `bulkUpsertOrderCustomAttributes(request: OrderCustomAttributes.BulkUpsertOrderCustomAttributesRequestParams, options?: RequestOptions): ApiPromise<BulkUpsertOrderCustomAttributesResponse, ApiError>`
 - **Wire**: `POST /v2/orders/custom-attributes/bulk-upsert`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BulkUpsertOrderCustomAttributesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `OrderCustomAttributes.BulkUpsertOrderCustomAttributesRequestParams` (1):
 
@@ -48,12 +50,13 @@ Accessor: `client.orderCustomAttributes` · Source: `src/resources/order-custom-
 
 ### createOrderCustomAttributeDefinition
 
-- **Signature**: `createOrderCustomAttributeDefinition(request: OrderCustomAttributes.CreateOrderCustomAttributeDefinitionRequestParams, options?: RequestOptions): ApiPromise<CreateOrderCustomAttributeDefinitionResponse, ResponseError>`
+- **Signature**: `createOrderCustomAttributeDefinition(request: OrderCustomAttributes.CreateOrderCustomAttributeDefinitionRequestParams, options?: RequestOptions): ApiPromise<CreateOrderCustomAttributeDefinitionResponse, ApiError>`
 - **Wire**: `POST /v2/orders/custom-attribute-definitions`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateOrderCustomAttributeDefinitionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `OrderCustomAttributes.CreateOrderCustomAttributeDefinitionRequestParams` (1):
 
@@ -68,12 +71,13 @@ Accessor: `client.orderCustomAttributes` · Source: `src/resources/order-custom-
 
 ### deleteOrderCustomAttribute
 
-- **Signature**: `deleteOrderCustomAttribute(request: OrderCustomAttributes.DeleteOrderCustomAttributeRequest, options?: RequestOptions): ApiPromise<DeleteOrderCustomAttributeResponse, ResponseError>`
+- **Signature**: `deleteOrderCustomAttribute(request: OrderCustomAttributes.DeleteOrderCustomAttributeRequest, options?: RequestOptions): ApiPromise<DeleteOrderCustomAttributeResponse, ApiError>`
 - **Wire**: `DELETE /v2/orders/{order_id}/custom-attributes/{custom_attribute_key}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DeleteOrderCustomAttributeResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `OrderCustomAttributes.DeleteOrderCustomAttributeRequest` (2):
 
@@ -88,12 +92,13 @@ Accessor: `client.orderCustomAttributes` · Source: `src/resources/order-custom-
 
 ### deleteOrderCustomAttributeDefinition
 
-- **Signature**: `deleteOrderCustomAttributeDefinition(request: OrderCustomAttributes.DeleteOrderCustomAttributeDefinitionRequest, options?: RequestOptions): ApiPromise<DeleteOrderCustomAttributeDefinitionResponse, ResponseError>`
+- **Signature**: `deleteOrderCustomAttributeDefinition(request: OrderCustomAttributes.DeleteOrderCustomAttributeDefinitionRequest, options?: RequestOptions): ApiPromise<DeleteOrderCustomAttributeDefinitionResponse, ApiError>`
 - **Wire**: `DELETE /v2/orders/custom-attribute-definitions/{key}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DeleteOrderCustomAttributeDefinitionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `OrderCustomAttributes.DeleteOrderCustomAttributeDefinitionRequest` (1):
 
@@ -107,12 +112,12 @@ Accessor: `client.orderCustomAttributes` · Source: `src/resources/order-custom-
 
 ### listOrderCustomAttributeDefinitions
 
-- **Signature**: `listOrderCustomAttributeDefinitions(request: OrderCustomAttributes.ListOrderCustomAttributeDefinitionsRequest, options?: RequestOptions): ApiPromise<ListOrderCustomAttributeDefinitionsResponse, ResponseError>`
+- **Signature**: `listOrderCustomAttributeDefinitions(request: OrderCustomAttributes.ListOrderCustomAttributeDefinitionsRequest, options?: RequestOptions): ApiPromise<ListOrderCustomAttributeDefinitionsResponse, ApiError>`
 - **Wire**: `GET /v2/orders/custom-attribute-definitions`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListOrderCustomAttributeDefinitionsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `OrderCustomAttributes.ListOrderCustomAttributeDefinitionsRequest` (3):
 
@@ -129,12 +134,12 @@ Accessor: `client.orderCustomAttributes` · Source: `src/resources/order-custom-
 
 ### listOrderCustomAttributes
 
-- **Signature**: `listOrderCustomAttributes(request: OrderCustomAttributes.ListOrderCustomAttributesRequest, options?: RequestOptions): ApiPromise<ListOrderCustomAttributesResponse, ResponseError>`
+- **Signature**: `listOrderCustomAttributes(request: OrderCustomAttributes.ListOrderCustomAttributesRequest, options?: RequestOptions): ApiPromise<ListOrderCustomAttributesResponse, ApiError>`
 - **Wire**: `GET /v2/orders/{order_id}/custom-attributes`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListOrderCustomAttributesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `OrderCustomAttributes.ListOrderCustomAttributesRequest` (5):
 
@@ -153,12 +158,12 @@ Accessor: `client.orderCustomAttributes` · Source: `src/resources/order-custom-
 
 ### retrieveOrderCustomAttribute
 
-- **Signature**: `retrieveOrderCustomAttribute(request: OrderCustomAttributes.RetrieveOrderCustomAttributeRequest, options?: RequestOptions): ApiPromise<RetrieveOrderCustomAttributeResponse, ResponseError>`
+- **Signature**: `retrieveOrderCustomAttribute(request: OrderCustomAttributes.RetrieveOrderCustomAttributeRequest, options?: RequestOptions): ApiPromise<RetrieveOrderCustomAttributeResponse, ApiError>`
 - **Wire**: `GET /v2/orders/{order_id}/custom-attributes/{custom_attribute_key}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveOrderCustomAttributeResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `OrderCustomAttributes.RetrieveOrderCustomAttributeRequest` (4):
 
@@ -175,12 +180,12 @@ Accessor: `client.orderCustomAttributes` · Source: `src/resources/order-custom-
 
 ### retrieveOrderCustomAttributeDefinition
 
-- **Signature**: `retrieveOrderCustomAttributeDefinition(request: OrderCustomAttributes.RetrieveOrderCustomAttributeDefinitionRequest, options?: RequestOptions): ApiPromise<RetrieveOrderCustomAttributeDefinitionResponse, ResponseError>`
+- **Signature**: `retrieveOrderCustomAttributeDefinition(request: OrderCustomAttributes.RetrieveOrderCustomAttributeDefinitionRequest, options?: RequestOptions): ApiPromise<RetrieveOrderCustomAttributeDefinitionResponse, ApiError>`
 - **Wire**: `GET /v2/orders/custom-attribute-definitions/{key}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveOrderCustomAttributeDefinitionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `OrderCustomAttributes.RetrieveOrderCustomAttributeDefinitionRequest` (2):
 
@@ -195,12 +200,13 @@ Accessor: `client.orderCustomAttributes` · Source: `src/resources/order-custom-
 
 ### updateOrderCustomAttributeDefinition
 
-- **Signature**: `updateOrderCustomAttributeDefinition(request: OrderCustomAttributes.UpdateOrderCustomAttributeDefinitionRequestParams, options?: RequestOptions): ApiPromise<UpdateOrderCustomAttributeDefinitionResponse, ResponseError>`
+- **Signature**: `updateOrderCustomAttributeDefinition(request: OrderCustomAttributes.UpdateOrderCustomAttributeDefinitionRequestParams, options?: RequestOptions): ApiPromise<UpdateOrderCustomAttributeDefinitionResponse, ApiError>`
 - **Wire**: `PUT /v2/orders/custom-attribute-definitions/{key}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateOrderCustomAttributeDefinitionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `OrderCustomAttributes.UpdateOrderCustomAttributeDefinitionRequestParams` (2):
 
@@ -216,12 +222,13 @@ Accessor: `client.orderCustomAttributes` · Source: `src/resources/order-custom-
 
 ### upsertOrderCustomAttribute
 
-- **Signature**: `upsertOrderCustomAttribute(request: OrderCustomAttributes.UpsertOrderCustomAttributeRequestParams, options?: RequestOptions): ApiPromise<UpsertOrderCustomAttributeResponse, ResponseError>`
+- **Signature**: `upsertOrderCustomAttribute(request: OrderCustomAttributes.UpsertOrderCustomAttributeRequestParams, options?: RequestOptions): ApiPromise<UpsertOrderCustomAttributeResponse, ApiError>`
 - **Wire**: `POST /v2/orders/{order_id}/custom-attributes/{custom_attribute_key}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpsertOrderCustomAttributeResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `OrderCustomAttributes.UpsertOrderCustomAttributeRequestParams` (3):
 

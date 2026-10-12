@@ -40,7 +40,7 @@ export const scheduledShiftSchema: Schema<ScheduledShift> = s.object<ScheduledSh
   id: s.optional(s.string()),
   draftShiftDetails: s.optional(s.lazy(() => scheduledShiftDetailsSchema)),
   publishedShiftDetails: s.optional(s.lazy(() => scheduledShiftDetailsSchema)),
-  version: s.optional(s.number()),
+  version: s.optional(s.int()),
   createdAt: s.optional(s.string()),
   updatedAt: s.optional(s.string()),
   _keysMap: {

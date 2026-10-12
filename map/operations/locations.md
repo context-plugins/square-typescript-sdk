@@ -4,16 +4,17 @@
 
 Accessor: `client.locations` · Source: `src/resources/locations.ts` · 4 operations · Request types: namespace `Locations`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### createLocation
 
-- **Signature**: `createLocation(request: Locations.CreateLocationRequestParams, options?: RequestOptions): ApiPromise<CreateLocationResponse, ResponseError>`
+- **Signature**: `createLocation(request: Locations.CreateLocationRequestParams, options?: RequestOptions): ApiPromise<CreateLocationResponse, ApiError>`
 - **Wire**: `POST /v2/locations`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateLocationResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Locations.CreateLocationRequestParams` (1):
 
@@ -28,12 +29,12 @@ Accessor: `client.locations` · Source: `src/resources/locations.ts` · 4 operat
 
 ### listLocations
 
-- **Signature**: `listLocations(options?: RequestOptions): ApiPromise<ListLocationsResponse, ResponseError>`
+- **Signature**: `listLocations(options?: RequestOptions): ApiPromise<ListLocationsResponse, ApiError>`
 - **Wire**: `GET /v2/locations`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListLocationsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 | Type | Schema value | Source |
 | --- | --- | --- |
@@ -41,12 +42,12 @@ Accessor: `client.locations` · Source: `src/resources/locations.ts` · 4 operat
 
 ### retrieveLocation
 
-- **Signature**: `retrieveLocation(request: Locations.RetrieveLocationRequest, options?: RequestOptions): ApiPromise<RetrieveLocationResponse, ResponseError>`
+- **Signature**: `retrieveLocation(request: Locations.RetrieveLocationRequest, options?: RequestOptions): ApiPromise<RetrieveLocationResponse, ApiError>`
 - **Wire**: `GET /v2/locations/{location_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveLocationResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Locations.RetrieveLocationRequest` (1):
 
@@ -60,12 +61,13 @@ Accessor: `client.locations` · Source: `src/resources/locations.ts` · 4 operat
 
 ### updateLocation
 
-- **Signature**: `updateLocation(request: Locations.UpdateLocationRequestParams, options?: RequestOptions): ApiPromise<UpdateLocationResponse, ResponseError>`
+- **Signature**: `updateLocation(request: Locations.UpdateLocationRequestParams, options?: RequestOptions): ApiPromise<UpdateLocationResponse, ApiError>`
 - **Wire**: `PUT /v2/locations/{location_id}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateLocationResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Locations.UpdateLocationRequestParams` (2):
 

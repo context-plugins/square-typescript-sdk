@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   bulkUpsertCustomerCustomAttributesRequestSchema,
@@ -97,25 +98,29 @@ export class CustomerCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   bulkUpsertCustomerCustomAttributes(
     request: CustomerCustomAttributes.BulkUpsertCustomerCustomAttributesRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BulkUpsertCustomerCustomAttributesResponse, ResponseError> {
-    return this.#rawClient.execute<BulkUpsertCustomerCustomAttributesResponse, ResponseError>(
+  ): ApiPromise<BulkUpsertCustomerCustomAttributesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/customers/custom-attributes/bulk-upsert"),
+        urlTemplate: this.#servers.default("/v2/customers/custom-attributes/bulk-upsert"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: bulkUpsertCustomerCustomAttributesRequestSchema },
       },
       {
         success: { kind: "json", schema: bulkUpsertCustomerCustomAttributesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -141,20 +146,24 @@ export class CustomerCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createCustomerCustomAttributeDefinition(
     request: CustomerCustomAttributes.CreateCustomerCustomAttributeDefinitionRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateCustomerCustomAttributeDefinitionResponse, ResponseError> {
-    return this.#rawClient.execute<CreateCustomerCustomAttributeDefinitionResponse, ResponseError>(
+  ): ApiPromise<CreateCustomerCustomAttributeDefinitionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/customers/custom-attribute-definitions"),
+        urlTemplate: this.#servers.default("/v2/customers/custom-attribute-definitions"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: {
           kind: "json",
           value: request.body,
@@ -163,7 +172,7 @@ export class CustomerCustomAttributes {
       },
       {
         success: { kind: "json", schema: createCustomerCustomAttributeDefinitionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -181,29 +190,32 @@ export class CustomerCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   deleteCustomerCustomAttribute(
     request: CustomerCustomAttributes.DeleteCustomerCustomAttributeRequest,
     options?: RequestOptions,
-  ): ApiPromise<DeleteCustomerCustomAttributeResponse, ResponseError> {
-    return this.#rawClient.execute<DeleteCustomerCustomAttributeResponse, ResponseError>(
+  ): ApiPromise<DeleteCustomerCustomAttributeResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v2/customers/{customer_id}/custom-attributes/{key}"),
+        urlTemplate: this.#servers.default("/v2/customers/{customer_id}/custom-attributes/{key}"),
         auth: this.#auth.oauth2,
         pathParams: [
           { name: "customer_id", value: request.customerId, schema: s.string() },
           { name: "key", value: request.key, schema: s.string() },
         ],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: deleteCustomerCustomAttributeResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -223,26 +235,29 @@ export class CustomerCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   deleteCustomerCustomAttributeDefinition(
     request: CustomerCustomAttributes.DeleteCustomerCustomAttributeDefinitionRequest,
     options?: RequestOptions,
-  ): ApiPromise<DeleteCustomerCustomAttributeDefinitionResponse, ResponseError> {
-    return this.#rawClient.execute<DeleteCustomerCustomAttributeDefinitionResponse, ResponseError>(
+  ): ApiPromise<DeleteCustomerCustomAttributeDefinitionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v2/customers/custom-attribute-definitions/{key}"),
+        urlTemplate: this.#servers.default("/v2/customers/custom-attribute-definitions/{key}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "key", value: request.key, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: deleteCustomerCustomAttributeDefinitionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -263,29 +278,32 @@ export class CustomerCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listCustomerCustomAttributeDefinitions(
     request: CustomerCustomAttributes.ListCustomerCustomAttributeDefinitionsRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListCustomerCustomAttributeDefinitionsResponse, ResponseError> {
-    return this.#rawClient.execute<ListCustomerCustomAttributeDefinitionsResponse, ResponseError>(
+  ): ApiPromise<ListCustomerCustomAttributeDefinitionsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/customers/custom-attribute-definitions"),
+        urlTemplate: this.#servers.default("/v2/customers/custom-attribute-definitions"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listCustomerCustomAttributeDefinitionsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -306,23 +324,24 @@ export class CustomerCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listCustomerCustomAttributes(
     request: CustomerCustomAttributes.ListCustomerCustomAttributesRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListCustomerCustomAttributesResponse, ResponseError> {
-    return this.#rawClient.execute<ListCustomerCustomAttributesResponse, ResponseError>(
+  ): ApiPromise<ListCustomerCustomAttributesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/customers/{customer_id}/custom-attributes"),
+        urlTemplate: this.#servers.default("/v2/customers/{customer_id}/custom-attributes"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "customer_id", value: request.customerId, schema: s.string() }],
         query: [
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
           {
             name: "with_definitions",
@@ -330,11 +349,12 @@ export class CustomerCustomAttributes {
             schema: s.defaulted(s.boolean(), false),
           },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listCustomerCustomAttributesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -355,19 +375,20 @@ export class CustomerCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveCustomerCustomAttribute(
     request: CustomerCustomAttributes.RetrieveCustomerCustomAttributeRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveCustomerCustomAttributeResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveCustomerCustomAttributeResponse, ResponseError>(
+  ): ApiPromise<RetrieveCustomerCustomAttributeResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/customers/{customer_id}/custom-attributes/{key}"),
+        urlTemplate: this.#servers.default("/v2/customers/{customer_id}/custom-attributes/{key}"),
         auth: this.#auth.oauth2,
         pathParams: [
           { name: "customer_id", value: request.customerId, schema: s.string() },
@@ -375,13 +396,14 @@ export class CustomerCustomAttributes {
         ],
         query: [
           { name: "with_definition", value: request.withDefinition, schema: s.defaulted(s.boolean(), false) },
-          { name: "version", value: request.version, schema: s.optional(s.number()) },
+          { name: "version", value: request.version, schema: s.optional(s.int()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveCustomerCustomAttributeResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -401,27 +423,29 @@ export class CustomerCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveCustomerCustomAttributeDefinition(
     request: CustomerCustomAttributes.RetrieveCustomerCustomAttributeDefinitionRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveCustomerCustomAttributeDefinitionResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveCustomerCustomAttributeDefinitionResponse, ResponseError>(
+  ): ApiPromise<RetrieveCustomerCustomAttributeDefinitionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/customers/custom-attribute-definitions/{key}"),
+        urlTemplate: this.#servers.default("/v2/customers/custom-attribute-definitions/{key}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "key", value: request.key, schema: s.string() }],
-        query: [{ name: "version", value: request.version, schema: s.optional(s.number()) }],
+        query: [{ name: "version", value: request.version, schema: s.optional(s.int()) }],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveCustomerCustomAttributeDefinitionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -442,21 +466,24 @@ export class CustomerCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updateCustomerCustomAttributeDefinition(
     request: CustomerCustomAttributes.UpdateCustomerCustomAttributeDefinitionRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateCustomerCustomAttributeDefinitionResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateCustomerCustomAttributeDefinitionResponse, ResponseError>(
+  ): ApiPromise<UpdateCustomerCustomAttributeDefinitionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/customers/custom-attribute-definitions/{key}"),
+        urlTemplate: this.#servers.default("/v2/customers/custom-attribute-definitions/{key}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "key", value: request.key, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: {
           kind: "json",
           value: request.body,
@@ -465,7 +492,7 @@ export class CustomerCustomAttributes {
       },
       {
         success: { kind: "json", schema: updateCustomerCustomAttributeDefinitionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -489,29 +516,32 @@ export class CustomerCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   upsertCustomerCustomAttribute(
     request: CustomerCustomAttributes.UpsertCustomerCustomAttributeRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpsertCustomerCustomAttributeResponse, ResponseError> {
-    return this.#rawClient.execute<UpsertCustomerCustomAttributeResponse, ResponseError>(
+  ): ApiPromise<UpsertCustomerCustomAttributeResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/customers/{customer_id}/custom-attributes/{key}"),
+        urlTemplate: this.#servers.default("/v2/customers/{customer_id}/custom-attributes/{key}"),
         auth: this.#auth.oauth2,
         pathParams: [
           { name: "customer_id", value: request.customerId, schema: s.string() },
           { name: "key", value: request.key, schema: s.string() },
         ],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: upsertCustomerCustomAttributeRequestSchema },
       },
       {
         success: { kind: "json", schema: upsertCustomerCustomAttributeResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

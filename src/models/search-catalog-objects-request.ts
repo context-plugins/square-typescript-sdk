@@ -118,7 +118,7 @@ export const searchCatalogObjectsRequestSchema: Schema<SearchCatalogObjectsReque
     includeRelatedObjects: s.optional(s.boolean()),
     beginTime: s.optional(s.string()),
     query: s.optional(s.lazy(() => catalogQuerySchema)),
-    limit: s.optional(s.number()),
+    limit: s.optional(s.int()),
     includeCategoryPathToRoot: s.optional(s.boolean()),
     _keysMap: {
       objectTypes: "object_types",

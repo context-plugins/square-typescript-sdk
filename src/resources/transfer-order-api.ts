@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   cancelTransferOrderRequestSchema,
@@ -91,26 +92,29 @@ export class TransferOrderApi {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   cancelTransferOrder(
     request: TransferOrderApi.CancelTransferOrderRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CancelTransferOrderResponse, ResponseError> {
-    return this.#rawClient.execute<CancelTransferOrderResponse, ResponseError>(
+  ): ApiPromise<CancelTransferOrderResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/transfer-orders/{transfer_order_id}/cancel"),
+        urlTemplate: this.#servers.default("/v2/transfer-orders/{transfer_order_id}/cancel"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "transfer_order_id", value: request.transferOrderId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: cancelTransferOrderRequestSchema },
       },
       {
         success: { kind: "json", schema: cancelTransferOrderResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -145,25 +149,29 @@ export class TransferOrderApi {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createTransferOrder(
     request: TransferOrderApi.CreateTransferOrderRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateTransferOrderResponse, ResponseError> {
-    return this.#rawClient.execute<CreateTransferOrderResponse, ResponseError>(
+  ): ApiPromise<CreateTransferOrderResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/transfer-orders"),
+        urlTemplate: this.#servers.default("/v2/transfer-orders"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createTransferOrderRequestSchema },
       },
       {
         success: { kind: "json", schema: createTransferOrderResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -182,27 +190,29 @@ export class TransferOrderApi {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   deleteTransferOrder(
     request: TransferOrderApi.DeleteTransferOrderRequest,
     options?: RequestOptions,
-  ): ApiPromise<DeleteTransferOrderResponse, ResponseError> {
-    return this.#rawClient.execute<DeleteTransferOrderResponse, ResponseError>(
+  ): ApiPromise<DeleteTransferOrderResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v2/transfer-orders/{transfer_order_id}"),
+        urlTemplate: this.#servers.default("/v2/transfer-orders/{transfer_order_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "transfer_order_id", value: request.transferOrderId, schema: s.string() }],
-        query: [{ name: "version", value: request.version, schema: s.optional(s.number()) }],
+        query: [{ name: "version", value: request.version, schema: s.optional(s.int()) }],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: deleteTransferOrderResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -234,26 +244,29 @@ export class TransferOrderApi {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   receiveTransferOrder(
     request: TransferOrderApi.ReceiveTransferOrderRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<ReceiveTransferOrderResponse, ResponseError> {
-    return this.#rawClient.execute<ReceiveTransferOrderResponse, ResponseError>(
+  ): ApiPromise<ReceiveTransferOrderResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/transfer-orders/{transfer_order_id}/receive"),
+        urlTemplate: this.#servers.default("/v2/transfer-orders/{transfer_order_id}/receive"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "transfer_order_id", value: request.transferOrderId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: receiveTransferOrderRequestSchema },
       },
       {
         success: { kind: "json", schema: receiveTransferOrderResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -273,26 +286,29 @@ export class TransferOrderApi {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveTransferOrder(
     request: TransferOrderApi.RetrieveTransferOrderRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveTransferOrderResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveTransferOrderResponse, ResponseError>(
+  ): ApiPromise<RetrieveTransferOrderResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/transfer-orders/{transfer_order_id}"),
+        urlTemplate: this.#servers.default("/v2/transfer-orders/{transfer_order_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "transfer_order_id", value: request.transferOrderId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveTransferOrderResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -312,25 +328,29 @@ export class TransferOrderApi {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   searchTransferOrders(
     request: TransferOrderApi.SearchTransferOrdersRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<SearchTransferOrdersResponse, ResponseError> {
-    return this.#rawClient.execute<SearchTransferOrdersResponse, ResponseError>(
+  ): ApiPromise<SearchTransferOrdersResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/transfer-orders/search"),
+        urlTemplate: this.#servers.default("/v2/transfer-orders/search"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: searchTransferOrdersRequestSchema },
       },
       {
         success: { kind: "json", schema: searchTransferOrdersResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -352,26 +372,29 @@ export class TransferOrderApi {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   startTransferOrder(
     request: TransferOrderApi.StartTransferOrderRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<StartTransferOrderResponse, ResponseError> {
-    return this.#rawClient.execute<StartTransferOrderResponse, ResponseError>(
+  ): ApiPromise<StartTransferOrderResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/transfer-orders/{transfer_order_id}/start"),
+        urlTemplate: this.#servers.default("/v2/transfer-orders/{transfer_order_id}/start"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "transfer_order_id", value: request.transferOrderId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: startTransferOrderRequestSchema },
       },
       {
         success: { kind: "json", schema: startTransferOrderResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -388,26 +411,29 @@ export class TransferOrderApi {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updateTransferOrder(
     request: TransferOrderApi.UpdateTransferOrderRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateTransferOrderResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateTransferOrderResponse, ResponseError>(
+  ): ApiPromise<UpdateTransferOrderResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/transfer-orders/{transfer_order_id}"),
+        urlTemplate: this.#servers.default("/v2/transfer-orders/{transfer_order_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "transfer_order_id", value: request.transferOrderId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: updateTransferOrderRequestSchema },
       },
       {
         success: { kind: "json", schema: updateTransferOrderResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

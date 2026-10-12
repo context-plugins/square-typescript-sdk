@@ -4,16 +4,17 @@
 
 Accessor: `client.payments` · Source: `src/resources/payments.ts` · 7 operations · Request types: namespace `Payments`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### cancelPayment
 
-- **Signature**: `cancelPayment(request: Payments.CancelPaymentRequest, options?: RequestOptions): ApiPromise<CancelPaymentResponse, ResponseError>`
+- **Signature**: `cancelPayment(request: Payments.CancelPaymentRequest, options?: RequestOptions): ApiPromise<CancelPaymentResponse, ApiError>`
 - **Wire**: `POST /v2/payments/{payment_id}/cancel`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CancelPaymentResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Payments.CancelPaymentRequest` (1):
 
@@ -27,12 +28,13 @@ Accessor: `client.payments` · Source: `src/resources/payments.ts` · 7 operatio
 
 ### cancelPaymentByIdempotencyKey
 
-- **Signature**: `cancelPaymentByIdempotencyKey(request: Payments.CancelPaymentByIdempotencyKeyRequestParams, options?: RequestOptions): ApiPromise<CancelPaymentByIdempotencyKeyResponse, ResponseError>`
+- **Signature**: `cancelPaymentByIdempotencyKey(request: Payments.CancelPaymentByIdempotencyKeyRequestParams, options?: RequestOptions): ApiPromise<CancelPaymentByIdempotencyKeyResponse, ApiError>`
 - **Wire**: `POST /v2/payments/cancel`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CancelPaymentByIdempotencyKeyResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Payments.CancelPaymentByIdempotencyKeyRequestParams` (1):
 
@@ -47,12 +49,13 @@ Accessor: `client.payments` · Source: `src/resources/payments.ts` · 7 operatio
 
 ### completePayment
 
-- **Signature**: `completePayment(request: Payments.CompletePaymentRequestParams, options?: RequestOptions): ApiPromise<CompletePaymentResponse, ResponseError>`
+- **Signature**: `completePayment(request: Payments.CompletePaymentRequestParams, options?: RequestOptions): ApiPromise<CompletePaymentResponse, ApiError>`
 - **Wire**: `POST /v2/payments/{payment_id}/complete`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CompletePaymentResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Payments.CompletePaymentRequestParams` (2):
 
@@ -68,12 +71,13 @@ Accessor: `client.payments` · Source: `src/resources/payments.ts` · 7 operatio
 
 ### createPayment
 
-- **Signature**: `createPayment(request: Payments.CreatePaymentRequestParams, options?: RequestOptions): ApiPromise<CreatePaymentResponse, ResponseError>`
+- **Signature**: `createPayment(request: Payments.CreatePaymentRequestParams, options?: RequestOptions): ApiPromise<CreatePaymentResponse, ApiError>`
 - **Wire**: `POST /v2/payments`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreatePaymentResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Payments.CreatePaymentRequestParams` (1):
 
@@ -88,12 +92,12 @@ Accessor: `client.payments` · Source: `src/resources/payments.ts` · 7 operatio
 
 ### getPayment
 
-- **Signature**: `getPayment(request: Payments.GetPaymentRequest, options?: RequestOptions): ApiPromise<GetPaymentResponse, ResponseError>`
+- **Signature**: `getPayment(request: Payments.GetPaymentRequest, options?: RequestOptions): ApiPromise<GetPaymentResponse, ApiError>`
 - **Wire**: `GET /v2/payments/{payment_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `GetPaymentResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Payments.GetPaymentRequest` (1):
 
@@ -107,12 +111,12 @@ Accessor: `client.payments` · Source: `src/resources/payments.ts` · 7 operatio
 
 ### listPayments
 
-- **Signature**: `listPayments(request: Payments.ListPaymentsRequest, options?: RequestOptions): ApiPromise<ListPaymentsResponse, ResponseError>`
+- **Signature**: `listPayments(request: Payments.ListPaymentsRequest, options?: RequestOptions): ApiPromise<ListPaymentsResponse, ApiError>`
 - **Wire**: `GET /v2/payments`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListPaymentsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Payments.ListPaymentsRequest` (15):
 
@@ -141,12 +145,13 @@ Accessor: `client.payments` · Source: `src/resources/payments.ts` · 7 operatio
 
 ### updatePayment
 
-- **Signature**: `updatePayment(request: Payments.UpdatePaymentRequestParams, options?: RequestOptions): ApiPromise<UpdatePaymentResponse, ResponseError>`
+- **Signature**: `updatePayment(request: Payments.UpdatePaymentRequestParams, options?: RequestOptions): ApiPromise<UpdatePaymentResponse, ApiError>`
 - **Wire**: `PUT /v2/payments/{payment_id}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdatePaymentResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Payments.UpdatePaymentRequestParams` (2):
 

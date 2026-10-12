@@ -31,7 +31,7 @@ export type PublishScheduledShiftRequest = {
 export const publishScheduledShiftRequestSchema: Schema<PublishScheduledShiftRequest> =
   s.object<PublishScheduledShiftRequest>({
     idempotencyKey: s.string(),
-    version: s.optional(s.number()),
+    version: s.optional(s.int()),
     scheduledShiftNotificationAudience: s.optional(s.lazy(() => scheduledShiftNotificationAudienceSchema)),
     _keysMap: {
       idempotencyKey: "idempotency_key",

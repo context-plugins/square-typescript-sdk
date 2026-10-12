@@ -31,7 +31,7 @@ export const subscriptionEventSchema: Schema<SubscriptionEvent> = s.object<Subsc
   id: s.string(),
   subscriptionEventType: subscriptionEventSubscriptionEventTypeSchema,
   effectiveDate: s.string(),
-  monthlyBillingAnchorDate: s.optional(s.number()),
+  monthlyBillingAnchorDate: s.optional(s.int()),
   info: s.optional(s.lazy(() => subscriptionEventInfoSchema)),
   phases: s.optionalNullable(s.array(s.lazy(() => phaseSchema))),
   planVariationId: s.string(),

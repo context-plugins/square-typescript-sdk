@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   cancelPaymentByIdempotencyKeyRequestSchema,
@@ -62,26 +63,29 @@ export class Payments {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   cancelPayment(
     request: Payments.CancelPaymentRequest,
     options?: RequestOptions,
-  ): ApiPromise<CancelPaymentResponse, ResponseError> {
-    return this.#rawClient.execute<CancelPaymentResponse, ResponseError>(
+  ): ApiPromise<CancelPaymentResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/payments/{payment_id}/cancel"),
+        urlTemplate: this.#servers.default("/v2/payments/{payment_id}/cancel"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "payment_id", value: request.paymentId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: cancelPaymentResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -104,25 +108,29 @@ export class Payments {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   cancelPaymentByIdempotencyKey(
     request: Payments.CancelPaymentByIdempotencyKeyRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CancelPaymentByIdempotencyKeyResponse, ResponseError> {
-    return this.#rawClient.execute<CancelPaymentByIdempotencyKeyResponse, ResponseError>(
+  ): ApiPromise<CancelPaymentByIdempotencyKeyResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/payments/cancel"),
+        urlTemplate: this.#servers.default("/v2/payments/cancel"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: cancelPaymentByIdempotencyKeyRequestSchema },
       },
       {
         success: { kind: "json", schema: cancelPaymentByIdempotencyKeyResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -139,26 +147,29 @@ export class Payments {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   completePayment(
     request: Payments.CompletePaymentRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CompletePaymentResponse, ResponseError> {
-    return this.#rawClient.execute<CompletePaymentResponse, ResponseError>(
+  ): ApiPromise<CompletePaymentResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/payments/{payment_id}/complete"),
+        urlTemplate: this.#servers.default("/v2/payments/{payment_id}/complete"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "payment_id", value: request.paymentId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: completePaymentRequestSchema },
       },
       {
         success: { kind: "json", schema: completePaymentResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -177,25 +188,29 @@ export class Payments {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createPayment(
     request: Payments.CreatePaymentRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreatePaymentResponse, ResponseError> {
-    return this.#rawClient.execute<CreatePaymentResponse, ResponseError>(
+  ): ApiPromise<CreatePaymentResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/payments"),
+        urlTemplate: this.#servers.default("/v2/payments"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createPaymentRequestSchema },
       },
       {
         success: { kind: "json", schema: createPaymentResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -209,26 +224,29 @@ export class Payments {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   getPayment(
     request: Payments.GetPaymentRequest,
     options?: RequestOptions,
-  ): ApiPromise<GetPaymentResponse, ResponseError> {
-    return this.#rawClient.execute<GetPaymentResponse, ResponseError>(
+  ): ApiPromise<GetPaymentResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/payments/{payment_id}"),
+        urlTemplate: this.#servers.default("/v2/payments/{payment_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "payment_id", value: request.paymentId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: getPaymentResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -247,30 +265,32 @@ export class Payments {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listPayments(
     request: Payments.ListPaymentsRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListPaymentsResponse, ResponseError> {
-    return this.#rawClient.execute<ListPaymentsResponse, ResponseError>(
+  ): ApiPromise<ListPaymentsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/payments"),
+        urlTemplate: this.#servers.default("/v2/payments"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
           { name: "begin_time", value: request.beginTime, schema: s.optional(s.string()) },
           { name: "end_time", value: request.endTime, schema: s.optional(s.string()) },
           { name: "sort_order", value: request.sortOrder, schema: s.optional(s.string()) },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
           { name: "location_id", value: request.locationId, schema: s.optional(s.string()) },
-          { name: "total", value: request.total, schema: s.optional(s.number()) },
+          { name: "total", value: request.total, schema: s.optional(s.int()) },
           { name: "last_4", value: request.last4, schema: s.optional(s.string()) },
           { name: "card_brand", value: request.cardBrand, schema: s.optional(s.string()) },
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
           {
             name: "is_offline_payment",
             value: request.isOfflinePayment,
@@ -290,11 +310,12 @@ export class Payments {
             schema: s.optional(s.lazy(() => listPaymentsRequestSortFieldSchema)),
           },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listPaymentsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -309,26 +330,29 @@ export class Payments {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updatePayment(
     request: Payments.UpdatePaymentRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdatePaymentResponse, ResponseError> {
-    return this.#rawClient.execute<UpdatePaymentResponse, ResponseError>(
+  ): ApiPromise<UpdatePaymentResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/payments/{payment_id}"),
+        urlTemplate: this.#servers.default("/v2/payments/{payment_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "payment_id", value: request.paymentId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: updatePaymentRequestSchema },
       },
       {
         success: { kind: "json", schema: updatePaymentResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

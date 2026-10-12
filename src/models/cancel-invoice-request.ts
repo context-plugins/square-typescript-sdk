@@ -12,5 +12,5 @@ export type CancelInvoiceRequest = {
 };
 
 export const cancelInvoiceRequestSchema: Schema<CancelInvoiceRequest> = s.object<CancelInvoiceRequest>({
-  version: s.number(),
+  version: s.int(),
 });

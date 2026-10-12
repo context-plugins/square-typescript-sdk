@@ -17,7 +17,7 @@ export type LoyaltyEventAccumulatePoints = {
 export const loyaltyEventAccumulatePointsSchema: Schema<LoyaltyEventAccumulatePoints> =
   s.object<LoyaltyEventAccumulatePoints>({
     loyaltyProgramId: s.optional(s.string()),
-    points: s.optionalNullable(s.number()),
+    points: s.optionalNullable(s.int()),
     orderId: s.optionalNullable(s.string()),
     _keysMap: {
       loyaltyProgramId: "loyalty_program_id",

@@ -4,16 +4,17 @@
 
 Accessor: `client.customerCustomAttributes` · Source: `src/resources/customer-custom-attributes.ts` · 10 operations · Request types: namespace `CustomerCustomAttributes`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### bulkUpsertCustomerCustomAttributes
 
-- **Signature**: `bulkUpsertCustomerCustomAttributes(request: CustomerCustomAttributes.BulkUpsertCustomerCustomAttributesRequestParams, options?: RequestOptions): ApiPromise<BulkUpsertCustomerCustomAttributesResponse, ResponseError>`
+- **Signature**: `bulkUpsertCustomerCustomAttributes(request: CustomerCustomAttributes.BulkUpsertCustomerCustomAttributesRequestParams, options?: RequestOptions): ApiPromise<BulkUpsertCustomerCustomAttributesResponse, ApiError>`
 - **Wire**: `POST /v2/customers/custom-attributes/bulk-upsert`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BulkUpsertCustomerCustomAttributesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `CustomerCustomAttributes.BulkUpsertCustomerCustomAttributesRequestParams` (1):
 
@@ -28,12 +29,13 @@ Accessor: `client.customerCustomAttributes` · Source: `src/resources/customer-c
 
 ### createCustomerCustomAttributeDefinition
 
-- **Signature**: `createCustomerCustomAttributeDefinition(request: CustomerCustomAttributes.CreateCustomerCustomAttributeDefinitionRequestParams, options?: RequestOptions): ApiPromise<CreateCustomerCustomAttributeDefinitionResponse, ResponseError>`
+- **Signature**: `createCustomerCustomAttributeDefinition(request: CustomerCustomAttributes.CreateCustomerCustomAttributeDefinitionRequestParams, options?: RequestOptions): ApiPromise<CreateCustomerCustomAttributeDefinitionResponse, ApiError>`
 - **Wire**: `POST /v2/customers/custom-attribute-definitions`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateCustomerCustomAttributeDefinitionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `CustomerCustomAttributes.CreateCustomerCustomAttributeDefinitionRequestParams` (1):
 
@@ -48,12 +50,13 @@ Accessor: `client.customerCustomAttributes` · Source: `src/resources/customer-c
 
 ### deleteCustomerCustomAttribute
 
-- **Signature**: `deleteCustomerCustomAttribute(request: CustomerCustomAttributes.DeleteCustomerCustomAttributeRequest, options?: RequestOptions): ApiPromise<DeleteCustomerCustomAttributeResponse, ResponseError>`
+- **Signature**: `deleteCustomerCustomAttribute(request: CustomerCustomAttributes.DeleteCustomerCustomAttributeRequest, options?: RequestOptions): ApiPromise<DeleteCustomerCustomAttributeResponse, ApiError>`
 - **Wire**: `DELETE /v2/customers/{customer_id}/custom-attributes/{key}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DeleteCustomerCustomAttributeResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `CustomerCustomAttributes.DeleteCustomerCustomAttributeRequest` (2):
 
@@ -68,12 +71,13 @@ Accessor: `client.customerCustomAttributes` · Source: `src/resources/customer-c
 
 ### deleteCustomerCustomAttributeDefinition
 
-- **Signature**: `deleteCustomerCustomAttributeDefinition(request: CustomerCustomAttributes.DeleteCustomerCustomAttributeDefinitionRequest, options?: RequestOptions): ApiPromise<DeleteCustomerCustomAttributeDefinitionResponse, ResponseError>`
+- **Signature**: `deleteCustomerCustomAttributeDefinition(request: CustomerCustomAttributes.DeleteCustomerCustomAttributeDefinitionRequest, options?: RequestOptions): ApiPromise<DeleteCustomerCustomAttributeDefinitionResponse, ApiError>`
 - **Wire**: `DELETE /v2/customers/custom-attribute-definitions/{key}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DeleteCustomerCustomAttributeDefinitionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `CustomerCustomAttributes.DeleteCustomerCustomAttributeDefinitionRequest` (1):
 
@@ -87,12 +91,12 @@ Accessor: `client.customerCustomAttributes` · Source: `src/resources/customer-c
 
 ### listCustomerCustomAttributeDefinitions
 
-- **Signature**: `listCustomerCustomAttributeDefinitions(request: CustomerCustomAttributes.ListCustomerCustomAttributeDefinitionsRequest, options?: RequestOptions): ApiPromise<ListCustomerCustomAttributeDefinitionsResponse, ResponseError>`
+- **Signature**: `listCustomerCustomAttributeDefinitions(request: CustomerCustomAttributes.ListCustomerCustomAttributeDefinitionsRequest, options?: RequestOptions): ApiPromise<ListCustomerCustomAttributeDefinitionsResponse, ApiError>`
 - **Wire**: `GET /v2/customers/custom-attribute-definitions`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListCustomerCustomAttributeDefinitionsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `CustomerCustomAttributes.ListCustomerCustomAttributeDefinitionsRequest` (2):
 
@@ -107,12 +111,12 @@ Accessor: `client.customerCustomAttributes` · Source: `src/resources/customer-c
 
 ### listCustomerCustomAttributes
 
-- **Signature**: `listCustomerCustomAttributes(request: CustomerCustomAttributes.ListCustomerCustomAttributesRequest, options?: RequestOptions): ApiPromise<ListCustomerCustomAttributesResponse, ResponseError>`
+- **Signature**: `listCustomerCustomAttributes(request: CustomerCustomAttributes.ListCustomerCustomAttributesRequest, options?: RequestOptions): ApiPromise<ListCustomerCustomAttributesResponse, ApiError>`
 - **Wire**: `GET /v2/customers/{customer_id}/custom-attributes`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListCustomerCustomAttributesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `CustomerCustomAttributes.ListCustomerCustomAttributesRequest` (4):
 
@@ -129,12 +133,12 @@ Accessor: `client.customerCustomAttributes` · Source: `src/resources/customer-c
 
 ### retrieveCustomerCustomAttribute
 
-- **Signature**: `retrieveCustomerCustomAttribute(request: CustomerCustomAttributes.RetrieveCustomerCustomAttributeRequest, options?: RequestOptions): ApiPromise<RetrieveCustomerCustomAttributeResponse, ResponseError>`
+- **Signature**: `retrieveCustomerCustomAttribute(request: CustomerCustomAttributes.RetrieveCustomerCustomAttributeRequest, options?: RequestOptions): ApiPromise<RetrieveCustomerCustomAttributeResponse, ApiError>`
 - **Wire**: `GET /v2/customers/{customer_id}/custom-attributes/{key}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveCustomerCustomAttributeResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `CustomerCustomAttributes.RetrieveCustomerCustomAttributeRequest` (4):
 
@@ -151,12 +155,12 @@ Accessor: `client.customerCustomAttributes` · Source: `src/resources/customer-c
 
 ### retrieveCustomerCustomAttributeDefinition
 
-- **Signature**: `retrieveCustomerCustomAttributeDefinition(request: CustomerCustomAttributes.RetrieveCustomerCustomAttributeDefinitionRequest, options?: RequestOptions): ApiPromise<RetrieveCustomerCustomAttributeDefinitionResponse, ResponseError>`
+- **Signature**: `retrieveCustomerCustomAttributeDefinition(request: CustomerCustomAttributes.RetrieveCustomerCustomAttributeDefinitionRequest, options?: RequestOptions): ApiPromise<RetrieveCustomerCustomAttributeDefinitionResponse, ApiError>`
 - **Wire**: `GET /v2/customers/custom-attribute-definitions/{key}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveCustomerCustomAttributeDefinitionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `CustomerCustomAttributes.RetrieveCustomerCustomAttributeDefinitionRequest` (2):
 
@@ -171,12 +175,13 @@ Accessor: `client.customerCustomAttributes` · Source: `src/resources/customer-c
 
 ### updateCustomerCustomAttributeDefinition
 
-- **Signature**: `updateCustomerCustomAttributeDefinition(request: CustomerCustomAttributes.UpdateCustomerCustomAttributeDefinitionRequestParams, options?: RequestOptions): ApiPromise<UpdateCustomerCustomAttributeDefinitionResponse, ResponseError>`
+- **Signature**: `updateCustomerCustomAttributeDefinition(request: CustomerCustomAttributes.UpdateCustomerCustomAttributeDefinitionRequestParams, options?: RequestOptions): ApiPromise<UpdateCustomerCustomAttributeDefinitionResponse, ApiError>`
 - **Wire**: `PUT /v2/customers/custom-attribute-definitions/{key}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateCustomerCustomAttributeDefinitionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `CustomerCustomAttributes.UpdateCustomerCustomAttributeDefinitionRequestParams` (2):
 
@@ -192,12 +197,13 @@ Accessor: `client.customerCustomAttributes` · Source: `src/resources/customer-c
 
 ### upsertCustomerCustomAttribute
 
-- **Signature**: `upsertCustomerCustomAttribute(request: CustomerCustomAttributes.UpsertCustomerCustomAttributeRequestParams, options?: RequestOptions): ApiPromise<UpsertCustomerCustomAttributeResponse, ResponseError>`
+- **Signature**: `upsertCustomerCustomAttribute(request: CustomerCustomAttributes.UpsertCustomerCustomAttributeRequestParams, options?: RequestOptions): ApiPromise<UpsertCustomerCustomAttributeResponse, ApiError>`
 - **Wire**: `POST /v2/customers/{customer_id}/custom-attributes/{key}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpsertCustomerCustomAttributeResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `CustomerCustomAttributes.UpsertCustomerCustomAttributeRequestParams` (3):
 

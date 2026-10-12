@@ -4,17 +4,17 @@
 
 Accessor: `client.v1Transactions` · Source: `src/resources/v1-transactions.ts` · 3 operations · Request types: namespace `V1Transactions`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### v1ListOrders
 
-- **Signature**: `v1ListOrders(request: V1Transactions.V1ListOrdersRequest, options?: RequestOptions): ApiPromise<V1Order[], ResponseError>`
+- **Signature**: `v1ListOrders(request: V1Transactions.V1ListOrdersRequest, options?: RequestOptions): ApiPromise<V1Order[], ApiError>`
 - **Deprecated**: the method carries `@deprecated`, so an IDE strikes the call site through; it still works
 - **Wire**: `GET /v1/{location_id}/orders`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `V1Order[]` — a bare `application/json` array; the success type *is* the array, not a wrapper model
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `V1Transactions.V1ListOrdersRequest` (4):
 
@@ -32,13 +32,13 @@ Accessor: `client.v1Transactions` · Source: `src/resources/v1-transactions.ts` 
 
 ### v1RetrieveOrder
 
-- **Signature**: `v1RetrieveOrder(request: V1Transactions.V1RetrieveOrderRequest, options?: RequestOptions): ApiPromise<V1Order, ResponseError>`
+- **Signature**: `v1RetrieveOrder(request: V1Transactions.V1RetrieveOrderRequest, options?: RequestOptions): ApiPromise<V1Order, ApiError>`
 - **Deprecated**: the method carries `@deprecated`, so an IDE strikes the call site through; it still works
 - **Wire**: `GET /v1/{location_id}/orders/{order_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `V1Order`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `V1Transactions.V1RetrieveOrderRequest` (2):
 
@@ -53,13 +53,14 @@ Accessor: `client.v1Transactions` · Source: `src/resources/v1-transactions.ts` 
 
 ### v1UpdateOrder
 
-- **Signature**: `v1UpdateOrder(request: V1Transactions.V1UpdateOrderRequestParams, options?: RequestOptions): ApiPromise<V1Order, ResponseError>`
+- **Signature**: `v1UpdateOrder(request: V1Transactions.V1UpdateOrderRequestParams, options?: RequestOptions): ApiPromise<V1Order, ApiError>`
 - **Deprecated**: the method carries `@deprecated`, so an IDE strikes the call site through; it still works
 - **Wire**: `PUT /v1/{location_id}/orders/{order_id}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `V1Order`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `V1Transactions.V1UpdateOrderRequestParams` (3):
 

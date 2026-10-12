@@ -42,7 +42,7 @@ export type PaymentLink = {
 
 export const paymentLinkSchema: Schema<PaymentLink> = s.object<PaymentLink>({
   id: s.optional(s.string()),
-  version: s.number(),
+  version: s.int(),
   description: s.optionalNullable(s.string()),
   orderId: s.optional(s.string()),
   checkoutOptions: s.optional(s.lazy(() => checkoutOptionsSchema)),

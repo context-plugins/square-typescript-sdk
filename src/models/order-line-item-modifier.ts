@@ -69,7 +69,7 @@ export type OrderLineItemModifier = {
 export const orderLineItemModifierSchema: Schema<OrderLineItemModifier> = s.object<OrderLineItemModifier>({
   uid: s.optionalNullable(s.string()),
   catalogObjectId: s.optionalNullable(s.string()),
-  catalogVersion: s.optionalNullable(s.number()),
+  catalogVersion: s.optionalNullable(s.int()),
   name: s.optionalNullable(s.string()),
   quantity: s.optionalNullable(s.string()),
   basePriceMoney: s.optional(s.lazy(() => moneySchema)),

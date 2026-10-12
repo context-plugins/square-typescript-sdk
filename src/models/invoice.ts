@@ -180,7 +180,7 @@ export type Invoice = {
 
 export const invoiceSchema: Schema<Invoice> = s.object<Invoice>({
   id: s.optional(s.string()),
-  version: s.optional(s.number()),
+  version: s.optional(s.int()),
   locationId: s.optionalNullable(s.string()),
   orderId: s.optionalNullable(s.string()),
   primaryRecipient: s.optional(s.lazy(() => invoiceRecipientSchema)),

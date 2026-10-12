@@ -70,7 +70,7 @@ export const searchCatalogItemsRequestSchema: Schema<SearchCatalogItemsRequest> 
     stockLevels: s.optional(s.array(s.lazy(() => searchCatalogItemsRequestStockLevelSchema))),
     enabledLocationIds: s.optional(s.array(s.string())),
     cursor: s.optional(s.string()),
-    limit: s.optional(s.number()),
+    limit: s.optional(s.int()),
     sortOrder: s.optional(s.lazy(() => sortOrderSchema)),
     productTypes: s.optional(s.array(s.lazy(() => catalogItemProductTypeSchema))),
     customAttributeFilters: s.optional(s.array(s.lazy(() => customAttributeFilterSchema))),

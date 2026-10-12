@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   createWebhookSubscriptionRequestSchema,
@@ -74,25 +75,29 @@ export class WebhookSubscriptions {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createWebhookSubscription(
     request: WebhookSubscriptions.CreateWebhookSubscriptionRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateWebhookSubscriptionResponse, ResponseError> {
-    return this.#rawClient.execute<CreateWebhookSubscriptionResponse, ResponseError>(
+  ): ApiPromise<CreateWebhookSubscriptionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/webhooks/subscriptions"),
+        urlTemplate: this.#servers.default("/v2/webhooks/subscriptions"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createWebhookSubscriptionRequestSchema },
       },
       {
         success: { kind: "json", schema: createWebhookSubscriptionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -106,26 +111,29 @@ export class WebhookSubscriptions {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   deleteWebhookSubscription(
     request: WebhookSubscriptions.DeleteWebhookSubscriptionRequest,
     options?: RequestOptions,
-  ): ApiPromise<DeleteWebhookSubscriptionResponse, ResponseError> {
-    return this.#rawClient.execute<DeleteWebhookSubscriptionResponse, ResponseError>(
+  ): ApiPromise<DeleteWebhookSubscriptionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v2/webhooks/subscriptions/{subscription_id}"),
+        urlTemplate: this.#servers.default("/v2/webhooks/subscriptions/{subscription_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "subscription_id", value: request.subscriptionId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: deleteWebhookSubscriptionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -139,26 +147,29 @@ export class WebhookSubscriptions {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listWebhookEventTypes(
     request: WebhookSubscriptions.ListWebhookEventTypesRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListWebhookEventTypesResponse, ResponseError> {
-    return this.#rawClient.execute<ListWebhookEventTypesResponse, ResponseError>(
+  ): ApiPromise<ListWebhookEventTypesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/webhooks/event-types"),
+        urlTemplate: this.#servers.default("/v2/webhooks/event-types"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [{ name: "api_version", value: request.apiVersion, schema: s.optional(s.string()) }],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listWebhookEventTypesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -172,20 +183,22 @@ export class WebhookSubscriptions {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listWebhookSubscriptions(
     request: WebhookSubscriptions.ListWebhookSubscriptionsRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListWebhookSubscriptionsResponse, ResponseError> {
-    return this.#rawClient.execute<ListWebhookSubscriptionsResponse, ResponseError>(
+  ): ApiPromise<ListWebhookSubscriptionsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/webhooks/subscriptions"),
+        urlTemplate: this.#servers.default("/v2/webhooks/subscriptions"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
           {
@@ -194,13 +207,14 @@ export class WebhookSubscriptions {
             schema: s.defaulted(s.boolean(), false),
           },
           { name: "sort_order", value: request.sortOrder, schema: s.optional(s.lazy(() => sortOrderSchema)) },
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listWebhookSubscriptionsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -214,26 +228,29 @@ export class WebhookSubscriptions {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveWebhookSubscription(
     request: WebhookSubscriptions.RetrieveWebhookSubscriptionRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveWebhookSubscriptionResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveWebhookSubscriptionResponse, ResponseError>(
+  ): ApiPromise<RetrieveWebhookSubscriptionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/webhooks/subscriptions/{subscription_id}"),
+        urlTemplate: this.#servers.default("/v2/webhooks/subscriptions/{subscription_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "subscription_id", value: request.subscriptionId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveWebhookSubscriptionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -247,26 +264,29 @@ export class WebhookSubscriptions {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   testWebhookSubscription(
     request: WebhookSubscriptions.TestWebhookSubscriptionRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<TestWebhookSubscriptionResponse, ResponseError> {
-    return this.#rawClient.execute<TestWebhookSubscriptionResponse, ResponseError>(
+  ): ApiPromise<TestWebhookSubscriptionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/webhooks/subscriptions/{subscription_id}/test"),
+        urlTemplate: this.#servers.default("/v2/webhooks/subscriptions/{subscription_id}/test"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "subscription_id", value: request.subscriptionId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: testWebhookSubscriptionRequestSchema },
       },
       {
         success: { kind: "json", schema: testWebhookSubscriptionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -280,26 +300,29 @@ export class WebhookSubscriptions {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updateWebhookSubscription(
     request: WebhookSubscriptions.UpdateWebhookSubscriptionRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateWebhookSubscriptionResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateWebhookSubscriptionResponse, ResponseError>(
+  ): ApiPromise<UpdateWebhookSubscriptionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/webhooks/subscriptions/{subscription_id}"),
+        urlTemplate: this.#servers.default("/v2/webhooks/subscriptions/{subscription_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "subscription_id", value: request.subscriptionId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: updateWebhookSubscriptionRequestSchema },
       },
       {
         success: { kind: "json", schema: updateWebhookSubscriptionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -313,21 +336,24 @@ export class WebhookSubscriptions {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updateWebhookSubscriptionSignatureKey(
     request: WebhookSubscriptions.UpdateWebhookSubscriptionSignatureKeyRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateWebhookSubscriptionSignatureKeyResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateWebhookSubscriptionSignatureKeyResponse, ResponseError>(
+  ): ApiPromise<UpdateWebhookSubscriptionSignatureKeyResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/webhooks/subscriptions/{subscription_id}/signature-key"),
+        urlTemplate: this.#servers.default("/v2/webhooks/subscriptions/{subscription_id}/signature-key"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "subscription_id", value: request.subscriptionId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: {
           kind: "json",
           value: request.body,
@@ -336,7 +362,7 @@ export class WebhookSubscriptions {
       },
       {
         success: { kind: "json", schema: updateWebhookSubscriptionSignatureKeyResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

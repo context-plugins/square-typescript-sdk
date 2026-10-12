@@ -38,9 +38,9 @@ export type OrderQuantityUnit = {
 
 export const orderQuantityUnitSchema: Schema<OrderQuantityUnit> = s.object<OrderQuantityUnit>({
   measurementUnit: s.optional(s.lazy(() => measurementUnitSchema)),
-  precision: s.optionalNullable(s.number()),
+  precision: s.optionalNullable(s.int()),
   catalogObjectId: s.optionalNullable(s.string()),
-  catalogVersion: s.optionalNullable(s.number()),
+  catalogVersion: s.optionalNullable(s.int()),
   _keysMap: {
     measurementUnit: "measurement_unit",
     catalogObjectId: "catalog_object_id",

@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   bulkDeleteMerchantCustomAttributesRequestSchema,
@@ -92,25 +93,29 @@ export class MerchantCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   bulkDeleteMerchantCustomAttributes(
     request: MerchantCustomAttributes.BulkDeleteMerchantCustomAttributesRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BulkDeleteMerchantCustomAttributesResponse, ResponseError> {
-    return this.#rawClient.execute<BulkDeleteMerchantCustomAttributesResponse, ResponseError>(
+  ): ApiPromise<BulkDeleteMerchantCustomAttributesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/merchants/custom-attributes/bulk-delete"),
+        urlTemplate: this.#servers.default("/v2/merchants/custom-attributes/bulk-delete"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: bulkDeleteMerchantCustomAttributesRequestSchema },
       },
       {
         success: { kind: "json", schema: bulkDeleteMerchantCustomAttributesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -133,25 +138,29 @@ export class MerchantCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   bulkUpsertMerchantCustomAttributes(
     request: MerchantCustomAttributes.BulkUpsertMerchantCustomAttributesRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BulkUpsertMerchantCustomAttributesResponse, ResponseError> {
-    return this.#rawClient.execute<BulkUpsertMerchantCustomAttributesResponse, ResponseError>(
+  ): ApiPromise<BulkUpsertMerchantCustomAttributesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/merchants/custom-attributes/bulk-upsert"),
+        urlTemplate: this.#servers.default("/v2/merchants/custom-attributes/bulk-upsert"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: bulkUpsertMerchantCustomAttributesRequestSchema },
       },
       {
         success: { kind: "json", schema: bulkUpsertMerchantCustomAttributesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -173,20 +182,24 @@ export class MerchantCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createMerchantCustomAttributeDefinition(
     request: MerchantCustomAttributes.CreateMerchantCustomAttributeDefinitionRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateMerchantCustomAttributeDefinitionResponse, ResponseError> {
-    return this.#rawClient.execute<CreateMerchantCustomAttributeDefinitionResponse, ResponseError>(
+  ): ApiPromise<CreateMerchantCustomAttributeDefinitionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/merchants/custom-attribute-definitions"),
+        urlTemplate: this.#servers.default("/v2/merchants/custom-attribute-definitions"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: {
           kind: "json",
           value: request.body,
@@ -195,7 +208,7 @@ export class MerchantCustomAttributes {
       },
       {
         success: { kind: "json", schema: createMerchantCustomAttributeDefinitionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -211,29 +224,32 @@ export class MerchantCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   deleteMerchantCustomAttribute(
     request: MerchantCustomAttributes.DeleteMerchantCustomAttributeRequest,
     options?: RequestOptions,
-  ): ApiPromise<DeleteMerchantCustomAttributeResponse, ResponseError> {
-    return this.#rawClient.execute<DeleteMerchantCustomAttributeResponse, ResponseError>(
+  ): ApiPromise<DeleteMerchantCustomAttributeResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v2/merchants/{merchant_id}/custom-attributes/{key}"),
+        urlTemplate: this.#servers.default("/v2/merchants/{merchant_id}/custom-attributes/{key}"),
         auth: this.#auth.oauth2,
         pathParams: [
           { name: "merchant_id", value: request.merchantId, schema: s.string() },
           { name: "key", value: request.key, schema: s.string() },
         ],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: deleteMerchantCustomAttributeResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -250,26 +266,29 @@ export class MerchantCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   deleteMerchantCustomAttributeDefinition(
     request: MerchantCustomAttributes.DeleteMerchantCustomAttributeDefinitionRequest,
     options?: RequestOptions,
-  ): ApiPromise<DeleteMerchantCustomAttributeDefinitionResponse, ResponseError> {
-    return this.#rawClient.execute<DeleteMerchantCustomAttributeDefinitionResponse, ResponseError>(
+  ): ApiPromise<DeleteMerchantCustomAttributeDefinitionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v2/merchants/custom-attribute-definitions/{key}"),
+        urlTemplate: this.#servers.default("/v2/merchants/custom-attribute-definitions/{key}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "key", value: request.key, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: deleteMerchantCustomAttributeDefinitionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -287,34 +306,37 @@ export class MerchantCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listMerchantCustomAttributeDefinitions(
     request: MerchantCustomAttributes.ListMerchantCustomAttributeDefinitionsRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListMerchantCustomAttributeDefinitionsResponse, ResponseError> {
-    return this.#rawClient.execute<ListMerchantCustomAttributeDefinitionsResponse, ResponseError>(
+  ): ApiPromise<ListMerchantCustomAttributeDefinitionsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/merchants/custom-attribute-definitions"),
+        urlTemplate: this.#servers.default("/v2/merchants/custom-attribute-definitions"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
           {
             name: "visibility_filter",
             value: request.visibilityFilter,
             schema: s.optional(s.lazy(() => visibilityFilterSchema)),
           },
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listMerchantCustomAttributeDefinitionsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -332,19 +354,20 @@ export class MerchantCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listMerchantCustomAttributes(
     request: MerchantCustomAttributes.ListMerchantCustomAttributesRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListMerchantCustomAttributesResponse, ResponseError> {
-    return this.#rawClient.execute<ListMerchantCustomAttributesResponse, ResponseError>(
+  ): ApiPromise<ListMerchantCustomAttributesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/merchants/{merchant_id}/custom-attributes"),
+        urlTemplate: this.#servers.default("/v2/merchants/{merchant_id}/custom-attributes"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "merchant_id", value: request.merchantId, schema: s.string() }],
         query: [
@@ -353,7 +376,7 @@ export class MerchantCustomAttributes {
             value: request.visibilityFilter,
             schema: s.optional(s.lazy(() => visibilityFilterSchema)),
           },
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
           {
             name: "with_definitions",
@@ -361,11 +384,12 @@ export class MerchantCustomAttributes {
             schema: s.defaulted(s.boolean(), false),
           },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listMerchantCustomAttributesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -382,19 +406,20 @@ export class MerchantCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveMerchantCustomAttribute(
     request: MerchantCustomAttributes.RetrieveMerchantCustomAttributeRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveMerchantCustomAttributeResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveMerchantCustomAttributeResponse, ResponseError>(
+  ): ApiPromise<RetrieveMerchantCustomAttributeResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/merchants/{merchant_id}/custom-attributes/{key}"),
+        urlTemplate: this.#servers.default("/v2/merchants/{merchant_id}/custom-attributes/{key}"),
         auth: this.#auth.oauth2,
         pathParams: [
           { name: "merchant_id", value: request.merchantId, schema: s.string() },
@@ -402,13 +427,14 @@ export class MerchantCustomAttributes {
         ],
         query: [
           { name: "with_definition", value: request.withDefinition, schema: s.defaulted(s.boolean(), false) },
-          { name: "version", value: request.version, schema: s.optional(s.number()) },
+          { name: "version", value: request.version, schema: s.optional(s.int()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveMerchantCustomAttributeResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -425,27 +451,29 @@ export class MerchantCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveMerchantCustomAttributeDefinition(
     request: MerchantCustomAttributes.RetrieveMerchantCustomAttributeDefinitionRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveMerchantCustomAttributeDefinitionResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveMerchantCustomAttributeDefinitionResponse, ResponseError>(
+  ): ApiPromise<RetrieveMerchantCustomAttributeDefinitionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/merchants/custom-attribute-definitions/{key}"),
+        urlTemplate: this.#servers.default("/v2/merchants/custom-attribute-definitions/{key}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "key", value: request.key, schema: s.string() }],
-        query: [{ name: "version", value: request.version, schema: s.optional(s.number()) }],
+        query: [{ name: "version", value: request.version, schema: s.optional(s.int()) }],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveMerchantCustomAttributeDefinitionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -462,21 +490,24 @@ export class MerchantCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updateMerchantCustomAttributeDefinition(
     request: MerchantCustomAttributes.UpdateMerchantCustomAttributeDefinitionRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateMerchantCustomAttributeDefinitionResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateMerchantCustomAttributeDefinitionResponse, ResponseError>(
+  ): ApiPromise<UpdateMerchantCustomAttributeDefinitionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/merchants/custom-attribute-definitions/{key}"),
+        urlTemplate: this.#servers.default("/v2/merchants/custom-attribute-definitions/{key}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "key", value: request.key, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: {
           kind: "json",
           value: request.body,
@@ -485,7 +516,7 @@ export class MerchantCustomAttributes {
       },
       {
         success: { kind: "json", schema: updateMerchantCustomAttributeDefinitionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -504,29 +535,32 @@ export class MerchantCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   upsertMerchantCustomAttribute(
     request: MerchantCustomAttributes.UpsertMerchantCustomAttributeRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpsertMerchantCustomAttributeResponse, ResponseError> {
-    return this.#rawClient.execute<UpsertMerchantCustomAttributeResponse, ResponseError>(
+  ): ApiPromise<UpsertMerchantCustomAttributeResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/merchants/{merchant_id}/custom-attributes/{key}"),
+        urlTemplate: this.#servers.default("/v2/merchants/{merchant_id}/custom-attributes/{key}"),
         auth: this.#auth.oauth2,
         pathParams: [
           { name: "merchant_id", value: request.merchantId, schema: s.string() },
           { name: "key", value: request.key, schema: s.string() },
         ],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: upsertMerchantCustomAttributeRequestSchema },
       },
       {
         success: { kind: "json", schema: upsertMerchantCustomAttributeResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

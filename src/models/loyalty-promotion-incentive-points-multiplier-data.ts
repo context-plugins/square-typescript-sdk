@@ -40,7 +40,7 @@ export type LoyaltyPromotionIncentivePointsMultiplierData = {
 
 export const loyaltyPromotionIncentivePointsMultiplierDataSchema: Schema<LoyaltyPromotionIncentivePointsMultiplierData> =
   s.object<LoyaltyPromotionIncentivePointsMultiplierData>({
-    pointsMultiplier: s.optionalNullable(s.number()),
+    pointsMultiplier: s.optionalNullable(s.int()),
     multiplier: s.optionalNullable(s.string()),
     _keysMap: {
       pointsMultiplier: "points_multiplier",

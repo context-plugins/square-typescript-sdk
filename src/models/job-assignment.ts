@@ -42,7 +42,7 @@ export const jobAssignmentSchema: Schema<JobAssignment> = s.object<JobAssignment
   payType: jobAssignmentPayTypeSchema,
   hourlyRate: s.optional(s.lazy(() => moneySchema)),
   annualRate: s.optional(s.lazy(() => moneySchema)),
-  weeklyHours: s.optionalNullable(s.number()),
+  weeklyHours: s.optionalNullable(s.int()),
   jobId: s.optionalNullable(s.string()),
   _keysMap: {
     jobTitle: "job_title",

@@ -69,7 +69,7 @@ export const itemVariationLocationOverridesSchema: Schema<ItemVariationLocationO
     pricingType: s.optional(s.lazy(() => catalogPricingTypeSchema)),
     trackInventory: s.optionalNullable(s.boolean()),
     inventoryAlertType: s.optional(s.lazy(() => inventoryAlertTypeSchema)),
-    inventoryAlertThreshold: s.optionalNullable(s.number()),
+    inventoryAlertThreshold: s.optionalNullable(s.int()),
     soldOut: s.optional(s.boolean()),
     soldOutValidUntil: s.optional(s.string()),
     _keysMap: {

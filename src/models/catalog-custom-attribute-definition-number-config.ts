@@ -17,5 +17,5 @@ export type CatalogCustomAttributeDefinitionNumberConfig = {
 
 export const catalogCustomAttributeDefinitionNumberConfigSchema: Schema<CatalogCustomAttributeDefinitionNumberConfig> =
   s.object<CatalogCustomAttributeDefinitionNumberConfig>({
-    precision: s.optionalNullable(s.number()),
+    precision: s.optionalNullable(s.int()),
   });

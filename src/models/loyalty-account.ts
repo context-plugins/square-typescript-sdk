@@ -73,8 +73,8 @@ export type LoyaltyAccount = {
 export const loyaltyAccountSchema: Schema<LoyaltyAccount> = s.object<LoyaltyAccount>({
   id: s.optional(s.string()),
   programId: s.string(),
-  balance: s.optional(s.number()),
-  lifetimePoints: s.optional(s.number()),
+  balance: s.optional(s.int()),
+  lifetimePoints: s.optional(s.int()),
   customerId: s.optionalNullable(s.string()),
   enrolledAt: s.optionalNullable(s.string()),
   createdAt: s.optional(s.string()),

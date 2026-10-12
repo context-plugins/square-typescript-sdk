@@ -1,14 +1,20 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
+import type { FileInput } from "../core/binary.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import { cancelInvoiceRequestSchema, type CancelInvoiceRequest } from "../models/cancel-invoice-request.js";
 import {
   cancelInvoiceResponseSchema,
   type CancelInvoiceResponse,
 } from "../models/cancel-invoice-response.js";
+import {
+  createInvoiceAttachmentRequestSchema,
+  type CreateInvoiceAttachmentRequest,
+} from "../models/create-invoice-attachment-request.js";
 import {
   createInvoiceAttachmentResponseSchema,
   type CreateInvoiceAttachmentResponse,
@@ -73,26 +79,29 @@ export class Invoices {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   cancelInvoice(
     request: Invoices.CancelInvoiceRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CancelInvoiceResponse, ResponseError> {
-    return this.#rawClient.execute<CancelInvoiceResponse, ResponseError>(
+  ): ApiPromise<CancelInvoiceResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/invoices/{invoice_id}/cancel"),
+        urlTemplate: this.#servers.default("/v2/invoices/{invoice_id}/cancel"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "invoice_id", value: request.invoiceId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: cancelInvoiceRequestSchema },
       },
       {
         success: { kind: "json", schema: cancelInvoiceResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -110,25 +119,29 @@ export class Invoices {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createInvoice(
     request: Invoices.CreateInvoiceRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateInvoiceResponse, ResponseError> {
-    return this.#rawClient.execute<CreateInvoiceResponse, ResponseError>(
+  ): ApiPromise<CreateInvoiceResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/invoices"),
+        urlTemplate: this.#servers.default("/v2/invoices"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createInvoiceRequestSchema },
       },
       {
         success: { kind: "json", schema: createInvoiceResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -149,26 +162,40 @@ export class Invoices {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createInvoiceAttachment(
     request: Invoices.CreateInvoiceAttachmentRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateInvoiceAttachmentResponse, ResponseError> {
-    return this.#rawClient.execute<CreateInvoiceAttachmentResponse, ResponseError>(
+  ): ApiPromise<CreateInvoiceAttachmentResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/invoices/{invoice_id}/attachments"),
+        urlTemplate: this.#servers.default("/v2/invoices/{invoice_id}/attachments"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "invoice_id", value: request.invoiceId, schema: s.string() }],
-        body: { kind: "empty" },
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
+        body: {
+          kind: "multipart",
+          value: [
+            {
+              kind: "text",
+              name: "request",
+              value: request.request,
+              schema: s.optional(s.lazy(() => createInvoiceAttachmentRequestSchema)),
+            },
+            { kind: "file", name: "image_file", value: request.imageFile },
+          ],
+        },
       },
       {
         success: { kind: "json", schema: createInvoiceAttachmentResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -184,27 +211,29 @@ export class Invoices {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   deleteInvoice(
     request: Invoices.DeleteInvoiceRequest,
     options?: RequestOptions,
-  ): ApiPromise<DeleteInvoiceResponse, ResponseError> {
-    return this.#rawClient.execute<DeleteInvoiceResponse, ResponseError>(
+  ): ApiPromise<DeleteInvoiceResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v2/invoices/{invoice_id}"),
+        urlTemplate: this.#servers.default("/v2/invoices/{invoice_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "invoice_id", value: request.invoiceId, schema: s.string() }],
-        query: [{ name: "version", value: request.version, schema: s.optional(s.number()) }],
+        query: [{ name: "version", value: request.version, schema: s.optional(s.int()) }],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: deleteInvoiceResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -219,29 +248,32 @@ export class Invoices {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   deleteInvoiceAttachment(
     request: Invoices.DeleteInvoiceAttachmentRequest,
     options?: RequestOptions,
-  ): ApiPromise<DeleteInvoiceAttachmentResponse, ResponseError> {
-    return this.#rawClient.execute<DeleteInvoiceAttachmentResponse, ResponseError>(
+  ): ApiPromise<DeleteInvoiceAttachmentResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v2/invoices/{invoice_id}/attachments/{attachment_id}"),
+        urlTemplate: this.#servers.default("/v2/invoices/{invoice_id}/attachments/{attachment_id}"),
         auth: this.#auth.oauth2,
         pathParams: [
           { name: "invoice_id", value: request.invoiceId, schema: s.string() },
           { name: "attachment_id", value: request.attachmentId, schema: s.string() },
         ],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: deleteInvoiceAttachmentResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -255,26 +287,29 @@ export class Invoices {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   getInvoice(
     request: Invoices.GetInvoiceRequest,
     options?: RequestOptions,
-  ): ApiPromise<GetInvoiceResponse, ResponseError> {
-    return this.#rawClient.execute<GetInvoiceResponse, ResponseError>(
+  ): ApiPromise<GetInvoiceResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/invoices/{invoice_id}"),
+        urlTemplate: this.#servers.default("/v2/invoices/{invoice_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "invoice_id", value: request.invoiceId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: getInvoiceResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -290,30 +325,33 @@ export class Invoices {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listInvoices(
     request: Invoices.ListInvoicesRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListInvoicesResponse, ResponseError> {
-    return this.#rawClient.execute<ListInvoicesResponse, ResponseError>(
+  ): ApiPromise<ListInvoicesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/invoices"),
+        urlTemplate: this.#servers.default("/v2/invoices"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
           { name: "location_id", value: request.locationId, schema: s.string() },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listInvoicesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -340,26 +378,29 @@ export class Invoices {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   publishInvoice(
     request: Invoices.PublishInvoiceRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<PublishInvoiceResponse, ResponseError> {
-    return this.#rawClient.execute<PublishInvoiceResponse, ResponseError>(
+  ): ApiPromise<PublishInvoiceResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/invoices/{invoice_id}/publish"),
+        urlTemplate: this.#servers.default("/v2/invoices/{invoice_id}/publish"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "invoice_id", value: request.invoiceId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: publishInvoiceRequestSchema },
       },
       {
         success: { kind: "json", schema: publishInvoiceResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -378,25 +419,29 @@ export class Invoices {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   searchInvoices(
     request: Invoices.SearchInvoicesRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<SearchInvoicesResponse, ResponseError> {
-    return this.#rawClient.execute<SearchInvoicesResponse, ResponseError>(
+  ): ApiPromise<SearchInvoicesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/invoices/search"),
+        urlTemplate: this.#servers.default("/v2/invoices/search"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: searchInvoicesRequestSchema },
       },
       {
         success: { kind: "json", schema: searchInvoicesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -412,26 +457,29 @@ export class Invoices {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updateInvoice(
     request: Invoices.UpdateInvoiceRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateInvoiceResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateInvoiceResponse, ResponseError>(
+  ): ApiPromise<UpdateInvoiceResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/invoices/{invoice_id}"),
+        urlTemplate: this.#servers.default("/v2/invoices/{invoice_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "invoice_id", value: request.invoiceId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: updateInvoiceRequestSchema },
       },
       {
         success: { kind: "json", schema: updateInvoiceResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -462,6 +510,12 @@ export namespace Invoices {
   export type CreateInvoiceAttachmentRequestParams = {
     /** The ID of the [invoice](entity:Invoice) to attach the file to. */
     invoiceId: string;
+    /**
+     * Represents a [CreateInvoiceAttachment](api-endpoint:Invoices-CreateInvoiceAttachment)
+     * request.
+     */
+    request?: CreateInvoiceAttachmentRequest;
+    imageFile?: FileInput;
   };
 
   export type DeleteInvoiceRequest = {

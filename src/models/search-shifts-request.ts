@@ -19,6 +19,6 @@ export type SearchShiftsRequest = {
 
 export const searchShiftsRequestSchema: Schema<SearchShiftsRequest> = s.object<SearchShiftsRequest>({
   query: s.optional(s.lazy(() => shiftQuerySchema)),
-  limit: s.optional(s.number()),
+  limit: s.optional(s.int()),
   cursor: s.optional(s.string()),
 });

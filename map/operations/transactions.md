@@ -4,17 +4,18 @@
 
 Accessor: `client.transactions` · Source: `src/resources/transactions.ts` · 4 operations · Request types: namespace `Transactions`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### captureTransaction
 
-- **Signature**: `captureTransaction(request: Transactions.CaptureTransactionRequest, options?: RequestOptions): ApiPromise<CaptureTransactionResponse, ResponseError>`
+- **Signature**: `captureTransaction(request: Transactions.CaptureTransactionRequest, options?: RequestOptions): ApiPromise<CaptureTransactionResponse, ApiError>`
 - **Deprecated**: the method carries `@deprecated`, so an IDE strikes the call site through; it still works
 - **Wire**: `POST /v2/locations/{location_id}/transactions/{transaction_id}/capture`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CaptureTransactionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Transactions.CaptureTransactionRequest` (2):
 
@@ -29,13 +30,13 @@ Accessor: `client.transactions` · Source: `src/resources/transactions.ts` · 4 
 
 ### listTransactions
 
-- **Signature**: `listTransactions(request: Transactions.ListTransactionsRequest, options?: RequestOptions): ApiPromise<ListTransactionsResponse, ResponseError>`
+- **Signature**: `listTransactions(request: Transactions.ListTransactionsRequest, options?: RequestOptions): ApiPromise<ListTransactionsResponse, ApiError>`
 - **Deprecated**: the method carries `@deprecated`, so an IDE strikes the call site through; it still works
 - **Wire**: `GET /v2/locations/{location_id}/transactions`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListTransactionsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Transactions.ListTransactionsRequest` (5):
 
@@ -54,13 +55,13 @@ Accessor: `client.transactions` · Source: `src/resources/transactions.ts` · 4 
 
 ### retrieveTransaction
 
-- **Signature**: `retrieveTransaction(request: Transactions.RetrieveTransactionRequest, options?: RequestOptions): ApiPromise<RetrieveTransactionResponse, ResponseError>`
+- **Signature**: `retrieveTransaction(request: Transactions.RetrieveTransactionRequest, options?: RequestOptions): ApiPromise<RetrieveTransactionResponse, ApiError>`
 - **Deprecated**: the method carries `@deprecated`, so an IDE strikes the call site through; it still works
 - **Wire**: `GET /v2/locations/{location_id}/transactions/{transaction_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveTransactionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Transactions.RetrieveTransactionRequest` (2):
 
@@ -75,13 +76,14 @@ Accessor: `client.transactions` · Source: `src/resources/transactions.ts` · 4 
 
 ### voidTransaction
 
-- **Signature**: `voidTransaction(request: Transactions.VoidTransactionRequest, options?: RequestOptions): ApiPromise<VoidTransactionResponse, ResponseError>`
+- **Signature**: `voidTransaction(request: Transactions.VoidTransactionRequest, options?: RequestOptions): ApiPromise<VoidTransactionResponse, ApiError>`
 - **Deprecated**: the method carries `@deprecated`, so an IDE strikes the call site through; it still works
 - **Wire**: `POST /v2/locations/{location_id}/transactions/{transaction_id}/void`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `VoidTransactionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Transactions.VoidTransactionRequest` (2):
 

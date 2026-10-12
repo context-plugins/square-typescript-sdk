@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   bulkPublishScheduledShiftsRequestSchema,
@@ -167,25 +168,29 @@ export class Labor {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   bulkPublishScheduledShifts(
     request: Labor.BulkPublishScheduledShiftsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BulkPublishScheduledShiftsResponse, ResponseError> {
-    return this.#rawClient.execute<BulkPublishScheduledShiftsResponse, ResponseError>(
+  ): ApiPromise<BulkPublishScheduledShiftsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/labor/scheduled-shifts/bulk-publish"),
+        urlTemplate: this.#servers.default("/v2/labor/scheduled-shifts/bulk-publish"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: bulkPublishScheduledShiftsRequestSchema },
       },
       {
         success: { kind: "json", schema: bulkPublishScheduledShiftsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -211,25 +216,29 @@ export class Labor {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createBreakType(
     request: Labor.CreateBreakTypeRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateBreakTypeResponse, ResponseError> {
-    return this.#rawClient.execute<CreateBreakTypeResponse, ResponseError>(
+  ): ApiPromise<CreateBreakTypeResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/labor/break-types"),
+        urlTemplate: this.#servers.default("/v2/labor/break-types"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createBreakTypeRequestSchema },
       },
       {
         success: { kind: "json", schema: createBreakTypeResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -250,25 +259,29 @@ export class Labor {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createScheduledShift(
     request: Labor.CreateScheduledShiftRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateScheduledShiftResponse, ResponseError> {
-    return this.#rawClient.execute<CreateScheduledShiftResponse, ResponseError>(
+  ): ApiPromise<CreateScheduledShiftResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/labor/scheduled-shifts"),
+        urlTemplate: this.#servers.default("/v2/labor/scheduled-shifts"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createScheduledShiftRequestSchema },
       },
       {
         success: { kind: "json", schema: createScheduledShiftResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -297,27 +310,31 @@ export class Labor {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    *
    * @deprecated
    */
   createShift(
     request: Labor.CreateShiftRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateShiftResponse, ResponseError> {
-    return this.#rawClient.execute<CreateShiftResponse, ResponseError>(
+  ): ApiPromise<CreateShiftResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/labor/shifts"),
+        urlTemplate: this.#servers.default("/v2/labor/shifts"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createShiftRequestSchema },
       },
       {
         success: { kind: "json", schema: createShiftResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -346,25 +363,29 @@ export class Labor {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createTimecard(
     request: Labor.CreateTimecardRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateTimecardResponse, ResponseError> {
-    return this.#rawClient.execute<CreateTimecardResponse, ResponseError>(
+  ): ApiPromise<CreateTimecardResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/labor/timecards"),
+        urlTemplate: this.#servers.default("/v2/labor/timecards"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createTimecardRequestSchema },
       },
       {
         success: { kind: "json", schema: createTimecardResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -380,26 +401,29 @@ export class Labor {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   deleteBreakType(
     request: Labor.DeleteBreakTypeRequest,
     options?: RequestOptions,
-  ): ApiPromise<DeleteBreakTypeResponse, ResponseError> {
-    return this.#rawClient.execute<DeleteBreakTypeResponse, ResponseError>(
+  ): ApiPromise<DeleteBreakTypeResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v2/labor/break-types/{id}"),
+        urlTemplate: this.#servers.default("/v2/labor/break-types/{id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "id", value: request.id, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: deleteBreakTypeResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -413,28 +437,31 @@ export class Labor {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    *
    * @deprecated
    */
   deleteShift(
     request: Labor.DeleteShiftRequest,
     options?: RequestOptions,
-  ): ApiPromise<DeleteShiftResponse, ResponseError> {
-    return this.#rawClient.execute<DeleteShiftResponse, ResponseError>(
+  ): ApiPromise<DeleteShiftResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v2/labor/shifts/{id}"),
+        urlTemplate: this.#servers.default("/v2/labor/shifts/{id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "id", value: request.id, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: deleteShiftResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -448,26 +475,29 @@ export class Labor {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   deleteTimecard(
     request: Labor.DeleteTimecardRequest,
     options?: RequestOptions,
-  ): ApiPromise<DeleteTimecardResponse, ResponseError> {
-    return this.#rawClient.execute<DeleteTimecardResponse, ResponseError>(
+  ): ApiPromise<DeleteTimecardResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v2/labor/timecards/{id}"),
+        urlTemplate: this.#servers.default("/v2/labor/timecards/{id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "id", value: request.id, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: deleteTimecardResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -481,26 +511,29 @@ export class Labor {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   getBreakType(
     request: Labor.GetBreakTypeRequest,
     options?: RequestOptions,
-  ): ApiPromise<GetBreakTypeResponse, ResponseError> {
-    return this.#rawClient.execute<GetBreakTypeResponse, ResponseError>(
+  ): ApiPromise<GetBreakTypeResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/labor/break-types/{id}"),
+        urlTemplate: this.#servers.default("/v2/labor/break-types/{id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "id", value: request.id, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: getBreakTypeResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -514,28 +547,31 @@ export class Labor {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    *
    * @deprecated
    */
   getEmployeeWage(
     request: Labor.GetEmployeeWageRequest,
     options?: RequestOptions,
-  ): ApiPromise<GetEmployeeWageResponse, ResponseError> {
-    return this.#rawClient.execute<GetEmployeeWageResponse, ResponseError>(
+  ): ApiPromise<GetEmployeeWageResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/labor/employee-wages/{id}"),
+        urlTemplate: this.#servers.default("/v2/labor/employee-wages/{id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "id", value: request.id, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: getEmployeeWageResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -549,28 +585,28 @@ export class Labor {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    *
    * @deprecated
    */
-  getShift(
-    request: Labor.GetShiftRequest,
-    options?: RequestOptions,
-  ): ApiPromise<GetShiftResponse, ResponseError> {
-    return this.#rawClient.execute<GetShiftResponse, ResponseError>(
+  getShift(request: Labor.GetShiftRequest, options?: RequestOptions): ApiPromise<GetShiftResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/labor/shifts/{id}"),
+        urlTemplate: this.#servers.default("/v2/labor/shifts/{id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "id", value: request.id, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: getShiftResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -584,26 +620,29 @@ export class Labor {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   getTeamMemberWage(
     request: Labor.GetTeamMemberWageRequest,
     options?: RequestOptions,
-  ): ApiPromise<GetTeamMemberWageResponse, ResponseError> {
-    return this.#rawClient.execute<GetTeamMemberWageResponse, ResponseError>(
+  ): ApiPromise<GetTeamMemberWageResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/labor/team-member-wages/{id}"),
+        urlTemplate: this.#servers.default("/v2/labor/team-member-wages/{id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "id", value: request.id, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: getTeamMemberWageResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -617,30 +656,33 @@ export class Labor {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listBreakTypes(
     request: Labor.ListBreakTypesRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListBreakTypesResponse, ResponseError> {
-    return this.#rawClient.execute<ListBreakTypesResponse, ResponseError>(
+  ): ApiPromise<ListBreakTypesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/labor/break-types"),
+        urlTemplate: this.#servers.default("/v2/labor/break-types"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
           { name: "location_id", value: request.locationId, schema: s.optional(s.string()) },
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listBreakTypesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -654,32 +696,35 @@ export class Labor {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    *
    * @deprecated
    */
   listEmployeeWages(
     request: Labor.ListEmployeeWagesRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListEmployeeWagesResponse, ResponseError> {
-    return this.#rawClient.execute<ListEmployeeWagesResponse, ResponseError>(
+  ): ApiPromise<ListEmployeeWagesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/labor/employee-wages"),
+        urlTemplate: this.#servers.default("/v2/labor/employee-wages"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
           { name: "employee_id", value: request.employeeId, schema: s.optional(s.string()) },
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listEmployeeWagesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -693,30 +738,33 @@ export class Labor {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listTeamMemberWages(
     request: Labor.ListTeamMemberWagesRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListTeamMemberWagesResponse, ResponseError> {
-    return this.#rawClient.execute<ListTeamMemberWagesResponse, ResponseError>(
+  ): ApiPromise<ListTeamMemberWagesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/labor/team-member-wages"),
+        urlTemplate: this.#servers.default("/v2/labor/team-member-wages"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
           { name: "team_member_id", value: request.teamMemberId, schema: s.optional(s.string()) },
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listTeamMemberWagesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -730,29 +778,32 @@ export class Labor {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listWorkweekConfigs(
     request: Labor.ListWorkweekConfigsRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListWorkweekConfigsResponse, ResponseError> {
-    return this.#rawClient.execute<ListWorkweekConfigsResponse, ResponseError>(
+  ): ApiPromise<ListWorkweekConfigsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/labor/workweek-configs"),
+        urlTemplate: this.#servers.default("/v2/labor/workweek-configs"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listWorkweekConfigsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -767,26 +818,29 @@ export class Labor {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   publishScheduledShift(
     request: Labor.PublishScheduledShiftRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<PublishScheduledShiftResponse, ResponseError> {
-    return this.#rawClient.execute<PublishScheduledShiftResponse, ResponseError>(
+  ): ApiPromise<PublishScheduledShiftResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/labor/scheduled-shifts/{id}/publish"),
+        urlTemplate: this.#servers.default("/v2/labor/scheduled-shifts/{id}/publish"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "id", value: request.id, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: publishScheduledShiftRequestSchema },
       },
       {
         success: { kind: "json", schema: publishScheduledShiftResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -800,26 +854,29 @@ export class Labor {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveScheduledShift(
     request: Labor.RetrieveScheduledShiftRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveScheduledShiftResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveScheduledShiftResponse, ResponseError>(
+  ): ApiPromise<RetrieveScheduledShiftResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/labor/scheduled-shifts/{id}"),
+        urlTemplate: this.#servers.default("/v2/labor/scheduled-shifts/{id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "id", value: request.id, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveScheduledShiftResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -833,26 +890,29 @@ export class Labor {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveTimecard(
     request: Labor.RetrieveTimecardRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveTimecardResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveTimecardResponse, ResponseError>(
+  ): ApiPromise<RetrieveTimecardResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/labor/timecards/{id}"),
+        urlTemplate: this.#servers.default("/v2/labor/timecards/{id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "id", value: request.id, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveTimecardResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -867,25 +927,29 @@ export class Labor {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   searchScheduledShifts(
     request: Labor.SearchScheduledShiftsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<SearchScheduledShiftsResponse, ResponseError> {
-    return this.#rawClient.execute<SearchScheduledShiftsResponse, ResponseError>(
+  ): ApiPromise<SearchScheduledShiftsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/labor/scheduled-shifts/search"),
+        urlTemplate: this.#servers.default("/v2/labor/scheduled-shifts/search"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: searchScheduledShiftsRequestSchema },
       },
       {
         success: { kind: "json", schema: searchScheduledShiftsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -912,27 +976,31 @@ export class Labor {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    *
    * @deprecated
    */
   searchShifts(
     request: Labor.SearchShiftsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<SearchShiftsResponse, ResponseError> {
-    return this.#rawClient.execute<SearchShiftsResponse, ResponseError>(
+  ): ApiPromise<SearchShiftsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/labor/shifts/search"),
+        urlTemplate: this.#servers.default("/v2/labor/shifts/search"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: searchShiftsRequestSchema },
       },
       {
         success: { kind: "json", schema: searchShiftsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -959,25 +1027,29 @@ export class Labor {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   searchTimecards(
     request: Labor.SearchTimecardsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<SearchTimecardsResponse, ResponseError> {
-    return this.#rawClient.execute<SearchTimecardsResponse, ResponseError>(
+  ): ApiPromise<SearchTimecardsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/labor/timecards/search"),
+        urlTemplate: this.#servers.default("/v2/labor/timecards/search"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: searchTimecardsRequestSchema },
       },
       {
         success: { kind: "json", schema: searchTimecardsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -991,26 +1063,29 @@ export class Labor {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updateBreakType(
     request: Labor.UpdateBreakTypeRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateBreakTypeResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateBreakTypeResponse, ResponseError>(
+  ): ApiPromise<UpdateBreakTypeResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/labor/break-types/{id}"),
+        urlTemplate: this.#servers.default("/v2/labor/break-types/{id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "id", value: request.id, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: updateBreakTypeRequestSchema },
       },
       {
         success: { kind: "json", schema: updateBreakTypeResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -1033,26 +1108,29 @@ export class Labor {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updateScheduledShift(
     request: Labor.UpdateScheduledShiftRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateScheduledShiftResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateScheduledShiftResponse, ResponseError>(
+  ): ApiPromise<UpdateScheduledShiftResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/labor/scheduled-shifts/{id}"),
+        urlTemplate: this.#servers.default("/v2/labor/scheduled-shifts/{id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "id", value: request.id, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: updateScheduledShiftRequestSchema },
       },
       {
         success: { kind: "json", schema: updateScheduledShiftResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -1072,28 +1150,31 @@ export class Labor {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    *
    * @deprecated
    */
   updateShift(
     request: Labor.UpdateShiftRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateShiftResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateShiftResponse, ResponseError>(
+  ): ApiPromise<UpdateShiftResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/labor/shifts/{id}"),
+        urlTemplate: this.#servers.default("/v2/labor/shifts/{id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "id", value: request.id, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: updateShiftRequestSchema },
       },
       {
         success: { kind: "json", schema: updateShiftResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -1113,26 +1194,29 @@ export class Labor {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updateTimecard(
     request: Labor.UpdateTimecardRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateTimecardResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateTimecardResponse, ResponseError>(
+  ): ApiPromise<UpdateTimecardResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/labor/timecards/{id}"),
+        urlTemplate: this.#servers.default("/v2/labor/timecards/{id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "id", value: request.id, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: updateTimecardRequestSchema },
       },
       {
         success: { kind: "json", schema: updateTimecardResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -1146,26 +1230,29 @@ export class Labor {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updateWorkweekConfig(
     request: Labor.UpdateWorkweekConfigRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateWorkweekConfigResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateWorkweekConfigResponse, ResponseError>(
+  ): ApiPromise<UpdateWorkweekConfigResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/labor/workweek-configs/{id}"),
+        urlTemplate: this.#servers.default("/v2/labor/workweek-configs/{id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "id", value: request.id, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: updateWorkweekConfigRequestSchema },
       },
       {
         success: { kind: "json", schema: updateWorkweekConfigResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

@@ -111,18 +111,18 @@ export type CatalogModifierList = {
 
 export const catalogModifierListSchema: Schema<CatalogModifierList> = s.object<CatalogModifierList>({
   name: s.optionalNullable(s.string()),
-  ordinal: s.optionalNullable(s.number()),
+  ordinal: s.optionalNullable(s.int()),
   selectionType: s.optional(s.lazy(() => catalogModifierListSelectionTypeSchema)),
   modifiers: s.optionalNullable(s.array(s.lazy(() => catalogObjectSchema))),
   imageIds: s.optionalNullable(s.array(s.string())),
   allowQuantities: s.optionalNullable(s.boolean()),
   isConversational: s.optionalNullable(s.boolean()),
   modifierType: s.optional(s.lazy(() => catalogModifierListModifierTypeSchema)),
-  maxLength: s.optionalNullable(s.number()),
+  maxLength: s.optionalNullable(s.int()),
   textRequired: s.optionalNullable(s.boolean()),
   internalName: s.optionalNullable(s.string()),
-  minSelectedModifiers: s.optionalNullable(s.number()),
-  maxSelectedModifiers: s.optionalNullable(s.number()),
+  minSelectedModifiers: s.optionalNullable(s.int()),
+  maxSelectedModifiers: s.optionalNullable(s.int()),
   hiddenFromCustomer: s.optionalNullable(s.boolean()),
   _keysMap: {
     selectionType: "selection_type",

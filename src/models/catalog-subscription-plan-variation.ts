@@ -33,7 +33,7 @@ export const catalogSubscriptionPlanVariationSchema: Schema<CatalogSubscriptionP
     name: s.string(),
     phases: s.array(s.lazy(() => subscriptionPhaseSchema)),
     subscriptionPlanId: s.optionalNullable(s.string()),
-    monthlyBillingAnchorDate: s.optionalNullable(s.number()),
+    monthlyBillingAnchorDate: s.optionalNullable(s.int()),
     canProrate: s.optionalNullable(s.boolean()),
     successorPlanVariationId: s.optionalNullable(s.string()),
     _keysMap: {

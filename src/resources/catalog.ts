@@ -1,8 +1,10 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
+import type { FileInput } from "../core/binary.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   batchDeleteCatalogObjectsRequestSchema,
@@ -29,6 +31,10 @@ import {
   type BatchUpsertCatalogObjectsResponse,
 } from "../models/batch-upsert-catalog-objects-response.js";
 import { catalogInfoResponseSchema, type CatalogInfoResponse } from "../models/catalog-info-response.js";
+import {
+  createCatalogImageRequestSchema,
+  type CreateCatalogImageRequest,
+} from "../models/create-catalog-image-request.js";
 import {
   createCatalogImageResponseSchema,
   type CreateCatalogImageResponse,
@@ -58,6 +64,10 @@ import {
   searchCatalogObjectsResponseSchema,
   type SearchCatalogObjectsResponse,
 } from "../models/search-catalog-objects-response.js";
+import {
+  updateCatalogImageRequestSchema,
+  type UpdateCatalogImageRequest,
+} from "../models/update-catalog-image-request.js";
 import {
   updateCatalogImageResponseSchema,
   type UpdateCatalogImageResponse,
@@ -118,25 +128,29 @@ export class Catalog {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   batchDeleteCatalogObjects(
     request: Catalog.BatchDeleteCatalogObjectsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BatchDeleteCatalogObjectsResponse, ResponseError> {
-    return this.#rawClient.execute<BatchDeleteCatalogObjectsResponse, ResponseError>(
+  ): ApiPromise<BatchDeleteCatalogObjectsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/catalog/batch-delete"),
+        urlTemplate: this.#servers.default("/v2/catalog/batch-delete"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: batchDeleteCatalogObjectsRequestSchema },
       },
       {
         success: { kind: "json", schema: batchDeleteCatalogObjectsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -154,25 +168,29 @@ export class Catalog {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   batchRetrieveCatalogObjects(
     request: Catalog.BatchRetrieveCatalogObjectsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BatchRetrieveCatalogObjectsResponse, ResponseError> {
-    return this.#rawClient.execute<BatchRetrieveCatalogObjectsResponse, ResponseError>(
+  ): ApiPromise<BatchRetrieveCatalogObjectsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/catalog/batch-retrieve"),
+        urlTemplate: this.#servers.default("/v2/catalog/batch-retrieve"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: batchRetrieveCatalogObjectsRequestSchema },
       },
       {
         success: { kind: "json", schema: batchRetrieveCatalogObjectsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -204,25 +222,29 @@ export class Catalog {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   batchUpsertCatalogObjects(
     request: Catalog.BatchUpsertCatalogObjectsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BatchUpsertCatalogObjectsResponse, ResponseError> {
-    return this.#rawClient.execute<BatchUpsertCatalogObjectsResponse, ResponseError>(
+  ): ApiPromise<BatchUpsertCatalogObjectsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/catalog/batch-upsert"),
+        urlTemplate: this.#servers.default("/v2/catalog/batch-upsert"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: batchUpsertCatalogObjectsRequestSchema },
       },
       {
         success: { kind: "json", schema: batchUpsertCatalogObjectsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -237,22 +259,26 @@ export class Catalog {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
-  catalogInfo(options?: RequestOptions): ApiPromise<CatalogInfoResponse, ResponseError> {
-    return this.#rawClient.execute<CatalogInfoResponse, ResponseError>(
+  catalogInfo(options?: RequestOptions): ApiPromise<CatalogInfoResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/catalog/info"),
+        urlTemplate: this.#servers.default("/v2/catalog/info"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: catalogInfoResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -271,22 +297,40 @@ export class Catalog {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
-  createCatalogImage(options?: RequestOptions): ApiPromise<CreateCatalogImageResponse, ResponseError> {
-    return this.#rawClient.execute<CreateCatalogImageResponse, ResponseError>(
+  createCatalogImage(
+    request: Catalog.CreateCatalogImageRequestParams,
+    options?: RequestOptions,
+  ): ApiPromise<CreateCatalogImageResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/catalog/images"),
+        urlTemplate: this.#servers.default("/v2/catalog/images"),
         auth: this.#auth.oauth2,
-        body: { kind: "empty" },
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
+        body: {
+          kind: "multipart",
+          value: [
+            {
+              kind: "text",
+              name: "request",
+              value: request.request,
+              schema: s.optional(s.lazy(() => createCatalogImageRequestSchema)),
+            },
+            { kind: "file", name: "image_file", value: request.imageFile },
+          ],
+        },
       },
       {
         success: { kind: "json", schema: createCatalogImageResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -308,26 +352,29 @@ export class Catalog {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   deleteCatalogObject(
     request: Catalog.DeleteCatalogObjectRequest,
     options?: RequestOptions,
-  ): ApiPromise<DeleteCatalogObjectResponse, ResponseError> {
-    return this.#rawClient.execute<DeleteCatalogObjectResponse, ResponseError>(
+  ): ApiPromise<DeleteCatalogObjectResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v2/catalog/object/{object_id}"),
+        urlTemplate: this.#servers.default("/v2/catalog/object/{object_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "object_id", value: request.objectId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: deleteCatalogObjectResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -352,30 +399,33 @@ export class Catalog {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listCatalog(
     request: Catalog.ListCatalogRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListCatalogResponse, ResponseError> {
-    return this.#rawClient.execute<ListCatalogResponse, ResponseError>(
+  ): ApiPromise<ListCatalogResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/catalog/list"),
+        urlTemplate: this.#servers.default("/v2/catalog/list"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
           { name: "types", value: request.types, schema: s.optional(s.string()) },
-          { name: "catalog_version", value: request.catalogVersion, schema: s.optional(s.number()) },
+          { name: "catalog_version", value: request.catalogVersion, schema: s.optional(s.int()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listCatalogResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -394,19 +444,20 @@ export class Catalog {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveCatalogObject(
     request: Catalog.RetrieveCatalogObjectRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveCatalogObjectResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveCatalogObjectResponse, ResponseError>(
+  ): ApiPromise<RetrieveCatalogObjectResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/catalog/object/{object_id}"),
+        urlTemplate: this.#servers.default("/v2/catalog/object/{object_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "object_id", value: request.objectId, schema: s.string() }],
         query: [
@@ -415,18 +466,19 @@ export class Catalog {
             value: request.includeRelatedObjects,
             schema: s.defaulted(s.boolean(), false),
           },
-          { name: "catalog_version", value: request.catalogVersion, schema: s.optional(s.number()) },
+          { name: "catalog_version", value: request.catalogVersion, schema: s.optional(s.int()) },
           {
             name: "include_category_path_to_root",
             value: request.includeCategoryPathToRoot,
             schema: s.defaulted(s.boolean(), false),
           },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveCatalogObjectResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -453,25 +505,29 @@ export class Catalog {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   searchCatalogItems(
     request: Catalog.SearchCatalogItemsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<SearchCatalogItemsResponse, ResponseError> {
-    return this.#rawClient.execute<SearchCatalogItemsResponse, ResponseError>(
+  ): ApiPromise<SearchCatalogItemsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/catalog/search-catalog-items"),
+        urlTemplate: this.#servers.default("/v2/catalog/search-catalog-items"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: searchCatalogItemsRequestSchema },
       },
       {
         success: { kind: "json", schema: searchCatalogItemsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -504,25 +560,29 @@ export class Catalog {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   searchCatalogObjects(
     request: Catalog.SearchCatalogObjectsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<SearchCatalogObjectsResponse, ResponseError> {
-    return this.#rawClient.execute<SearchCatalogObjectsResponse, ResponseError>(
+  ): ApiPromise<SearchCatalogObjectsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/catalog/search"),
+        urlTemplate: this.#servers.default("/v2/catalog/search"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: searchCatalogObjectsRequestSchema },
       },
       {
         success: { kind: "json", schema: searchCatalogObjectsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -540,26 +600,40 @@ export class Catalog {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updateCatalogImage(
     request: Catalog.UpdateCatalogImageRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateCatalogImageResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateCatalogImageResponse, ResponseError>(
+  ): ApiPromise<UpdateCatalogImageResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/catalog/images/{image_id}"),
+        urlTemplate: this.#servers.default("/v2/catalog/images/{image_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "image_id", value: request.imageId, schema: s.string() }],
-        body: { kind: "empty" },
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
+        body: {
+          kind: "multipart",
+          value: [
+            {
+              kind: "text",
+              name: "request",
+              value: request.request,
+              schema: s.optional(s.lazy(() => updateCatalogImageRequestSchema)),
+            },
+            { kind: "file", name: "image_file", value: request.imageFile },
+          ],
+        },
       },
       {
         success: { kind: "json", schema: updateCatalogImageResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -575,25 +649,29 @@ export class Catalog {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updateItemModifierLists(
     request: Catalog.UpdateItemModifierListsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateItemModifierListsResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateItemModifierListsResponse, ResponseError>(
+  ): ApiPromise<UpdateItemModifierListsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/catalog/update-item-modifier-lists"),
+        urlTemplate: this.#servers.default("/v2/catalog/update-item-modifier-lists"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: updateItemModifierListsRequestSchema },
       },
       {
         success: { kind: "json", schema: updateItemModifierListsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -608,25 +686,29 @@ export class Catalog {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updateItemTaxes(
     request: Catalog.UpdateItemTaxesRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateItemTaxesResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateItemTaxesResponse, ResponseError>(
+  ): ApiPromise<UpdateItemTaxesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/catalog/update-item-taxes"),
+        urlTemplate: this.#servers.default("/v2/catalog/update-item-taxes"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: updateItemTaxesRequestSchema },
       },
       {
         success: { kind: "json", schema: updateItemTaxesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -649,25 +731,29 @@ export class Catalog {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   upsertCatalogObject(
     request: Catalog.UpsertCatalogObjectRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpsertCatalogObjectResponse, ResponseError> {
-    return this.#rawClient.execute<UpsertCatalogObjectResponse, ResponseError>(
+  ): ApiPromise<UpsertCatalogObjectResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/catalog/object"),
+        urlTemplate: this.#servers.default("/v2/catalog/object"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: upsertCatalogObjectRequestSchema },
       },
       {
         success: { kind: "json", schema: upsertCatalogObjectResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -700,6 +786,11 @@ export namespace Catalog {
      * See the corresponding object definition for field details.
      */
     body: BatchUpsertCatalogObjectsRequest;
+  };
+
+  export type CreateCatalogImageRequestParams = {
+    request?: CreateCatalogImageRequest;
+    imageFile?: FileInput;
   };
 
   export type DeleteCatalogObjectRequest = {
@@ -806,6 +897,8 @@ export namespace Catalog {
   export type UpdateCatalogImageRequestParams = {
     /** The ID of the `CatalogImage` object to update the encapsulated image file. */
     imageId: string;
+    request?: UpdateCatalogImageRequest;
+    imageFile?: FileInput;
   };
 
   export type UpdateItemModifierListsRequestParams = {

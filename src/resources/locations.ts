@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   createLocationRequestSchema,
@@ -54,25 +55,29 @@ export class Locations {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createLocation(
     request: Locations.CreateLocationRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateLocationResponse, ResponseError> {
-    return this.#rawClient.execute<CreateLocationResponse, ResponseError>(
+  ): ApiPromise<CreateLocationResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/locations"),
+        urlTemplate: this.#servers.default("/v2/locations"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createLocationRequestSchema },
       },
       {
         success: { kind: "json", schema: createLocationResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -88,22 +93,26 @@ export class Locations {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
-  listLocations(options?: RequestOptions): ApiPromise<ListLocationsResponse, ResponseError> {
-    return this.#rawClient.execute<ListLocationsResponse, ResponseError>(
+  listLocations(options?: RequestOptions): ApiPromise<ListLocationsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/locations"),
+        urlTemplate: this.#servers.default("/v2/locations"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listLocationsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -119,26 +128,29 @@ export class Locations {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveLocation(
     request: Locations.RetrieveLocationRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveLocationResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveLocationResponse, ResponseError>(
+  ): ApiPromise<RetrieveLocationResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/locations/{location_id}"),
+        urlTemplate: this.#servers.default("/v2/locations/{location_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "location_id", value: request.locationId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveLocationResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -152,26 +164,29 @@ export class Locations {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updateLocation(
     request: Locations.UpdateLocationRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateLocationResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateLocationResponse, ResponseError>(
+  ): ApiPromise<UpdateLocationResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/locations/{location_id}"),
+        urlTemplate: this.#servers.default("/v2/locations/{location_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "location_id", value: request.locationId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: updateLocationRequestSchema },
       },
       {
         success: { kind: "json", schema: updateLocationResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

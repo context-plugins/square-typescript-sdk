@@ -33,7 +33,7 @@ export const catalogItemOptionValueSchema: Schema<CatalogItemOptionValue> = s.ob
   name: s.optionalNullable(s.string()),
   description: s.optionalNullable(s.string()),
   color: s.optionalNullable(s.string()),
-  ordinal: s.optionalNullable(s.number()),
+  ordinal: s.optionalNullable(s.int()),
   _keysMap: {
     itemOptionId: "item_option_id",
   },

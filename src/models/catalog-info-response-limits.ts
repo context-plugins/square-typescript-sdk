@@ -58,17 +58,17 @@ export type CatalogInfoResponseLimits = {
 
 export const catalogInfoResponseLimitsSchema: Schema<CatalogInfoResponseLimits> =
   s.object<CatalogInfoResponseLimits>({
-    batchUpsertMaxObjectsPerBatch: s.optionalNullable(s.number()),
-    batchUpsertMaxTotalObjects: s.optionalNullable(s.number()),
-    batchRetrieveMaxObjectIds: s.optionalNullable(s.number()),
-    searchMaxPageLimit: s.optionalNullable(s.number()),
-    batchDeleteMaxObjectIds: s.optionalNullable(s.number()),
-    updateItemTaxesMaxItemIds: s.optionalNullable(s.number()),
-    updateItemTaxesMaxTaxesToEnable: s.optionalNullable(s.number()),
-    updateItemTaxesMaxTaxesToDisable: s.optionalNullable(s.number()),
-    updateItemModifierListsMaxItemIds: s.optionalNullable(s.number()),
-    updateItemModifierListsMaxModifierListsToEnable: s.optionalNullable(s.number()),
-    updateItemModifierListsMaxModifierListsToDisable: s.optionalNullable(s.number()),
+    batchUpsertMaxObjectsPerBatch: s.optionalNullable(s.int()),
+    batchUpsertMaxTotalObjects: s.optionalNullable(s.int()),
+    batchRetrieveMaxObjectIds: s.optionalNullable(s.int()),
+    searchMaxPageLimit: s.optionalNullable(s.int()),
+    batchDeleteMaxObjectIds: s.optionalNullable(s.int()),
+    updateItemTaxesMaxItemIds: s.optionalNullable(s.int()),
+    updateItemTaxesMaxTaxesToEnable: s.optionalNullable(s.int()),
+    updateItemTaxesMaxTaxesToDisable: s.optionalNullable(s.int()),
+    updateItemModifierListsMaxItemIds: s.optionalNullable(s.int()),
+    updateItemModifierListsMaxModifierListsToEnable: s.optionalNullable(s.int()),
+    updateItemModifierListsMaxModifierListsToDisable: s.optionalNullable(s.int()),
     _keysMap: {
       batchUpsertMaxObjectsPerBatch: "batch_upsert_max_objects_per_batch",
       batchUpsertMaxTotalObjects: "batch_upsert_max_total_objects",

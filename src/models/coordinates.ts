@@ -10,6 +10,6 @@ export type Coordinates = {
 };
 
 export const coordinatesSchema: Schema<Coordinates> = s.object<Coordinates>({
-  latitude: s.optionalNullable(s.number()),
-  longitude: s.optionalNullable(s.number()),
+  latitude: s.optionalNullable(s.float64()),
+  longitude: s.optionalNullable(s.float64()),
 });

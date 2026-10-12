@@ -4,16 +4,17 @@
 
 Accessor: `client.terminal` · Source: `src/resources/terminal.ts` · 15 operations · Request types: namespace `Terminal`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### cancelTerminalAction
 
-- **Signature**: `cancelTerminalAction(request: Terminal.CancelTerminalActionRequest, options?: RequestOptions): ApiPromise<CancelTerminalActionResponse, ResponseError>`
+- **Signature**: `cancelTerminalAction(request: Terminal.CancelTerminalActionRequest, options?: RequestOptions): ApiPromise<CancelTerminalActionResponse, ApiError>`
 - **Wire**: `POST /v2/terminals/actions/{action_id}/cancel`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CancelTerminalActionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Terminal.CancelTerminalActionRequest` (1):
 
@@ -27,12 +28,13 @@ Accessor: `client.terminal` · Source: `src/resources/terminal.ts` · 15 operati
 
 ### cancelTerminalCheckout
 
-- **Signature**: `cancelTerminalCheckout(request: Terminal.CancelTerminalCheckoutRequest, options?: RequestOptions): ApiPromise<CancelTerminalCheckoutResponse, ResponseError>`
+- **Signature**: `cancelTerminalCheckout(request: Terminal.CancelTerminalCheckoutRequest, options?: RequestOptions): ApiPromise<CancelTerminalCheckoutResponse, ApiError>`
 - **Wire**: `POST /v2/terminals/checkouts/{checkout_id}/cancel`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CancelTerminalCheckoutResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Terminal.CancelTerminalCheckoutRequest` (1):
 
@@ -46,12 +48,13 @@ Accessor: `client.terminal` · Source: `src/resources/terminal.ts` · 15 operati
 
 ### cancelTerminalRefund
 
-- **Signature**: `cancelTerminalRefund(request: Terminal.CancelTerminalRefundRequest, options?: RequestOptions): ApiPromise<CancelTerminalRefundResponse, ResponseError>`
+- **Signature**: `cancelTerminalRefund(request: Terminal.CancelTerminalRefundRequest, options?: RequestOptions): ApiPromise<CancelTerminalRefundResponse, ApiError>`
 - **Wire**: `POST /v2/terminals/refunds/{terminal_refund_id}/cancel`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CancelTerminalRefundResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Terminal.CancelTerminalRefundRequest` (1):
 
@@ -65,12 +68,13 @@ Accessor: `client.terminal` · Source: `src/resources/terminal.ts` · 15 operati
 
 ### createTerminalAction
 
-- **Signature**: `createTerminalAction(request: Terminal.CreateTerminalActionRequestParams, options?: RequestOptions): ApiPromise<CreateTerminalActionResponse, ResponseError>`
+- **Signature**: `createTerminalAction(request: Terminal.CreateTerminalActionRequestParams, options?: RequestOptions): ApiPromise<CreateTerminalActionResponse, ApiError>`
 - **Wire**: `POST /v2/terminals/actions`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateTerminalActionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Terminal.CreateTerminalActionRequestParams` (1):
 
@@ -85,12 +89,13 @@ Accessor: `client.terminal` · Source: `src/resources/terminal.ts` · 15 operati
 
 ### createTerminalCheckout
 
-- **Signature**: `createTerminalCheckout(request: Terminal.CreateTerminalCheckoutRequestParams, options?: RequestOptions): ApiPromise<CreateTerminalCheckoutResponse, ResponseError>`
+- **Signature**: `createTerminalCheckout(request: Terminal.CreateTerminalCheckoutRequestParams, options?: RequestOptions): ApiPromise<CreateTerminalCheckoutResponse, ApiError>`
 - **Wire**: `POST /v2/terminals/checkouts`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateTerminalCheckoutResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Terminal.CreateTerminalCheckoutRequestParams` (1):
 
@@ -105,12 +110,13 @@ Accessor: `client.terminal` · Source: `src/resources/terminal.ts` · 15 operati
 
 ### createTerminalRefund
 
-- **Signature**: `createTerminalRefund(request: Terminal.CreateTerminalRefundRequestParams, options?: RequestOptions): ApiPromise<CreateTerminalRefundResponse, ResponseError>`
+- **Signature**: `createTerminalRefund(request: Terminal.CreateTerminalRefundRequestParams, options?: RequestOptions): ApiPromise<CreateTerminalRefundResponse, ApiError>`
 - **Wire**: `POST /v2/terminals/refunds`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateTerminalRefundResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Terminal.CreateTerminalRefundRequestParams` (1):
 
@@ -125,12 +131,13 @@ Accessor: `client.terminal` · Source: `src/resources/terminal.ts` · 15 operati
 
 ### dismissTerminalAction
 
-- **Signature**: `dismissTerminalAction(request: Terminal.DismissTerminalActionRequest, options?: RequestOptions): ApiPromise<DismissTerminalActionResponse, ResponseError>`
+- **Signature**: `dismissTerminalAction(request: Terminal.DismissTerminalActionRequest, options?: RequestOptions): ApiPromise<DismissTerminalActionResponse, ApiError>`
 - **Wire**: `POST /v2/terminals/actions/{action_id}/dismiss`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DismissTerminalActionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Terminal.DismissTerminalActionRequest` (1):
 
@@ -144,12 +151,13 @@ Accessor: `client.terminal` · Source: `src/resources/terminal.ts` · 15 operati
 
 ### dismissTerminalCheckout
 
-- **Signature**: `dismissTerminalCheckout(request: Terminal.DismissTerminalCheckoutRequest, options?: RequestOptions): ApiPromise<DismissTerminalCheckoutResponse, ResponseError>`
+- **Signature**: `dismissTerminalCheckout(request: Terminal.DismissTerminalCheckoutRequest, options?: RequestOptions): ApiPromise<DismissTerminalCheckoutResponse, ApiError>`
 - **Wire**: `POST /v2/terminals/checkouts/{checkout_id}/dismiss`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DismissTerminalCheckoutResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Terminal.DismissTerminalCheckoutRequest` (1):
 
@@ -163,12 +171,13 @@ Accessor: `client.terminal` · Source: `src/resources/terminal.ts` · 15 operati
 
 ### dismissTerminalRefund
 
-- **Signature**: `dismissTerminalRefund(request: Terminal.DismissTerminalRefundRequest, options?: RequestOptions): ApiPromise<DismissTerminalRefundResponse, ResponseError>`
+- **Signature**: `dismissTerminalRefund(request: Terminal.DismissTerminalRefundRequest, options?: RequestOptions): ApiPromise<DismissTerminalRefundResponse, ApiError>`
 - **Wire**: `POST /v2/terminals/refunds/{terminal_refund_id}/dismiss`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DismissTerminalRefundResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Terminal.DismissTerminalRefundRequest` (1):
 
@@ -182,12 +191,12 @@ Accessor: `client.terminal` · Source: `src/resources/terminal.ts` · 15 operati
 
 ### getTerminalAction
 
-- **Signature**: `getTerminalAction(request: Terminal.GetTerminalActionRequest, options?: RequestOptions): ApiPromise<GetTerminalActionResponse, ResponseError>`
+- **Signature**: `getTerminalAction(request: Terminal.GetTerminalActionRequest, options?: RequestOptions): ApiPromise<GetTerminalActionResponse, ApiError>`
 - **Wire**: `GET /v2/terminals/actions/{action_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `GetTerminalActionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Terminal.GetTerminalActionRequest` (1):
 
@@ -201,12 +210,12 @@ Accessor: `client.terminal` · Source: `src/resources/terminal.ts` · 15 operati
 
 ### getTerminalCheckout
 
-- **Signature**: `getTerminalCheckout(request: Terminal.GetTerminalCheckoutRequest, options?: RequestOptions): ApiPromise<GetTerminalCheckoutResponse, ResponseError>`
+- **Signature**: `getTerminalCheckout(request: Terminal.GetTerminalCheckoutRequest, options?: RequestOptions): ApiPromise<GetTerminalCheckoutResponse, ApiError>`
 - **Wire**: `GET /v2/terminals/checkouts/{checkout_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `GetTerminalCheckoutResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Terminal.GetTerminalCheckoutRequest` (1):
 
@@ -220,12 +229,12 @@ Accessor: `client.terminal` · Source: `src/resources/terminal.ts` · 15 operati
 
 ### getTerminalRefund
 
-- **Signature**: `getTerminalRefund(request: Terminal.GetTerminalRefundRequest, options?: RequestOptions): ApiPromise<GetTerminalRefundResponse, ResponseError>`
+- **Signature**: `getTerminalRefund(request: Terminal.GetTerminalRefundRequest, options?: RequestOptions): ApiPromise<GetTerminalRefundResponse, ApiError>`
 - **Wire**: `GET /v2/terminals/refunds/{terminal_refund_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `GetTerminalRefundResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Terminal.GetTerminalRefundRequest` (1):
 
@@ -239,12 +248,13 @@ Accessor: `client.terminal` · Source: `src/resources/terminal.ts` · 15 operati
 
 ### searchTerminalActions
 
-- **Signature**: `searchTerminalActions(request: Terminal.SearchTerminalActionsRequestParams, options?: RequestOptions): ApiPromise<SearchTerminalActionsResponse, ResponseError>`
+- **Signature**: `searchTerminalActions(request: Terminal.SearchTerminalActionsRequestParams, options?: RequestOptions): ApiPromise<SearchTerminalActionsResponse, ApiError>`
 - **Wire**: `POST /v2/terminals/actions/search`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `SearchTerminalActionsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Terminal.SearchTerminalActionsRequestParams` (1):
 
@@ -259,12 +269,13 @@ Accessor: `client.terminal` · Source: `src/resources/terminal.ts` · 15 operati
 
 ### searchTerminalCheckouts
 
-- **Signature**: `searchTerminalCheckouts(request: Terminal.SearchTerminalCheckoutsRequestParams, options?: RequestOptions): ApiPromise<SearchTerminalCheckoutsResponse, ResponseError>`
+- **Signature**: `searchTerminalCheckouts(request: Terminal.SearchTerminalCheckoutsRequestParams, options?: RequestOptions): ApiPromise<SearchTerminalCheckoutsResponse, ApiError>`
 - **Wire**: `POST /v2/terminals/checkouts/search`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `SearchTerminalCheckoutsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Terminal.SearchTerminalCheckoutsRequestParams` (1):
 
@@ -279,12 +290,13 @@ Accessor: `client.terminal` · Source: `src/resources/terminal.ts` · 15 operati
 
 ### searchTerminalRefunds
 
-- **Signature**: `searchTerminalRefunds(request: Terminal.SearchTerminalRefundsRequestParams, options?: RequestOptions): ApiPromise<SearchTerminalRefundsResponse, ResponseError>`
+- **Signature**: `searchTerminalRefunds(request: Terminal.SearchTerminalRefundsRequestParams, options?: RequestOptions): ApiPromise<SearchTerminalRefundsResponse, ApiError>`
 - **Wire**: `POST /v2/terminals/refunds/search`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `SearchTerminalRefundsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Terminal.SearchTerminalRefundsRequestParams` (1):
 

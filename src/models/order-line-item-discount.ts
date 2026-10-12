@@ -96,7 +96,7 @@ export type OrderLineItemDiscount = {
 export const orderLineItemDiscountSchema: Schema<OrderLineItemDiscount> = s.object<OrderLineItemDiscount>({
   uid: s.optionalNullable(s.string()),
   catalogObjectId: s.optionalNullable(s.string()),
-  catalogVersion: s.optionalNullable(s.number()),
+  catalogVersion: s.optionalNullable(s.int()),
   name: s.optionalNullable(s.string()),
   type: s.optional(s.lazy(() => orderLineItemDiscountTypeSchema)),
   percentage: s.optionalNullable(s.string()),

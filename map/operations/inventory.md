@@ -4,16 +4,17 @@
 
 Accessor: `client.inventory` · Source: `src/resources/inventory.ts` · 19 operations · Request types: namespace `Inventory`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### batchChangeInventory
 
-- **Signature**: `batchChangeInventory(request: Inventory.BatchChangeInventoryRequestParams, options?: RequestOptions): ApiPromise<BatchChangeInventoryResponse, ResponseError>`
+- **Signature**: `batchChangeInventory(request: Inventory.BatchChangeInventoryRequestParams, options?: RequestOptions): ApiPromise<BatchChangeInventoryResponse, ApiError>`
 - **Wire**: `POST /v2/inventory/changes/batch-create`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BatchChangeInventoryResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Inventory.BatchChangeInventoryRequestParams` (1):
 
@@ -28,12 +29,13 @@ Accessor: `client.inventory` · Source: `src/resources/inventory.ts` · 19 opera
 
 ### batchRetrieveInventoryChanges
 
-- **Signature**: `batchRetrieveInventoryChanges(request: Inventory.BatchRetrieveInventoryChangesRequestParams, options?: RequestOptions): ApiPromise<BatchRetrieveInventoryChangesResponse, ResponseError>`
+- **Signature**: `batchRetrieveInventoryChanges(request: Inventory.BatchRetrieveInventoryChangesRequestParams, options?: RequestOptions): ApiPromise<BatchRetrieveInventoryChangesResponse, ApiError>`
 - **Wire**: `POST /v2/inventory/changes/batch-retrieve`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BatchRetrieveInventoryChangesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Inventory.BatchRetrieveInventoryChangesRequestParams` (1):
 
@@ -48,12 +50,13 @@ Accessor: `client.inventory` · Source: `src/resources/inventory.ts` · 19 opera
 
 ### batchRetrieveInventoryCounts
 
-- **Signature**: `batchRetrieveInventoryCounts(request: Inventory.BatchRetrieveInventoryCountsRequestParams, options?: RequestOptions): ApiPromise<BatchRetrieveInventoryCountsResponse, ResponseError>`
+- **Signature**: `batchRetrieveInventoryCounts(request: Inventory.BatchRetrieveInventoryCountsRequestParams, options?: RequestOptions): ApiPromise<BatchRetrieveInventoryCountsResponse, ApiError>`
 - **Wire**: `POST /v2/inventory/counts/batch-retrieve`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BatchRetrieveInventoryCountsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Inventory.BatchRetrieveInventoryCountsRequestParams` (1):
 
@@ -68,12 +71,13 @@ Accessor: `client.inventory` · Source: `src/resources/inventory.ts` · 19 opera
 
 ### createInventoryAdjustmentReason
 
-- **Signature**: `createInventoryAdjustmentReason(request: Inventory.CreateInventoryAdjustmentReasonRequestParams, options?: RequestOptions): ApiPromise<CreateInventoryAdjustmentReasonResponse, ResponseError>`
+- **Signature**: `createInventoryAdjustmentReason(request: Inventory.CreateInventoryAdjustmentReasonRequestParams, options?: RequestOptions): ApiPromise<CreateInventoryAdjustmentReasonResponse, ApiError>`
 - **Wire**: `POST /v2/inventory/adjustment-reasons/create`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateInventoryAdjustmentReasonResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Inventory.CreateInventoryAdjustmentReasonRequestParams` (1):
 
@@ -88,12 +92,13 @@ Accessor: `client.inventory` · Source: `src/resources/inventory.ts` · 19 opera
 
 ### deleteInventoryAdjustmentReason
 
-- **Signature**: `deleteInventoryAdjustmentReason(request: Inventory.DeleteInventoryAdjustmentReasonRequestParams, options?: RequestOptions): ApiPromise<DeleteInventoryAdjustmentReasonResponse, ResponseError>`
+- **Signature**: `deleteInventoryAdjustmentReason(request: Inventory.DeleteInventoryAdjustmentReasonRequestParams, options?: RequestOptions): ApiPromise<DeleteInventoryAdjustmentReasonResponse, ApiError>`
 - **Wire**: `POST /v2/inventory/adjustment-reasons/delete`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DeleteInventoryAdjustmentReasonResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Inventory.DeleteInventoryAdjustmentReasonRequestParams` (1):
 
@@ -108,13 +113,14 @@ Accessor: `client.inventory` · Source: `src/resources/inventory.ts` · 19 opera
 
 ### deprecatedBatchChangeInventory
 
-- **Signature**: `deprecatedBatchChangeInventory(request: Inventory.DeprecatedBatchChangeInventoryRequest, options?: RequestOptions): ApiPromise<BatchChangeInventoryResponse, ResponseError>`
+- **Signature**: `deprecatedBatchChangeInventory(request: Inventory.DeprecatedBatchChangeInventoryRequest, options?: RequestOptions): ApiPromise<BatchChangeInventoryResponse, ApiError>`
 - **Deprecated**: the method carries `@deprecated`, so an IDE strikes the call site through; it still works
 - **Wire**: `POST /v2/inventory/batch-change`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BatchChangeInventoryResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Inventory.DeprecatedBatchChangeInventoryRequest` (1):
 
@@ -129,13 +135,14 @@ Accessor: `client.inventory` · Source: `src/resources/inventory.ts` · 19 opera
 
 ### deprecatedBatchRetrieveInventoryChanges
 
-- **Signature**: `deprecatedBatchRetrieveInventoryChanges(request: Inventory.DeprecatedBatchRetrieveInventoryChangesRequest, options?: RequestOptions): ApiPromise<BatchRetrieveInventoryChangesResponse, ResponseError>`
+- **Signature**: `deprecatedBatchRetrieveInventoryChanges(request: Inventory.DeprecatedBatchRetrieveInventoryChangesRequest, options?: RequestOptions): ApiPromise<BatchRetrieveInventoryChangesResponse, ApiError>`
 - **Deprecated**: the method carries `@deprecated`, so an IDE strikes the call site through; it still works
 - **Wire**: `POST /v2/inventory/batch-retrieve-changes`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BatchRetrieveInventoryChangesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Inventory.DeprecatedBatchRetrieveInventoryChangesRequest` (1):
 
@@ -150,13 +157,14 @@ Accessor: `client.inventory` · Source: `src/resources/inventory.ts` · 19 opera
 
 ### deprecatedBatchRetrieveInventoryCounts
 
-- **Signature**: `deprecatedBatchRetrieveInventoryCounts(request: Inventory.DeprecatedBatchRetrieveInventoryCountsRequest, options?: RequestOptions): ApiPromise<BatchRetrieveInventoryCountsResponse, ResponseError>`
+- **Signature**: `deprecatedBatchRetrieveInventoryCounts(request: Inventory.DeprecatedBatchRetrieveInventoryCountsRequest, options?: RequestOptions): ApiPromise<BatchRetrieveInventoryCountsResponse, ApiError>`
 - **Deprecated**: the method carries `@deprecated`, so an IDE strikes the call site through; it still works
 - **Wire**: `POST /v2/inventory/batch-retrieve-counts`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BatchRetrieveInventoryCountsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Inventory.DeprecatedBatchRetrieveInventoryCountsRequest` (1):
 
@@ -171,13 +179,13 @@ Accessor: `client.inventory` · Source: `src/resources/inventory.ts` · 19 opera
 
 ### deprecatedRetrieveInventoryAdjustment
 
-- **Signature**: `deprecatedRetrieveInventoryAdjustment(request: Inventory.DeprecatedRetrieveInventoryAdjustmentRequest, options?: RequestOptions): ApiPromise<RetrieveInventoryAdjustmentResponse, ResponseError>`
+- **Signature**: `deprecatedRetrieveInventoryAdjustment(request: Inventory.DeprecatedRetrieveInventoryAdjustmentRequest, options?: RequestOptions): ApiPromise<RetrieveInventoryAdjustmentResponse, ApiError>`
 - **Deprecated**: the method carries `@deprecated`, so an IDE strikes the call site through; it still works
 - **Wire**: `GET /v2/inventory/adjustment/{adjustment_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveInventoryAdjustmentResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Inventory.DeprecatedRetrieveInventoryAdjustmentRequest` (1):
 
@@ -191,13 +199,13 @@ Accessor: `client.inventory` · Source: `src/resources/inventory.ts` · 19 opera
 
 ### deprecatedRetrieveInventoryPhysicalCount
 
-- **Signature**: `deprecatedRetrieveInventoryPhysicalCount(request: Inventory.DeprecatedRetrieveInventoryPhysicalCountRequest, options?: RequestOptions): ApiPromise<RetrieveInventoryPhysicalCountResponse, ResponseError>`
+- **Signature**: `deprecatedRetrieveInventoryPhysicalCount(request: Inventory.DeprecatedRetrieveInventoryPhysicalCountRequest, options?: RequestOptions): ApiPromise<RetrieveInventoryPhysicalCountResponse, ApiError>`
 - **Deprecated**: the method carries `@deprecated`, so an IDE strikes the call site through; it still works
 - **Wire**: `GET /v2/inventory/physical-count/{physical_count_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveInventoryPhysicalCountResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Inventory.DeprecatedRetrieveInventoryPhysicalCountRequest` (1):
 
@@ -211,12 +219,12 @@ Accessor: `client.inventory` · Source: `src/resources/inventory.ts` · 19 opera
 
 ### listInventoryAdjustmentReasons
 
-- **Signature**: `listInventoryAdjustmentReasons(request: Inventory.ListInventoryAdjustmentReasonsRequest, options?: RequestOptions): ApiPromise<ListInventoryAdjustmentReasonsResponse, ResponseError>`
+- **Signature**: `listInventoryAdjustmentReasons(request: Inventory.ListInventoryAdjustmentReasonsRequest, options?: RequestOptions): ApiPromise<ListInventoryAdjustmentReasonsResponse, ApiError>`
 - **Wire**: `GET /v2/inventory/adjustment-reasons`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListInventoryAdjustmentReasonsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Inventory.ListInventoryAdjustmentReasonsRequest` (2):
 
@@ -231,12 +239,13 @@ Accessor: `client.inventory` · Source: `src/resources/inventory.ts` · 19 opera
 
 ### restoreInventoryAdjustmentReason
 
-- **Signature**: `restoreInventoryAdjustmentReason(request: Inventory.RestoreInventoryAdjustmentReasonRequestParams, options?: RequestOptions): ApiPromise<RestoreInventoryAdjustmentReasonResponse, ResponseError>`
+- **Signature**: `restoreInventoryAdjustmentReason(request: Inventory.RestoreInventoryAdjustmentReasonRequestParams, options?: RequestOptions): ApiPromise<RestoreInventoryAdjustmentReasonResponse, ApiError>`
 - **Wire**: `POST /v2/inventory/adjustment-reasons/restore`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `RestoreInventoryAdjustmentReasonResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Inventory.RestoreInventoryAdjustmentReasonRequestParams` (1):
 
@@ -251,12 +260,12 @@ Accessor: `client.inventory` · Source: `src/resources/inventory.ts` · 19 opera
 
 ### retrieveInventoryAdjustment
 
-- **Signature**: `retrieveInventoryAdjustment(request: Inventory.RetrieveInventoryAdjustmentRequest, options?: RequestOptions): ApiPromise<RetrieveInventoryAdjustmentResponse, ResponseError>`
+- **Signature**: `retrieveInventoryAdjustment(request: Inventory.RetrieveInventoryAdjustmentRequest, options?: RequestOptions): ApiPromise<RetrieveInventoryAdjustmentResponse, ApiError>`
 - **Wire**: `GET /v2/inventory/adjustments/{adjustment_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveInventoryAdjustmentResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Inventory.RetrieveInventoryAdjustmentRequest` (1):
 
@@ -270,12 +279,13 @@ Accessor: `client.inventory` · Source: `src/resources/inventory.ts` · 19 opera
 
 ### retrieveInventoryAdjustmentReason
 
-- **Signature**: `retrieveInventoryAdjustmentReason(request: Inventory.RetrieveInventoryAdjustmentReasonRequestParams, options?: RequestOptions): ApiPromise<RetrieveInventoryAdjustmentReasonResponse, ResponseError>`
+- **Signature**: `retrieveInventoryAdjustmentReason(request: Inventory.RetrieveInventoryAdjustmentReasonRequestParams, options?: RequestOptions): ApiPromise<RetrieveInventoryAdjustmentReasonResponse, ApiError>`
 - **Wire**: `POST /v2/inventory/adjustment-reasons/retrieve`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `RetrieveInventoryAdjustmentReasonResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Inventory.RetrieveInventoryAdjustmentReasonRequestParams` (1):
 
@@ -290,13 +300,13 @@ Accessor: `client.inventory` · Source: `src/resources/inventory.ts` · 19 opera
 
 ### retrieveInventoryChanges
 
-- **Signature**: `retrieveInventoryChanges(request: Inventory.RetrieveInventoryChangesRequest, options?: RequestOptions): ApiPromise<RetrieveInventoryChangesResponse, ResponseError>`
+- **Signature**: `retrieveInventoryChanges(request: Inventory.RetrieveInventoryChangesRequest, options?: RequestOptions): ApiPromise<RetrieveInventoryChangesResponse, ApiError>`
 - **Deprecated**: the method carries `@deprecated`, so an IDE strikes the call site through; it still works
 - **Wire**: `GET /v2/inventory/{catalog_object_id}/changes`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveInventoryChangesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Inventory.RetrieveInventoryChangesRequest` (3):
 
@@ -312,12 +322,12 @@ Accessor: `client.inventory` · Source: `src/resources/inventory.ts` · 19 opera
 
 ### retrieveInventoryCount
 
-- **Signature**: `retrieveInventoryCount(request: Inventory.RetrieveInventoryCountRequest, options?: RequestOptions): ApiPromise<RetrieveInventoryCountResponse, ResponseError>`
+- **Signature**: `retrieveInventoryCount(request: Inventory.RetrieveInventoryCountRequest, options?: RequestOptions): ApiPromise<RetrieveInventoryCountResponse, ApiError>`
 - **Wire**: `GET /v2/inventory/{catalog_object_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveInventoryCountResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Inventory.RetrieveInventoryCountRequest` (3):
 
@@ -333,12 +343,12 @@ Accessor: `client.inventory` · Source: `src/resources/inventory.ts` · 19 opera
 
 ### retrieveInventoryPhysicalCount
 
-- **Signature**: `retrieveInventoryPhysicalCount(request: Inventory.RetrieveInventoryPhysicalCountRequest, options?: RequestOptions): ApiPromise<RetrieveInventoryPhysicalCountResponse, ResponseError>`
+- **Signature**: `retrieveInventoryPhysicalCount(request: Inventory.RetrieveInventoryPhysicalCountRequest, options?: RequestOptions): ApiPromise<RetrieveInventoryPhysicalCountResponse, ApiError>`
 - **Wire**: `GET /v2/inventory/physical-counts/{physical_count_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveInventoryPhysicalCountResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Inventory.RetrieveInventoryPhysicalCountRequest` (1):
 
@@ -352,12 +362,13 @@ Accessor: `client.inventory` · Source: `src/resources/inventory.ts` · 19 opera
 
 ### updateInventoryAdjustment
 
-- **Signature**: `updateInventoryAdjustment(request: Inventory.UpdateInventoryAdjustmentRequestParams, options?: RequestOptions): ApiPromise<UpdateInventoryAdjustmentResponse, ResponseError>`
+- **Signature**: `updateInventoryAdjustment(request: Inventory.UpdateInventoryAdjustmentRequestParams, options?: RequestOptions): ApiPromise<UpdateInventoryAdjustmentResponse, ApiError>`
 - **Wire**: `PUT /v2/inventory/adjustments/update`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateInventoryAdjustmentResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Inventory.UpdateInventoryAdjustmentRequestParams` (1):
 
@@ -372,12 +383,13 @@ Accessor: `client.inventory` · Source: `src/resources/inventory.ts` · 19 opera
 
 ### updateInventoryAdjustmentReason
 
-- **Signature**: `updateInventoryAdjustmentReason(request: Inventory.UpdateInventoryAdjustmentReasonRequestParams, options?: RequestOptions): ApiPromise<UpdateInventoryAdjustmentReasonResponse, ResponseError>`
+- **Signature**: `updateInventoryAdjustmentReason(request: Inventory.UpdateInventoryAdjustmentReasonRequestParams, options?: RequestOptions): ApiPromise<UpdateInventoryAdjustmentReasonResponse, ApiError>`
 - **Wire**: `PUT /v2/inventory/adjustment-reasons/update`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateInventoryAdjustmentReasonResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Inventory.UpdateInventoryAdjustmentReasonRequestParams` (1):
 

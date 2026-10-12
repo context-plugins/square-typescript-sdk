@@ -17,5 +17,5 @@ export const searchTerminalRefundsRequestSchema: Schema<SearchTerminalRefundsReq
   s.object<SearchTerminalRefundsRequest>({
     query: s.optional(s.lazy(() => terminalRefundQuerySchema)),
     cursor: s.optional(s.string()),
-    limit: s.optional(s.number()),
+    limit: s.optional(s.int()),
   });

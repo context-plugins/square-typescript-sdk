@@ -9,5 +9,5 @@ export type DeviceComponentDetailsMeasurement = {
 
 export const deviceComponentDetailsMeasurementSchema: Schema<DeviceComponentDetailsMeasurement> =
   s.object<DeviceComponentDetailsMeasurement>({
-    value: s.optionalNullable(s.number()),
+    value: s.optionalNullable(s.int()),
   });

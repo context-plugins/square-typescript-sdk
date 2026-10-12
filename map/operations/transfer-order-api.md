@@ -4,16 +4,17 @@
 
 Accessor: `client.transferOrderApi` · Source: `src/resources/transfer-order-api.ts` · 8 operations · Request types: namespace `TransferOrderApi`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### cancelTransferOrder
 
-- **Signature**: `cancelTransferOrder(request: TransferOrderApi.CancelTransferOrderRequestParams, options?: RequestOptions): ApiPromise<CancelTransferOrderResponse, ResponseError>`
+- **Signature**: `cancelTransferOrder(request: TransferOrderApi.CancelTransferOrderRequestParams, options?: RequestOptions): ApiPromise<CancelTransferOrderResponse, ApiError>`
 - **Wire**: `POST /v2/transfer-orders/{transfer_order_id}/cancel`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CancelTransferOrderResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `TransferOrderApi.CancelTransferOrderRequestParams` (2):
 
@@ -29,12 +30,13 @@ Accessor: `client.transferOrderApi` · Source: `src/resources/transfer-order-api
 
 ### createTransferOrder
 
-- **Signature**: `createTransferOrder(request: TransferOrderApi.CreateTransferOrderRequestParams, options?: RequestOptions): ApiPromise<CreateTransferOrderResponse, ResponseError>`
+- **Signature**: `createTransferOrder(request: TransferOrderApi.CreateTransferOrderRequestParams, options?: RequestOptions): ApiPromise<CreateTransferOrderResponse, ApiError>`
 - **Wire**: `POST /v2/transfer-orders`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateTransferOrderResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `TransferOrderApi.CreateTransferOrderRequestParams` (1):
 
@@ -49,12 +51,13 @@ Accessor: `client.transferOrderApi` · Source: `src/resources/transfer-order-api
 
 ### deleteTransferOrder
 
-- **Signature**: `deleteTransferOrder(request: TransferOrderApi.DeleteTransferOrderRequest, options?: RequestOptions): ApiPromise<DeleteTransferOrderResponse, ResponseError>`
+- **Signature**: `deleteTransferOrder(request: TransferOrderApi.DeleteTransferOrderRequest, options?: RequestOptions): ApiPromise<DeleteTransferOrderResponse, ApiError>`
 - **Wire**: `DELETE /v2/transfer-orders/{transfer_order_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DeleteTransferOrderResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `TransferOrderApi.DeleteTransferOrderRequest` (2):
 
@@ -69,12 +72,13 @@ Accessor: `client.transferOrderApi` · Source: `src/resources/transfer-order-api
 
 ### receiveTransferOrder
 
-- **Signature**: `receiveTransferOrder(request: TransferOrderApi.ReceiveTransferOrderRequestParams, options?: RequestOptions): ApiPromise<ReceiveTransferOrderResponse, ResponseError>`
+- **Signature**: `receiveTransferOrder(request: TransferOrderApi.ReceiveTransferOrderRequestParams, options?: RequestOptions): ApiPromise<ReceiveTransferOrderResponse, ApiError>`
 - **Wire**: `POST /v2/transfer-orders/{transfer_order_id}/receive`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `ReceiveTransferOrderResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `TransferOrderApi.ReceiveTransferOrderRequestParams` (2):
 
@@ -90,12 +94,12 @@ Accessor: `client.transferOrderApi` · Source: `src/resources/transfer-order-api
 
 ### retrieveTransferOrder
 
-- **Signature**: `retrieveTransferOrder(request: TransferOrderApi.RetrieveTransferOrderRequest, options?: RequestOptions): ApiPromise<RetrieveTransferOrderResponse, ResponseError>`
+- **Signature**: `retrieveTransferOrder(request: TransferOrderApi.RetrieveTransferOrderRequest, options?: RequestOptions): ApiPromise<RetrieveTransferOrderResponse, ApiError>`
 - **Wire**: `GET /v2/transfer-orders/{transfer_order_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveTransferOrderResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `TransferOrderApi.RetrieveTransferOrderRequest` (1):
 
@@ -109,12 +113,13 @@ Accessor: `client.transferOrderApi` · Source: `src/resources/transfer-order-api
 
 ### searchTransferOrders
 
-- **Signature**: `searchTransferOrders(request: TransferOrderApi.SearchTransferOrdersRequestParams, options?: RequestOptions): ApiPromise<SearchTransferOrdersResponse, ResponseError>`
+- **Signature**: `searchTransferOrders(request: TransferOrderApi.SearchTransferOrdersRequestParams, options?: RequestOptions): ApiPromise<SearchTransferOrdersResponse, ApiError>`
 - **Wire**: `POST /v2/transfer-orders/search`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `SearchTransferOrdersResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `TransferOrderApi.SearchTransferOrdersRequestParams` (1):
 
@@ -129,12 +134,13 @@ Accessor: `client.transferOrderApi` · Source: `src/resources/transfer-order-api
 
 ### startTransferOrder
 
-- **Signature**: `startTransferOrder(request: TransferOrderApi.StartTransferOrderRequestParams, options?: RequestOptions): ApiPromise<StartTransferOrderResponse, ResponseError>`
+- **Signature**: `startTransferOrder(request: TransferOrderApi.StartTransferOrderRequestParams, options?: RequestOptions): ApiPromise<StartTransferOrderResponse, ApiError>`
 - **Wire**: `POST /v2/transfer-orders/{transfer_order_id}/start`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `StartTransferOrderResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `TransferOrderApi.StartTransferOrderRequestParams` (2):
 
@@ -150,12 +156,13 @@ Accessor: `client.transferOrderApi` · Source: `src/resources/transfer-order-api
 
 ### updateTransferOrder
 
-- **Signature**: `updateTransferOrder(request: TransferOrderApi.UpdateTransferOrderRequestParams, options?: RequestOptions): ApiPromise<UpdateTransferOrderResponse, ResponseError>`
+- **Signature**: `updateTransferOrder(request: TransferOrderApi.UpdateTransferOrderRequestParams, options?: RequestOptions): ApiPromise<UpdateTransferOrderResponse, ApiError>`
 - **Wire**: `PUT /v2/transfer-orders/{transfer_order_id}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateTransferOrderResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `TransferOrderApi.UpdateTransferOrderRequestParams` (2):
 

@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import { sortOrderSchema, type SortOrder } from "../models/sort-order.js";
 import { v1OrderSchema, type V1Order } from "../models/v1-order.js";
@@ -28,33 +29,35 @@ export class V1Transactions {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    *
    * @deprecated
    */
   v1ListOrders(
     request: V1Transactions.V1ListOrdersRequest,
     options?: RequestOptions,
-  ): ApiPromise<V1Order[], ResponseError> {
-    return this.#rawClient.execute<V1Order[], ResponseError>(
+  ): ApiPromise<V1Order[], ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v1/{location_id}/orders"),
+        urlTemplate: this.#servers.default("/v1/{location_id}/orders"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "location_id", value: request.locationId, schema: s.string() }],
         query: [
           { name: "order", value: request.order, schema: s.optional(s.lazy(() => sortOrderSchema)) },
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
           { name: "batch_token", value: request.batchToken, schema: s.optional(s.string()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: s.array(s.lazy(() => v1OrderSchema)) },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -69,31 +72,34 @@ export class V1Transactions {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    *
    * @deprecated
    */
   v1RetrieveOrder(
     request: V1Transactions.V1RetrieveOrderRequest,
     options?: RequestOptions,
-  ): ApiPromise<V1Order, ResponseError> {
-    return this.#rawClient.execute<V1Order, ResponseError>(
+  ): ApiPromise<V1Order, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v1/{location_id}/orders/{order_id}"),
+        urlTemplate: this.#servers.default("/v1/{location_id}/orders/{order_id}"),
         auth: this.#auth.oauth2,
         pathParams: [
           { name: "location_id", value: request.locationId, schema: s.string() },
           { name: "order_id", value: request.orderId, schema: s.string() },
         ],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: v1OrderSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -108,31 +114,34 @@ export class V1Transactions {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    *
    * @deprecated
    */
   v1UpdateOrder(
     request: V1Transactions.V1UpdateOrderRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<V1Order, ResponseError> {
-    return this.#rawClient.execute<V1Order, ResponseError>(
+  ): ApiPromise<V1Order, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v1/{location_id}/orders/{order_id}"),
+        urlTemplate: this.#servers.default("/v1/{location_id}/orders/{order_id}"),
         auth: this.#auth.oauth2,
         pathParams: [
           { name: "location_id", value: request.locationId, schema: s.string() },
           { name: "order_id", value: request.orderId, schema: s.string() },
         ],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: v1UpdateOrderRequestSchema },
       },
       {
         success: { kind: "json", schema: v1OrderSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

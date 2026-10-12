@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   bulkCreateVendorsRequestSchema,
@@ -62,25 +63,29 @@ export class Vendors {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   bulkCreateVendors(
     request: Vendors.BulkCreateVendorsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BulkCreateVendorsResponse, ResponseError> {
-    return this.#rawClient.execute<BulkCreateVendorsResponse, ResponseError>(
+  ): ApiPromise<BulkCreateVendorsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/vendors/bulk-create"),
+        urlTemplate: this.#servers.default("/v2/vendors/bulk-create"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: bulkCreateVendorsRequestSchema },
       },
       {
         success: { kind: "json", schema: bulkCreateVendorsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -94,25 +99,29 @@ export class Vendors {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   bulkRetrieveVendors(
     request: Vendors.BulkRetrieveVendorsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BulkRetrieveVendorsResponse, ResponseError> {
-    return this.#rawClient.execute<BulkRetrieveVendorsResponse, ResponseError>(
+  ): ApiPromise<BulkRetrieveVendorsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/vendors/bulk-retrieve"),
+        urlTemplate: this.#servers.default("/v2/vendors/bulk-retrieve"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: bulkRetrieveVendorsRequestSchema },
       },
       {
         success: { kind: "json", schema: bulkRetrieveVendorsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -126,25 +135,29 @@ export class Vendors {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   bulkUpdateVendors(
     request: Vendors.BulkUpdateVendorsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BulkUpdateVendorsResponse, ResponseError> {
-    return this.#rawClient.execute<BulkUpdateVendorsResponse, ResponseError>(
+  ): ApiPromise<BulkUpdateVendorsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/vendors/bulk-update"),
+        urlTemplate: this.#servers.default("/v2/vendors/bulk-update"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: bulkUpdateVendorsRequestSchema },
       },
       {
         success: { kind: "json", schema: bulkUpdateVendorsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -158,25 +171,29 @@ export class Vendors {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createVendor(
     request: Vendors.CreateVendorRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateVendorResponse, ResponseError> {
-    return this.#rawClient.execute<CreateVendorResponse, ResponseError>(
+  ): ApiPromise<CreateVendorResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/vendors/create"),
+        urlTemplate: this.#servers.default("/v2/vendors/create"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createVendorRequestSchema },
       },
       {
         success: { kind: "json", schema: createVendorResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -190,26 +207,29 @@ export class Vendors {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveVendor(
     request: Vendors.RetrieveVendorRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveVendorResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveVendorResponse, ResponseError>(
+  ): ApiPromise<RetrieveVendorResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/vendors/{vendor_id}"),
+        urlTemplate: this.#servers.default("/v2/vendors/{vendor_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "vendor_id", value: request.vendorId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveVendorResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -224,25 +244,29 @@ export class Vendors {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   searchVendors(
     request: Vendors.SearchVendorsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<SearchVendorsResponse, ResponseError> {
-    return this.#rawClient.execute<SearchVendorsResponse, ResponseError>(
+  ): ApiPromise<SearchVendorsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/vendors/search"),
+        urlTemplate: this.#servers.default("/v2/vendors/search"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: searchVendorsRequestSchema },
       },
       {
         success: { kind: "json", schema: searchVendorsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -256,26 +280,29 @@ export class Vendors {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updateVendor(
     request: Vendors.UpdateVendorRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateVendorResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateVendorResponse, ResponseError>(
+  ): ApiPromise<UpdateVendorResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/vendors/{vendor_id}"),
+        urlTemplate: this.#servers.default("/v2/vendors/{vendor_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "vendor_id", value: request.vendorId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: updateVendorRequestSchema },
       },
       {
         success: { kind: "json", schema: updateVendorResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

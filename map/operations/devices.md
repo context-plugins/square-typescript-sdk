@@ -4,16 +4,17 @@
 
 Accessor: `client.devices` · Source: `src/resources/devices.ts` · 5 operations · Request types: namespace `Devices`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### createDeviceCode
 
-- **Signature**: `createDeviceCode(request: Devices.CreateDeviceCodeRequestParams, options?: RequestOptions): ApiPromise<CreateDeviceCodeResponse, ResponseError>`
+- **Signature**: `createDeviceCode(request: Devices.CreateDeviceCodeRequestParams, options?: RequestOptions): ApiPromise<CreateDeviceCodeResponse, ApiError>`
 - **Wire**: `POST /v2/devices/codes`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateDeviceCodeResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Devices.CreateDeviceCodeRequestParams` (1):
 
@@ -28,12 +29,12 @@ Accessor: `client.devices` · Source: `src/resources/devices.ts` · 5 operations
 
 ### getDevice
 
-- **Signature**: `getDevice(request: Devices.GetDeviceRequest, options?: RequestOptions): ApiPromise<GetDeviceResponse, ResponseError>`
+- **Signature**: `getDevice(request: Devices.GetDeviceRequest, options?: RequestOptions): ApiPromise<GetDeviceResponse, ApiError>`
 - **Wire**: `GET /v2/devices/{device_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `GetDeviceResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Devices.GetDeviceRequest` (1):
 
@@ -47,12 +48,12 @@ Accessor: `client.devices` · Source: `src/resources/devices.ts` · 5 operations
 
 ### getDeviceCode
 
-- **Signature**: `getDeviceCode(request: Devices.GetDeviceCodeRequest, options?: RequestOptions): ApiPromise<GetDeviceCodeResponse, ResponseError>`
+- **Signature**: `getDeviceCode(request: Devices.GetDeviceCodeRequest, options?: RequestOptions): ApiPromise<GetDeviceCodeResponse, ApiError>`
 - **Wire**: `GET /v2/devices/codes/{id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `GetDeviceCodeResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Devices.GetDeviceCodeRequest` (1):
 
@@ -66,12 +67,12 @@ Accessor: `client.devices` · Source: `src/resources/devices.ts` · 5 operations
 
 ### listDeviceCodes
 
-- **Signature**: `listDeviceCodes(request: Devices.ListDeviceCodesRequest, options?: RequestOptions): ApiPromise<ListDeviceCodesResponse, ResponseError>`
+- **Signature**: `listDeviceCodes(request: Devices.ListDeviceCodesRequest, options?: RequestOptions): ApiPromise<ListDeviceCodesResponse, ApiError>`
 - **Wire**: `GET /v2/devices/codes`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListDeviceCodesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Devices.ListDeviceCodesRequest` (4):
 
@@ -90,12 +91,12 @@ Accessor: `client.devices` · Source: `src/resources/devices.ts` · 5 operations
 
 ### listDevices
 
-- **Signature**: `listDevices(request: Devices.ListDevicesRequest, options?: RequestOptions): ApiPromise<ListDevicesResponse, ResponseError>`
+- **Signature**: `listDevices(request: Devices.ListDevicesRequest, options?: RequestOptions): ApiPromise<ListDevicesResponse, ApiError>`
 - **Wire**: `GET /v2/devices`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListDevicesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Devices.ListDevicesRequest` (4):
 

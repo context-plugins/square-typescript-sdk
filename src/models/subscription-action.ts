@@ -26,7 +26,7 @@ export const subscriptionActionSchema: Schema<SubscriptionAction> = s.object<Sub
   id: s.optional(s.string()),
   type: s.optional(s.lazy(() => subscriptionActionTypeSchema)),
   effectiveDate: s.optionalNullable(s.string()),
-  monthlyBillingAnchorDate: s.optionalNullable(s.number()),
+  monthlyBillingAnchorDate: s.optionalNullable(s.int()),
   phases: s.optionalNullable(s.array(s.lazy(() => phaseSchema))),
   newPlanVariationId: s.optionalNullable(s.string()),
   _keysMap: {

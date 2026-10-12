@@ -16,7 +16,7 @@ export type V1Money = {
 };
 
 export const v1MoneySchema: Schema<V1Money> = s.object<V1Money>({
-  amount: s.optionalNullable(s.number()),
+  amount: s.optionalNullable(s.int()),
   currencyCode: s.optional(s.lazy(() => currencySchema)),
   _keysMap: {
     currencyCode: "currency_code",

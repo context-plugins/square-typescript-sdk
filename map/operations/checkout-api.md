@@ -4,17 +4,18 @@
 
 Accessor: `client.checkoutApi` · Source: `src/resources/checkout-api.ts` · 10 operations · Request types: namespace `CheckoutApi`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### createCheckout
 
-- **Signature**: `createCheckout(request: CheckoutApi.CreateCheckoutRequestParams, options?: RequestOptions): ApiPromise<CreateCheckoutResponse, ResponseError>`
+- **Signature**: `createCheckout(request: CheckoutApi.CreateCheckoutRequestParams, options?: RequestOptions): ApiPromise<CreateCheckoutResponse, ApiError>`
 - **Deprecated**: the method carries `@deprecated`, so an IDE strikes the call site through; it still works
 - **Wire**: `POST /v2/locations/{location_id}/checkouts`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateCheckoutResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `CheckoutApi.CreateCheckoutRequestParams` (2):
 
@@ -30,12 +31,13 @@ Accessor: `client.checkoutApi` · Source: `src/resources/checkout-api.ts` · 10 
 
 ### createPaymentLink
 
-- **Signature**: `createPaymentLink(request: CheckoutApi.CreatePaymentLinkRequestParams, options?: RequestOptions): ApiPromise<CreatePaymentLinkResponse, ResponseError>`
+- **Signature**: `createPaymentLink(request: CheckoutApi.CreatePaymentLinkRequestParams, options?: RequestOptions): ApiPromise<CreatePaymentLinkResponse, ApiError>`
 - **Wire**: `POST /v2/online-checkout/payment-links`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreatePaymentLinkResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `CheckoutApi.CreatePaymentLinkRequestParams` (1):
 
@@ -50,12 +52,13 @@ Accessor: `client.checkoutApi` · Source: `src/resources/checkout-api.ts` · 10 
 
 ### deletePaymentLink
 
-- **Signature**: `deletePaymentLink(request: CheckoutApi.DeletePaymentLinkRequest, options?: RequestOptions): ApiPromise<DeletePaymentLinkResponse, ResponseError>`
+- **Signature**: `deletePaymentLink(request: CheckoutApi.DeletePaymentLinkRequest, options?: RequestOptions): ApiPromise<DeletePaymentLinkResponse, ApiError>`
 - **Wire**: `DELETE /v2/online-checkout/payment-links/{id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DeletePaymentLinkResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `CheckoutApi.DeletePaymentLinkRequest` (1):
 
@@ -69,12 +72,12 @@ Accessor: `client.checkoutApi` · Source: `src/resources/checkout-api.ts` · 10 
 
 ### listPaymentLinks
 
-- **Signature**: `listPaymentLinks(request: CheckoutApi.ListPaymentLinksRequest, options?: RequestOptions): ApiPromise<ListPaymentLinksResponse, ResponseError>`
+- **Signature**: `listPaymentLinks(request: CheckoutApi.ListPaymentLinksRequest, options?: RequestOptions): ApiPromise<ListPaymentLinksResponse, ApiError>`
 - **Wire**: `GET /v2/online-checkout/payment-links`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListPaymentLinksResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `CheckoutApi.ListPaymentLinksRequest` (2):
 
@@ -89,12 +92,12 @@ Accessor: `client.checkoutApi` · Source: `src/resources/checkout-api.ts` · 10 
 
 ### retrieveLocationSettings
 
-- **Signature**: `retrieveLocationSettings(request: CheckoutApi.RetrieveLocationSettingsRequest, options?: RequestOptions): ApiPromise<RetrieveLocationSettingsResponse, ResponseError>`
+- **Signature**: `retrieveLocationSettings(request: CheckoutApi.RetrieveLocationSettingsRequest, options?: RequestOptions): ApiPromise<RetrieveLocationSettingsResponse, ApiError>`
 - **Wire**: `GET /v2/online-checkout/location-settings/{location_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveLocationSettingsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `CheckoutApi.RetrieveLocationSettingsRequest` (1):
 
@@ -108,12 +111,12 @@ Accessor: `client.checkoutApi` · Source: `src/resources/checkout-api.ts` · 10 
 
 ### retrieveMerchantSettings
 
-- **Signature**: `retrieveMerchantSettings(options?: RequestOptions): ApiPromise<RetrieveMerchantSettingsResponse, ResponseError>`
+- **Signature**: `retrieveMerchantSettings(options?: RequestOptions): ApiPromise<RetrieveMerchantSettingsResponse, ApiError>`
 - **Wire**: `GET /v2/online-checkout/merchant-settings`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveMerchantSettingsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 | Type | Schema value | Source |
 | --- | --- | --- |
@@ -121,12 +124,12 @@ Accessor: `client.checkoutApi` · Source: `src/resources/checkout-api.ts` · 10 
 
 ### retrievePaymentLink
 
-- **Signature**: `retrievePaymentLink(request: CheckoutApi.RetrievePaymentLinkRequest, options?: RequestOptions): ApiPromise<RetrievePaymentLinkResponse, ResponseError>`
+- **Signature**: `retrievePaymentLink(request: CheckoutApi.RetrievePaymentLinkRequest, options?: RequestOptions): ApiPromise<RetrievePaymentLinkResponse, ApiError>`
 - **Wire**: `GET /v2/online-checkout/payment-links/{id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrievePaymentLinkResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `CheckoutApi.RetrievePaymentLinkRequest` (1):
 
@@ -140,12 +143,13 @@ Accessor: `client.checkoutApi` · Source: `src/resources/checkout-api.ts` · 10 
 
 ### updateLocationSettings
 
-- **Signature**: `updateLocationSettings(request: CheckoutApi.UpdateLocationSettingsRequestParams, options?: RequestOptions): ApiPromise<UpdateLocationSettingsResponse, ResponseError>`
+- **Signature**: `updateLocationSettings(request: CheckoutApi.UpdateLocationSettingsRequestParams, options?: RequestOptions): ApiPromise<UpdateLocationSettingsResponse, ApiError>`
 - **Wire**: `PUT /v2/online-checkout/location-settings/{location_id}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateLocationSettingsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `CheckoutApi.UpdateLocationSettingsRequestParams` (2):
 
@@ -161,12 +165,13 @@ Accessor: `client.checkoutApi` · Source: `src/resources/checkout-api.ts` · 10 
 
 ### updateMerchantSettings
 
-- **Signature**: `updateMerchantSettings(request: CheckoutApi.UpdateMerchantSettingsRequestParams, options?: RequestOptions): ApiPromise<UpdateMerchantSettingsResponse, ResponseError>`
+- **Signature**: `updateMerchantSettings(request: CheckoutApi.UpdateMerchantSettingsRequestParams, options?: RequestOptions): ApiPromise<UpdateMerchantSettingsResponse, ApiError>`
 - **Wire**: `PUT /v2/online-checkout/merchant-settings`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateMerchantSettingsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `CheckoutApi.UpdateMerchantSettingsRequestParams` (1):
 
@@ -181,12 +186,13 @@ Accessor: `client.checkoutApi` · Source: `src/resources/checkout-api.ts` · 10 
 
 ### updatePaymentLink
 
-- **Signature**: `updatePaymentLink(request: CheckoutApi.UpdatePaymentLinkRequestParams, options?: RequestOptions): ApiPromise<UpdatePaymentLinkResponse, ResponseError>`
+- **Signature**: `updatePaymentLink(request: CheckoutApi.UpdatePaymentLinkRequestParams, options?: RequestOptions): ApiPromise<UpdatePaymentLinkResponse, ApiError>`
 - **Wire**: `PUT /v2/online-checkout/payment-links/{id}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdatePaymentLinkResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `CheckoutApi.UpdatePaymentLinkRequestParams` (2):
 

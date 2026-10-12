@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   bulkDeleteOrderCustomAttributesRequestSchema,
@@ -105,25 +106,29 @@ export class OrderCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   bulkDeleteOrderCustomAttributes(
     request: OrderCustomAttributes.BulkDeleteOrderCustomAttributesRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BulkDeleteOrderCustomAttributesResponse, ResponseError> {
-    return this.#rawClient.execute<BulkDeleteOrderCustomAttributesResponse, ResponseError>(
+  ): ApiPromise<BulkDeleteOrderCustomAttributesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/orders/custom-attributes/bulk-delete"),
+        urlTemplate: this.#servers.default("/v2/orders/custom-attributes/bulk-delete"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: bulkDeleteOrderCustomAttributesRequestSchema },
       },
       {
         success: { kind: "json", schema: bulkDeleteOrderCustomAttributesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -152,25 +157,29 @@ export class OrderCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   bulkUpsertOrderCustomAttributes(
     request: OrderCustomAttributes.BulkUpsertOrderCustomAttributesRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BulkUpsertOrderCustomAttributesResponse, ResponseError> {
-    return this.#rawClient.execute<BulkUpsertOrderCustomAttributesResponse, ResponseError>(
+  ): ApiPromise<BulkUpsertOrderCustomAttributesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/orders/custom-attributes/bulk-upsert"),
+        urlTemplate: this.#servers.default("/v2/orders/custom-attributes/bulk-upsert"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: bulkUpsertOrderCustomAttributesRequestSchema },
       },
       {
         success: { kind: "json", schema: bulkUpsertOrderCustomAttributesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -188,20 +197,24 @@ export class OrderCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createOrderCustomAttributeDefinition(
     request: OrderCustomAttributes.CreateOrderCustomAttributeDefinitionRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateOrderCustomAttributeDefinitionResponse, ResponseError> {
-    return this.#rawClient.execute<CreateOrderCustomAttributeDefinitionResponse, ResponseError>(
+  ): ApiPromise<CreateOrderCustomAttributeDefinitionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/orders/custom-attribute-definitions"),
+        urlTemplate: this.#servers.default("/v2/orders/custom-attribute-definitions"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: {
           kind: "json",
           value: request.body,
@@ -210,7 +223,7 @@ export class OrderCustomAttributes {
       },
       {
         success: { kind: "json", schema: createOrderCustomAttributeDefinitionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -228,29 +241,32 @@ export class OrderCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   deleteOrderCustomAttribute(
     request: OrderCustomAttributes.DeleteOrderCustomAttributeRequest,
     options?: RequestOptions,
-  ): ApiPromise<DeleteOrderCustomAttributeResponse, ResponseError> {
-    return this.#rawClient.execute<DeleteOrderCustomAttributeResponse, ResponseError>(
+  ): ApiPromise<DeleteOrderCustomAttributeResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v2/orders/{order_id}/custom-attributes/{custom_attribute_key}"),
+        urlTemplate: this.#servers.default("/v2/orders/{order_id}/custom-attributes/{custom_attribute_key}"),
         auth: this.#auth.oauth2,
         pathParams: [
           { name: "order_id", value: request.orderId, schema: s.string() },
           { name: "custom_attribute_key", value: request.customAttributeKey, schema: s.string() },
         ],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: deleteOrderCustomAttributeResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -267,26 +283,29 @@ export class OrderCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   deleteOrderCustomAttributeDefinition(
     request: OrderCustomAttributes.DeleteOrderCustomAttributeDefinitionRequest,
     options?: RequestOptions,
-  ): ApiPromise<DeleteOrderCustomAttributeDefinitionResponse, ResponseError> {
-    return this.#rawClient.execute<DeleteOrderCustomAttributeDefinitionResponse, ResponseError>(
+  ): ApiPromise<DeleteOrderCustomAttributeDefinitionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v2/orders/custom-attribute-definitions/{key}"),
+        urlTemplate: this.#servers.default("/v2/orders/custom-attribute-definitions/{key}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "key", value: request.key, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: deleteOrderCustomAttributeDefinitionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -307,20 +326,22 @@ export class OrderCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listOrderCustomAttributeDefinitions(
     request: OrderCustomAttributes.ListOrderCustomAttributeDefinitionsRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListOrderCustomAttributeDefinitionsResponse, ResponseError> {
-    return this.#rawClient.execute<ListOrderCustomAttributeDefinitionsResponse, ResponseError>(
+  ): ApiPromise<ListOrderCustomAttributeDefinitionsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/orders/custom-attribute-definitions"),
+        urlTemplate: this.#servers.default("/v2/orders/custom-attribute-definitions"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
           {
             name: "visibility_filter",
@@ -328,13 +349,14 @@ export class OrderCustomAttributes {
             schema: s.optional(s.lazy(() => visibilityFilterSchema)),
           },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listOrderCustomAttributeDefinitionsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -355,19 +377,20 @@ export class OrderCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listOrderCustomAttributes(
     request: OrderCustomAttributes.ListOrderCustomAttributesRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListOrderCustomAttributesResponse, ResponseError> {
-    return this.#rawClient.execute<ListOrderCustomAttributesResponse, ResponseError>(
+  ): ApiPromise<ListOrderCustomAttributesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/orders/{order_id}/custom-attributes"),
+        urlTemplate: this.#servers.default("/v2/orders/{order_id}/custom-attributes"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "order_id", value: request.orderId, schema: s.string() }],
         query: [
@@ -377,18 +400,19 @@ export class OrderCustomAttributes {
             schema: s.optional(s.lazy(() => visibilityFilterSchema)),
           },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
           {
             name: "with_definitions",
             value: request.withDefinitions,
             schema: s.defaulted(s.boolean(), false),
           },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listOrderCustomAttributesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -409,33 +433,35 @@ export class OrderCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveOrderCustomAttribute(
     request: OrderCustomAttributes.RetrieveOrderCustomAttributeRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveOrderCustomAttributeResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveOrderCustomAttributeResponse, ResponseError>(
+  ): ApiPromise<RetrieveOrderCustomAttributeResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/orders/{order_id}/custom-attributes/{custom_attribute_key}"),
+        urlTemplate: this.#servers.default("/v2/orders/{order_id}/custom-attributes/{custom_attribute_key}"),
         auth: this.#auth.oauth2,
         pathParams: [
           { name: "order_id", value: request.orderId, schema: s.string() },
           { name: "custom_attribute_key", value: request.customAttributeKey, schema: s.string() },
         ],
         query: [
-          { name: "version", value: request.version, schema: s.optional(s.number()) },
+          { name: "version", value: request.version, schema: s.optional(s.int()) },
           { name: "with_definition", value: request.withDefinition, schema: s.defaulted(s.boolean(), false) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveOrderCustomAttributeResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -455,27 +481,29 @@ export class OrderCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveOrderCustomAttributeDefinition(
     request: OrderCustomAttributes.RetrieveOrderCustomAttributeDefinitionRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveOrderCustomAttributeDefinitionResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveOrderCustomAttributeDefinitionResponse, ResponseError>(
+  ): ApiPromise<RetrieveOrderCustomAttributeDefinitionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/orders/custom-attribute-definitions/{key}"),
+        urlTemplate: this.#servers.default("/v2/orders/custom-attribute-definitions/{key}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "key", value: request.key, schema: s.string() }],
-        query: [{ name: "version", value: request.version, schema: s.optional(s.number()) }],
+        query: [{ name: "version", value: request.version, schema: s.optional(s.int()) }],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveOrderCustomAttributeDefinitionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -492,21 +520,24 @@ export class OrderCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updateOrderCustomAttributeDefinition(
     request: OrderCustomAttributes.UpdateOrderCustomAttributeDefinitionRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateOrderCustomAttributeDefinitionResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateOrderCustomAttributeDefinitionResponse, ResponseError>(
+  ): ApiPromise<UpdateOrderCustomAttributeDefinitionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/orders/custom-attribute-definitions/{key}"),
+        urlTemplate: this.#servers.default("/v2/orders/custom-attribute-definitions/{key}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "key", value: request.key, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: {
           kind: "json",
           value: request.body,
@@ -515,7 +546,7 @@ export class OrderCustomAttributes {
       },
       {
         success: { kind: "json", schema: updateOrderCustomAttributeDefinitionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -539,29 +570,32 @@ export class OrderCustomAttributes {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   upsertOrderCustomAttribute(
     request: OrderCustomAttributes.UpsertOrderCustomAttributeRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpsertOrderCustomAttributeResponse, ResponseError> {
-    return this.#rawClient.execute<UpsertOrderCustomAttributeResponse, ResponseError>(
+  ): ApiPromise<UpsertOrderCustomAttributeResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/orders/{order_id}/custom-attributes/{custom_attribute_key}"),
+        urlTemplate: this.#servers.default("/v2/orders/{order_id}/custom-attributes/{custom_attribute_key}"),
         auth: this.#auth.oauth2,
         pathParams: [
           { name: "order_id", value: request.orderId, schema: s.string() },
           { name: "custom_attribute_key", value: request.customAttributeKey, schema: s.string() },
         ],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: upsertOrderCustomAttributeRequestSchema },
       },
       {
         success: { kind: "json", schema: upsertOrderCustomAttributeResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

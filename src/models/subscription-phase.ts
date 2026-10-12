@@ -42,9 +42,9 @@ export type SubscriptionPhase = {
 export const subscriptionPhaseSchema: Schema<SubscriptionPhase> = s.object<SubscriptionPhase>({
   uid: s.optionalNullable(s.string()),
   cadence: subscriptionCadenceSchema,
-  periods: s.optionalNullable(s.number()),
+  periods: s.optionalNullable(s.int()),
   recurringPriceMoney: s.optional(s.lazy(() => moneySchema)),
-  ordinal: s.optionalNullable(s.number()),
+  ordinal: s.optionalNullable(s.int()),
   pricing: s.optional(s.lazy(() => subscriptionPricingSchema)),
   _keysMap: {
     recurringPriceMoney: "recurring_price_money",

@@ -146,7 +146,7 @@ export const orderReturnLineItemSchema: Schema<OrderReturnLineItem> = s.object<O
   quantityUnit: s.optional(s.lazy(() => orderQuantityUnitSchema)),
   note: s.optionalNullable(s.string()),
   catalogObjectId: s.optionalNullable(s.string()),
-  catalogVersion: s.optionalNullable(s.number()),
+  catalogVersion: s.optionalNullable(s.int()),
   variationName: s.optionalNullable(s.string()),
   itemType: s.optional(s.lazy(() => orderLineItemItemTypeSchema)),
   returnModifiers: s.optionalNullable(s.array(s.lazy(() => orderReturnLineItemModifierSchema))),

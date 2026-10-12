@@ -14,7 +14,7 @@ export type DeviceComponentDetailsBatteryDetails = {
 
 export const deviceComponentDetailsBatteryDetailsSchema: Schema<DeviceComponentDetailsBatteryDetails> =
   s.object<DeviceComponentDetailsBatteryDetails>({
-    visiblePercent: s.optionalNullable(s.number()),
+    visiblePercent: s.optionalNullable(s.int()),
     externalPower: s.optional(s.lazy(() => deviceComponentDetailsExternalPowerSchema)),
     _keysMap: {
       visiblePercent: "visible_percent",

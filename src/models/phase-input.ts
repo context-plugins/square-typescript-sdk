@@ -10,7 +10,7 @@ export type PhaseInput = {
 };
 
 export const phaseInputSchema: Schema<PhaseInput> = s.object<PhaseInput>({
-  ordinal: s.number(),
+  ordinal: s.int(),
   orderTemplateId: s.optionalNullable(s.string()),
   _keysMap: {
     orderTemplateId: "order_template_id",

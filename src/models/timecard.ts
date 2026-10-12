@@ -72,7 +72,7 @@ export const timecardSchema: Schema<Timecard> = s.object<Timecard>({
   wage: s.optional(s.lazy(() => timecardWageSchema)),
   breaks: s.optionalNullable(s.array(s.lazy(() => breakSchema))),
   status: s.optional(s.lazy(() => timecardStatusSchema)),
-  version: s.optional(s.number()),
+  version: s.optional(s.int()),
   createdAt: s.optional(s.string()),
   updatedAt: s.optional(s.string()),
   teamMemberId: s.string(),

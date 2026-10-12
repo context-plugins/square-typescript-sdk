@@ -42,5 +42,5 @@ export const searchCustomersResponseSchema: Schema<SearchCustomersResponse> =
     errors: s.optional(s.array(s.lazy(() => errorSchema))),
     customers: s.optional(s.array(s.lazy(() => customerSchema))),
     cursor: s.optional(s.string()),
-    count: s.optional(s.number()),
+    count: s.optional(s.int()),
   });

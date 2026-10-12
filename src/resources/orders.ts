@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   batchRetrieveOrdersRequestSchema,
@@ -57,25 +58,29 @@ export class Orders {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   batchRetrieveOrders(
     request: Orders.BatchRetrieveOrdersRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<BatchRetrieveOrdersResponse, ResponseError> {
-    return this.#rawClient.execute<BatchRetrieveOrdersResponse, ResponseError>(
+  ): ApiPromise<BatchRetrieveOrdersResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/orders/batch-retrieve"),
+        urlTemplate: this.#servers.default("/v2/orders/batch-retrieve"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: batchRetrieveOrdersRequestSchema },
       },
       {
         success: { kind: "json", schema: batchRetrieveOrdersResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -89,25 +94,29 @@ export class Orders {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   calculateOrder(
     request: Orders.CalculateOrderRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CalculateOrderResponse, ResponseError> {
-    return this.#rawClient.execute<CalculateOrderResponse, ResponseError>(
+  ): ApiPromise<CalculateOrderResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/orders/calculate"),
+        urlTemplate: this.#servers.default("/v2/orders/calculate"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: calculateOrderRequestSchema },
       },
       {
         success: { kind: "json", schema: calculateOrderResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -123,25 +132,29 @@ export class Orders {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   cloneOrder(
     request: Orders.CloneOrderRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CloneOrderResponse, ResponseError> {
-    return this.#rawClient.execute<CloneOrderResponse, ResponseError>(
+  ): ApiPromise<CloneOrderResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/orders/clone"),
+        urlTemplate: this.#servers.default("/v2/orders/clone"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: cloneOrderRequestSchema },
       },
       {
         success: { kind: "json", schema: cloneOrderResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -161,25 +174,29 @@ export class Orders {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createOrder(
     request: Orders.CreateOrderRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateOrderResponse, ResponseError> {
-    return this.#rawClient.execute<CreateOrderResponse, ResponseError>(
+  ): ApiPromise<CreateOrderResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/orders"),
+        urlTemplate: this.#servers.default("/v2/orders"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createOrderRequestSchema },
       },
       {
         success: { kind: "json", schema: createOrderResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -207,26 +224,29 @@ export class Orders {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   payOrder(
     request: Orders.PayOrderRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<PayOrderResponse, ResponseError> {
-    return this.#rawClient.execute<PayOrderResponse, ResponseError>(
+  ): ApiPromise<PayOrderResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/orders/{order_id}/pay"),
+        urlTemplate: this.#servers.default("/v2/orders/{order_id}/pay"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "order_id", value: request.orderId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: payOrderRequestSchema },
       },
       {
         success: { kind: "json", schema: payOrderResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -240,26 +260,29 @@ export class Orders {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveOrder(
     request: Orders.RetrieveOrderRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveOrderResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveOrderResponse, ResponseError>(
+  ): ApiPromise<RetrieveOrderResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/orders/{order_id}"),
+        urlTemplate: this.#servers.default("/v2/orders/{order_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "order_id", value: request.orderId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveOrderResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -287,25 +310,29 @@ export class Orders {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   searchOrders(
     request: Orders.SearchOrdersRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<SearchOrdersResponse, ResponseError> {
-    return this.#rawClient.execute<SearchOrdersResponse, ResponseError>(
+  ): ApiPromise<SearchOrdersResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/orders/search"),
+        urlTemplate: this.#servers.default("/v2/orders/search"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: searchOrdersRequestSchema },
       },
       {
         success: { kind: "json", schema: searchOrdersResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -334,26 +361,29 @@ export class Orders {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updateOrder(
     request: Orders.UpdateOrderRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateOrderResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateOrderResponse, ResponseError>(
+  ): ApiPromise<UpdateOrderResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/orders/{order_id}"),
+        urlTemplate: this.#servers.default("/v2/orders/{order_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "order_id", value: request.orderId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: updateOrderRequestSchema },
       },
       {
         success: { kind: "json", schema: updateOrderResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

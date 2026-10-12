@@ -13,7 +13,7 @@ export type LoyaltyAccountExpiringPointDeadline = {
 
 export const loyaltyAccountExpiringPointDeadlineSchema: Schema<LoyaltyAccountExpiringPointDeadline> =
   s.object<LoyaltyAccountExpiringPointDeadline>({
-    points: s.number(),
+    points: s.int(),
     expiresAt: s.string(),
     _keysMap: {
       expiresAt: "expires_at",

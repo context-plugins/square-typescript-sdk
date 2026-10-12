@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import { createCardRequestSchema, type CreateCardRequest } from "../models/create-card-request.js";
 import { createCardResponseSchema, type CreateCardResponse } from "../models/create-card-response.js";
@@ -31,25 +32,29 @@ export class Cards {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createCard(
     request: Cards.CreateCardRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateCardResponse, ResponseError> {
-    return this.#rawClient.execute<CreateCardResponse, ResponseError>(
+  ): ApiPromise<CreateCardResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/cards"),
+        urlTemplate: this.#servers.default("/v2/cards"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createCardRequestSchema },
       },
       {
         success: { kind: "json", schema: createCardResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -64,26 +69,29 @@ export class Cards {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   disableCard(
     request: Cards.DisableCardRequest,
     options?: RequestOptions,
-  ): ApiPromise<DisableCardResponse, ResponseError> {
-    return this.#rawClient.execute<DisableCardResponse, ResponseError>(
+  ): ApiPromise<DisableCardResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/cards/{card_id}/disable"),
+        urlTemplate: this.#servers.default("/v2/cards/{card_id}/disable"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "card_id", value: request.cardId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: disableCardResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -98,20 +106,22 @@ export class Cards {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listCards(
     request: Cards.ListCardsRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListCardsResponse, ResponseError> {
-    return this.#rawClient.execute<ListCardsResponse, ResponseError>(
+  ): ApiPromise<ListCardsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/cards"),
+        urlTemplate: this.#servers.default("/v2/cards"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
           { name: "customer_id", value: request.customerId, schema: s.optional(s.string()) },
@@ -123,11 +133,12 @@ export class Cards {
           { name: "reference_id", value: request.referenceId, schema: s.optional(s.string()) },
           { name: "sort_order", value: request.sortOrder, schema: s.optional(s.lazy(() => sortOrderSchema)) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listCardsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -141,26 +152,29 @@ export class Cards {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveCard(
     request: Cards.RetrieveCardRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveCardResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveCardResponse, ResponseError>(
+  ): ApiPromise<RetrieveCardResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/cards/{card_id}"),
+        urlTemplate: this.#servers.default("/v2/cards/{card_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "card_id", value: request.cardId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveCardResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

@@ -29,7 +29,7 @@ export const vendorContactSchema: Schema<VendorContact> = s.object<VendorContact
   emailAddress: s.optionalNullable(s.string()),
   phoneNumber: s.optionalNullable(s.string()),
   removed: s.optionalNullable(s.boolean()),
-  ordinal: s.number(),
+  ordinal: s.int(),
   _keysMap: {
     emailAddress: "email_address",
     phoneNumber: "phone_number",

@@ -112,7 +112,7 @@ export const transferOrderSchema: Schema<TransferOrder> = s.object<TransferOrder
   trackingNumber: s.optionalNullable(s.string()),
   createdByTeamMemberId: s.optional(s.string()),
   lineItems: s.optionalNullable(s.array(s.lazy(() => transferOrderLineSchema))),
-  version: s.optional(s.number()),
+  version: s.optional(s.int()),
   _keysMap: {
     sourceLocationId: "source_location_id",
     destinationLocationId: "destination_location_id",

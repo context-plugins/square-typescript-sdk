@@ -4,16 +4,17 @@
 
 Accessor: `client.customers` · Source: `src/resources/customers.ts` · 14 operations · Request types: namespace `Customers`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### addGroupToCustomer
 
-- **Signature**: `addGroupToCustomer(request: Customers.AddGroupToCustomerRequest, options?: RequestOptions): ApiPromise<AddGroupToCustomerResponse, ResponseError>`
+- **Signature**: `addGroupToCustomer(request: Customers.AddGroupToCustomerRequest, options?: RequestOptions): ApiPromise<AddGroupToCustomerResponse, ApiError>`
 - **Wire**: `PUT /v2/customers/{customer_id}/groups/{group_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `AddGroupToCustomerResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Customers.AddGroupToCustomerRequest` (2):
 
@@ -28,12 +29,13 @@ Accessor: `client.customers` · Source: `src/resources/customers.ts` · 14 opera
 
 ### bulkCreateCustomers
 
-- **Signature**: `bulkCreateCustomers(request: Customers.BulkCreateCustomersRequestParams, options?: RequestOptions): ApiPromise<BulkCreateCustomersResponse, ResponseError>`
+- **Signature**: `bulkCreateCustomers(request: Customers.BulkCreateCustomersRequestParams, options?: RequestOptions): ApiPromise<BulkCreateCustomersResponse, ApiError>`
 - **Wire**: `POST /v2/customers/bulk-create`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BulkCreateCustomersResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Customers.BulkCreateCustomersRequestParams` (1):
 
@@ -48,12 +50,13 @@ Accessor: `client.customers` · Source: `src/resources/customers.ts` · 14 opera
 
 ### bulkDeleteCustomers
 
-- **Signature**: `bulkDeleteCustomers(request: Customers.BulkDeleteCustomersRequestParams, options?: RequestOptions): ApiPromise<BulkDeleteCustomersResponse, ResponseError>`
+- **Signature**: `bulkDeleteCustomers(request: Customers.BulkDeleteCustomersRequestParams, options?: RequestOptions): ApiPromise<BulkDeleteCustomersResponse, ApiError>`
 - **Wire**: `POST /v2/customers/bulk-delete`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BulkDeleteCustomersResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Customers.BulkDeleteCustomersRequestParams` (1):
 
@@ -68,12 +71,13 @@ Accessor: `client.customers` · Source: `src/resources/customers.ts` · 14 opera
 
 ### bulkRetrieveCustomers
 
-- **Signature**: `bulkRetrieveCustomers(request: Customers.BulkRetrieveCustomersRequestParams, options?: RequestOptions): ApiPromise<BulkRetrieveCustomersResponse, ResponseError>`
+- **Signature**: `bulkRetrieveCustomers(request: Customers.BulkRetrieveCustomersRequestParams, options?: RequestOptions): ApiPromise<BulkRetrieveCustomersResponse, ApiError>`
 - **Wire**: `POST /v2/customers/bulk-retrieve`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BulkRetrieveCustomersResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Customers.BulkRetrieveCustomersRequestParams` (1):
 
@@ -88,12 +92,13 @@ Accessor: `client.customers` · Source: `src/resources/customers.ts` · 14 opera
 
 ### bulkUpdateCustomers
 
-- **Signature**: `bulkUpdateCustomers(request: Customers.BulkUpdateCustomersRequestParams, options?: RequestOptions): ApiPromise<BulkUpdateCustomersResponse, ResponseError>`
+- **Signature**: `bulkUpdateCustomers(request: Customers.BulkUpdateCustomersRequestParams, options?: RequestOptions): ApiPromise<BulkUpdateCustomersResponse, ApiError>`
 - **Wire**: `POST /v2/customers/bulk-update`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BulkUpdateCustomersResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Customers.BulkUpdateCustomersRequestParams` (1):
 
@@ -108,12 +113,13 @@ Accessor: `client.customers` · Source: `src/resources/customers.ts` · 14 opera
 
 ### createCustomer
 
-- **Signature**: `createCustomer(request: Customers.CreateCustomerRequestParams, options?: RequestOptions): ApiPromise<CreateCustomerResponse, ResponseError>`
+- **Signature**: `createCustomer(request: Customers.CreateCustomerRequestParams, options?: RequestOptions): ApiPromise<CreateCustomerResponse, ApiError>`
 - **Wire**: `POST /v2/customers`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateCustomerResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Customers.CreateCustomerRequestParams` (1):
 
@@ -128,13 +134,14 @@ Accessor: `client.customers` · Source: `src/resources/customers.ts` · 14 opera
 
 ### createCustomerCard
 
-- **Signature**: `createCustomerCard(request: Customers.CreateCustomerCardRequestParams, options?: RequestOptions): ApiPromise<CreateCustomerCardResponse, ResponseError>`
+- **Signature**: `createCustomerCard(request: Customers.CreateCustomerCardRequestParams, options?: RequestOptions): ApiPromise<CreateCustomerCardResponse, ApiError>`
 - **Deprecated**: the method carries `@deprecated`, so an IDE strikes the call site through; it still works
 - **Wire**: `POST /v2/customers/{customer_id}/cards`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateCustomerCardResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Customers.CreateCustomerCardRequestParams` (2):
 
@@ -150,12 +157,13 @@ Accessor: `client.customers` · Source: `src/resources/customers.ts` · 14 opera
 
 ### deleteCustomer
 
-- **Signature**: `deleteCustomer(request: Customers.DeleteCustomerRequest, options?: RequestOptions): ApiPromise<DeleteCustomerResponse, ResponseError>`
+- **Signature**: `deleteCustomer(request: Customers.DeleteCustomerRequest, options?: RequestOptions): ApiPromise<DeleteCustomerResponse, ApiError>`
 - **Wire**: `DELETE /v2/customers/{customer_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DeleteCustomerResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Customers.DeleteCustomerRequest` (2):
 
@@ -170,13 +178,14 @@ Accessor: `client.customers` · Source: `src/resources/customers.ts` · 14 opera
 
 ### deleteCustomerCard
 
-- **Signature**: `deleteCustomerCard(request: Customers.DeleteCustomerCardRequest, options?: RequestOptions): ApiPromise<DeleteCustomerCardResponse, ResponseError>`
+- **Signature**: `deleteCustomerCard(request: Customers.DeleteCustomerCardRequest, options?: RequestOptions): ApiPromise<DeleteCustomerCardResponse, ApiError>`
 - **Deprecated**: the method carries `@deprecated`, so an IDE strikes the call site through; it still works
 - **Wire**: `DELETE /v2/customers/{customer_id}/cards/{card_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DeleteCustomerCardResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Customers.DeleteCustomerCardRequest` (2):
 
@@ -191,12 +200,12 @@ Accessor: `client.customers` · Source: `src/resources/customers.ts` · 14 opera
 
 ### listCustomers
 
-- **Signature**: `listCustomers(request: Customers.ListCustomersRequest, options?: RequestOptions): ApiPromise<ListCustomersResponse, ResponseError>`
+- **Signature**: `listCustomers(request: Customers.ListCustomersRequest, options?: RequestOptions): ApiPromise<ListCustomersResponse, ApiError>`
 - **Wire**: `GET /v2/customers`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListCustomersResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Customers.ListCustomersRequest` (5):
 
@@ -216,12 +225,13 @@ Accessor: `client.customers` · Source: `src/resources/customers.ts` · 14 opera
 
 ### removeGroupFromCustomer
 
-- **Signature**: `removeGroupFromCustomer(request: Customers.RemoveGroupFromCustomerRequest, options?: RequestOptions): ApiPromise<RemoveGroupFromCustomerResponse, ResponseError>`
+- **Signature**: `removeGroupFromCustomer(request: Customers.RemoveGroupFromCustomerRequest, options?: RequestOptions): ApiPromise<RemoveGroupFromCustomerResponse, ApiError>`
 - **Wire**: `DELETE /v2/customers/{customer_id}/groups/{group_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `RemoveGroupFromCustomerResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Customers.RemoveGroupFromCustomerRequest` (2):
 
@@ -236,12 +246,12 @@ Accessor: `client.customers` · Source: `src/resources/customers.ts` · 14 opera
 
 ### retrieveCustomer
 
-- **Signature**: `retrieveCustomer(request: Customers.RetrieveCustomerRequest, options?: RequestOptions): ApiPromise<RetrieveCustomerResponse, ResponseError>`
+- **Signature**: `retrieveCustomer(request: Customers.RetrieveCustomerRequest, options?: RequestOptions): ApiPromise<RetrieveCustomerResponse, ApiError>`
 - **Wire**: `GET /v2/customers/{customer_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveCustomerResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Customers.RetrieveCustomerRequest` (1):
 
@@ -255,12 +265,13 @@ Accessor: `client.customers` · Source: `src/resources/customers.ts` · 14 opera
 
 ### searchCustomers
 
-- **Signature**: `searchCustomers(request: Customers.SearchCustomersRequestParams, options?: RequestOptions): ApiPromise<SearchCustomersResponse, ResponseError>`
+- **Signature**: `searchCustomers(request: Customers.SearchCustomersRequestParams, options?: RequestOptions): ApiPromise<SearchCustomersResponse, ApiError>`
 - **Wire**: `POST /v2/customers/search`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `SearchCustomersResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Customers.SearchCustomersRequestParams` (1):
 
@@ -275,12 +286,13 @@ Accessor: `client.customers` · Source: `src/resources/customers.ts` · 14 opera
 
 ### updateCustomer
 
-- **Signature**: `updateCustomer(request: Customers.UpdateCustomerRequestParams, options?: RequestOptions): ApiPromise<UpdateCustomerResponse, ResponseError>`
+- **Signature**: `updateCustomer(request: Customers.UpdateCustomerRequestParams, options?: RequestOptions): ApiPromise<UpdateCustomerResponse, ApiError>`
 - **Wire**: `PUT /v2/customers/{customer_id}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateCustomerResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Customers.UpdateCustomerRequestParams` (2):
 

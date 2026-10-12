@@ -21,7 +21,7 @@ export type CatalogItemFoodAndBeverageDetails = {
 
 export const catalogItemFoodAndBeverageDetailsSchema: Schema<CatalogItemFoodAndBeverageDetails> =
   s.object<CatalogItemFoodAndBeverageDetails>({
-    calorieCount: s.optionalNullable(s.number()),
+    calorieCount: s.optionalNullable(s.int()),
     dietaryPreferences: s.optionalNullable(
       s.array(s.lazy(() => catalogItemFoodAndBeverageDetailsDietaryPreferenceSchema)),
     ),

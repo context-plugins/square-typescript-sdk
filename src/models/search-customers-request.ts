@@ -40,7 +40,7 @@ export type SearchCustomersRequest = {
 
 export const searchCustomersRequestSchema: Schema<SearchCustomersRequest> = s.object<SearchCustomersRequest>({
   cursor: s.optional(s.string()),
-  limit: s.optional(s.number()),
+  limit: s.optional(s.int()),
   query: s.optional(s.lazy(() => customerQuerySchema)),
   count: s.optional(s.boolean()),
 });

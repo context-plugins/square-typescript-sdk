@@ -69,7 +69,7 @@ export const payoutSchema: Schema<Payout> = s.object<Payout>({
   updatedAt: s.optional(s.string()),
   amountMoney: s.optional(s.lazy(() => moneySchema)),
   destination: s.optional(s.lazy(() => destinationSchema)),
-  version: s.optional(s.number()),
+  version: s.optional(s.int()),
   type: s.optional(s.lazy(() => payoutTypeSchema)),
   payoutFee: s.optionalNullable(s.array(s.lazy(() => payoutFeeSchema))),
   arrivalDate: s.optionalNullable(s.string()),

@@ -1,5 +1,5 @@
 export { SquareClient } from "./client.js";
-export { DEFAULT_CLIENT_OPTIONS, type ClientOptions } from "./client-options.js";
+export type { ClientOptions } from "./client-options.js";
 
 export {
   PkceMethod,
@@ -14,8 +14,7 @@ export type {
   OAuthTokenRefreshable,
 } from "./core/auth/oauth2-strategies.js";
 
-export { ServerEnvironment, DEFAULT_SERVER_OPTIONS } from "./servers.js";
-export type { ServerOptions, DefaultServerOptions } from "./servers.js";
+export { ServerEnvironment } from "./servers.js";
 
 export { OAuth } from "./resources/oauth.js";
 export { V1Transactions } from "./resources/v1-transactions.js";
@@ -4475,16 +4474,35 @@ export { workweekConfigSchema, type WorkweekConfig } from "./models/workweek-con
 
 export {
   CoreError as SquareError,
+  ResponseError,
+  DecodeError,
+  EncodeError,
   ConnectionError,
   TimeoutError,
-  AbortError,
-  SdkError,
   AuthError,
+  ConfigurationError,
 } from "./core/errors.js";
-export { ResponseError } from "./core/response-error.js";
+export { ApiError } from "./core/api-error.js";
 export { SchemaError } from "./core/validation/schema-error.js";
+export {
+  defaultLoggingOptions,
+  type LoggingOptions,
+  type RequestLoggingOptions,
+  type Logger,
+  type LogDetails,
+  type HttpRequestDetails,
+  type RequestHeadersDetails,
+  type RequestBodyDetails,
+  type HttpResponseDetails,
+  type ResponseHeadersDetails,
+  type HttpRetryingDetails,
+  type HttpFailedDetails,
+  type LogLevel,
+} from "./core/logging.js";
 export type { ApiPromise, ApiResult } from "./core/api-promise.js";
-export type { RequestOptions } from "./core/api-request.js";
+export type { HttpMethod, RequestOptions } from "./core/api-request.js";
+export type { RetryOptions, RequestRetryOptions, RetryAttempt, RetryReason } from "./core/retry.js";
+export type { BinaryContent, BinaryData, BinaryErrorContent, FileData, FileInput } from "./core/binary.js";
 export type { ErrorKind } from "./core/errors.js";
-export type { ErrorPayload, Declared, Undeclared } from "./core/response-error.js";
+export type { ErrorPayload, Declared, Undeclared } from "./core/api-error.js";
 export type { Schema, EnumSchema, Encoded } from "./core/validation/schema.js";

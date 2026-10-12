@@ -32,7 +32,7 @@ export const workweekConfigSchema: Schema<WorkweekConfig> = s.object<WorkweekCon
   id: s.optional(s.string()),
   startOfWeek: weekdaySchema,
   startOfDayLocalTime: s.string(),
-  version: s.optional(s.number()),
+  version: s.optional(s.int()),
   createdAt: s.optional(s.string()),
   updatedAt: s.optional(s.string()),
   _keysMap: {

@@ -272,7 +272,7 @@ export const catalogObjectSchema: Schema<CatalogObject> = s.object<CatalogObject
   type: catalogObjectTypeSchema,
   id: s.string(),
   updatedAt: s.optional(s.string()),
-  version: s.optional(s.number()),
+  version: s.optional(s.int()),
   isDeleted: s.optionalNullable(s.boolean()),
   customAttributeValues: s.optionalNullable(
     s.record(

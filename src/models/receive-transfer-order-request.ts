@@ -38,7 +38,7 @@ export const receiveTransferOrderRequestSchema: Schema<ReceiveTransferOrderReque
   s.object<ReceiveTransferOrderRequest>({
     idempotencyKey: s.string(),
     receipt: transferOrderGoodsReceiptSchema,
-    version: s.optional(s.number()),
+    version: s.optional(s.int()),
     _keysMap: {
       idempotencyKey: "idempotency_key",
     },

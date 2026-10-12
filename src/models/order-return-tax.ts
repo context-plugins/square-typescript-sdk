@@ -46,7 +46,7 @@ export const orderReturnTaxSchema: Schema<OrderReturnTax> = s.object<OrderReturn
   uid: s.optionalNullable(s.string()),
   sourceTaxUid: s.optionalNullable(s.string()),
   catalogObjectId: s.optionalNullable(s.string()),
-  catalogVersion: s.optionalNullable(s.number()),
+  catalogVersion: s.optionalNullable(s.int()),
   name: s.optionalNullable(s.string()),
   type: s.optional(s.lazy(() => orderLineItemTaxTypeSchema)),
   percentage: s.optionalNullable(s.string()),

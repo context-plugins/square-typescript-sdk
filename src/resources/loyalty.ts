@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   accumulateLoyaltyPointsRequestSchema,
@@ -157,26 +158,29 @@ export class Loyalty {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   accumulateLoyaltyPoints(
     request: Loyalty.AccumulateLoyaltyPointsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<AccumulateLoyaltyPointsResponse, ResponseError> {
-    return this.#rawClient.execute<AccumulateLoyaltyPointsResponse, ResponseError>(
+  ): ApiPromise<AccumulateLoyaltyPointsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/loyalty/accounts/{account_id}/accumulate"),
+        urlTemplate: this.#servers.default("/v2/loyalty/accounts/{account_id}/accumulate"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "account_id", value: request.accountId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: accumulateLoyaltyPointsRequestSchema },
       },
       {
         success: { kind: "json", schema: accumulateLoyaltyPointsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -194,26 +198,29 @@ export class Loyalty {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   adjustLoyaltyPoints(
     request: Loyalty.AdjustLoyaltyPointsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<AdjustLoyaltyPointsResponse, ResponseError> {
-    return this.#rawClient.execute<AdjustLoyaltyPointsResponse, ResponseError>(
+  ): ApiPromise<AdjustLoyaltyPointsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/loyalty/accounts/{account_id}/adjust"),
+        urlTemplate: this.#servers.default("/v2/loyalty/accounts/{account_id}/adjust"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "account_id", value: request.accountId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: adjustLoyaltyPointsRequestSchema },
       },
       {
         success: { kind: "json", schema: adjustLoyaltyPointsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -242,26 +249,29 @@ export class Loyalty {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   calculateLoyaltyPoints(
     request: Loyalty.CalculateLoyaltyPointsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CalculateLoyaltyPointsResponse, ResponseError> {
-    return this.#rawClient.execute<CalculateLoyaltyPointsResponse, ResponseError>(
+  ): ApiPromise<CalculateLoyaltyPointsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/loyalty/programs/{program_id}/calculate"),
+        urlTemplate: this.#servers.default("/v2/loyalty/programs/{program_id}/calculate"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "program_id", value: request.programId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: calculateLoyaltyPointsRequestSchema },
       },
       {
         success: { kind: "json", schema: calculateLoyaltyPointsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -280,29 +290,34 @@ export class Loyalty {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   cancelLoyaltyPromotion(
     request: Loyalty.CancelLoyaltyPromotionRequest,
     options?: RequestOptions,
-  ): ApiPromise<CancelLoyaltyPromotionResponse, ResponseError> {
-    return this.#rawClient.execute<CancelLoyaltyPromotionResponse, ResponseError>(
+  ): ApiPromise<CancelLoyaltyPromotionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/loyalty/programs/{program_id}/promotions/{promotion_id}/cancel"),
+        urlTemplate: this.#servers.default(
+          "/v2/loyalty/programs/{program_id}/promotions/{promotion_id}/cancel",
+        ),
         auth: this.#auth.oauth2,
         pathParams: [
           { name: "promotion_id", value: request.promotionId, schema: s.string() },
           { name: "program_id", value: request.programId, schema: s.string() },
         ],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: cancelLoyaltyPromotionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -317,25 +332,29 @@ export class Loyalty {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createLoyaltyAccount(
     request: Loyalty.CreateLoyaltyAccountRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateLoyaltyAccountResponse, ResponseError> {
-    return this.#rawClient.execute<CreateLoyaltyAccountResponse, ResponseError>(
+  ): ApiPromise<CreateLoyaltyAccountResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/loyalty/accounts"),
+        urlTemplate: this.#servers.default("/v2/loyalty/accounts"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createLoyaltyAccountRequestSchema },
       },
       {
         success: { kind: "json", schema: createLoyaltyAccountResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -354,26 +373,29 @@ export class Loyalty {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createLoyaltyPromotion(
     request: Loyalty.CreateLoyaltyPromotionRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateLoyaltyPromotionResponse, ResponseError> {
-    return this.#rawClient.execute<CreateLoyaltyPromotionResponse, ResponseError>(
+  ): ApiPromise<CreateLoyaltyPromotionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/loyalty/programs/{program_id}/promotions"),
+        urlTemplate: this.#servers.default("/v2/loyalty/programs/{program_id}/promotions"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "program_id", value: request.programId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createLoyaltyPromotionRequestSchema },
       },
       {
         success: { kind: "json", schema: createLoyaltyPromotionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -394,25 +416,29 @@ export class Loyalty {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createLoyaltyReward(
     request: Loyalty.CreateLoyaltyRewardRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateLoyaltyRewardResponse, ResponseError> {
-    return this.#rawClient.execute<CreateLoyaltyRewardResponse, ResponseError>(
+  ): ApiPromise<CreateLoyaltyRewardResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/loyalty/rewards"),
+        urlTemplate: this.#servers.default("/v2/loyalty/rewards"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createLoyaltyRewardRequestSchema },
       },
       {
         success: { kind: "json", schema: createLoyaltyRewardResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -433,26 +459,29 @@ export class Loyalty {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   deleteLoyaltyReward(
     request: Loyalty.DeleteLoyaltyRewardRequest,
     options?: RequestOptions,
-  ): ApiPromise<DeleteLoyaltyRewardResponse, ResponseError> {
-    return this.#rawClient.execute<DeleteLoyaltyRewardResponse, ResponseError>(
+  ): ApiPromise<DeleteLoyaltyRewardResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v2/loyalty/rewards/{reward_id}"),
+        urlTemplate: this.#servers.default("/v2/loyalty/rewards/{reward_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "reward_id", value: request.rewardId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: deleteLoyaltyRewardResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -473,24 +502,28 @@ export class Loyalty {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    *
    * @deprecated
    */
-  listLoyaltyPrograms(options?: RequestOptions): ApiPromise<ListLoyaltyProgramsResponse, ResponseError> {
-    return this.#rawClient.execute<ListLoyaltyProgramsResponse, ResponseError>(
+  listLoyaltyPrograms(options?: RequestOptions): ApiPromise<ListLoyaltyProgramsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/loyalty/programs"),
+        urlTemplate: this.#servers.default("/v2/loyalty/programs"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listLoyaltyProgramsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -505,19 +538,20 @@ export class Loyalty {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listLoyaltyPromotions(
     request: Loyalty.ListLoyaltyPromotionsRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListLoyaltyPromotionsResponse, ResponseError> {
-    return this.#rawClient.execute<ListLoyaltyPromotionsResponse, ResponseError>(
+  ): ApiPromise<ListLoyaltyPromotionsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/loyalty/programs/{program_id}/promotions"),
+        urlTemplate: this.#servers.default("/v2/loyalty/programs/{program_id}/promotions"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "program_id", value: request.programId, schema: s.string() }],
         query: [
@@ -527,13 +561,14 @@ export class Loyalty {
             schema: s.optional(s.lazy(() => loyaltyPromotionStatusSchema)),
           },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listLoyaltyPromotionsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -555,26 +590,29 @@ export class Loyalty {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   redeemLoyaltyReward(
     request: Loyalty.RedeemLoyaltyRewardRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<RedeemLoyaltyRewardResponse, ResponseError> {
-    return this.#rawClient.execute<RedeemLoyaltyRewardResponse, ResponseError>(
+  ): ApiPromise<RedeemLoyaltyRewardResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/loyalty/rewards/{reward_id}/redeem"),
+        urlTemplate: this.#servers.default("/v2/loyalty/rewards/{reward_id}/redeem"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "reward_id", value: request.rewardId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: redeemLoyaltyRewardRequestSchema },
       },
       {
         success: { kind: "json", schema: redeemLoyaltyRewardResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -588,26 +626,29 @@ export class Loyalty {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveLoyaltyAccount(
     request: Loyalty.RetrieveLoyaltyAccountRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveLoyaltyAccountResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveLoyaltyAccountResponse, ResponseError>(
+  ): ApiPromise<RetrieveLoyaltyAccountResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/loyalty/accounts/{account_id}"),
+        urlTemplate: this.#servers.default("/v2/loyalty/accounts/{account_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "account_id", value: request.accountId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveLoyaltyAccountResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -627,26 +668,29 @@ export class Loyalty {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveLoyaltyProgram(
     request: Loyalty.RetrieveLoyaltyProgramRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveLoyaltyProgramResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveLoyaltyProgramResponse, ResponseError>(
+  ): ApiPromise<RetrieveLoyaltyProgramResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/loyalty/programs/{program_id}"),
+        urlTemplate: this.#servers.default("/v2/loyalty/programs/{program_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "program_id", value: request.programId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveLoyaltyProgramResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -660,29 +704,32 @@ export class Loyalty {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveLoyaltyPromotion(
     request: Loyalty.RetrieveLoyaltyPromotionRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveLoyaltyPromotionResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveLoyaltyPromotionResponse, ResponseError>(
+  ): ApiPromise<RetrieveLoyaltyPromotionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/loyalty/programs/{program_id}/promotions/{promotion_id}"),
+        urlTemplate: this.#servers.default("/v2/loyalty/programs/{program_id}/promotions/{promotion_id}"),
         auth: this.#auth.oauth2,
         pathParams: [
           { name: "promotion_id", value: request.promotionId, schema: s.string() },
           { name: "program_id", value: request.programId, schema: s.string() },
         ],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveLoyaltyPromotionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -696,26 +743,29 @@ export class Loyalty {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveLoyaltyReward(
     request: Loyalty.RetrieveLoyaltyRewardRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveLoyaltyRewardResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveLoyaltyRewardResponse, ResponseError>(
+  ): ApiPromise<RetrieveLoyaltyRewardResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/loyalty/rewards/{reward_id}"),
+        urlTemplate: this.#servers.default("/v2/loyalty/rewards/{reward_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "reward_id", value: request.rewardId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveLoyaltyRewardResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -734,25 +784,29 @@ export class Loyalty {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   searchLoyaltyAccounts(
     request: Loyalty.SearchLoyaltyAccountsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<SearchLoyaltyAccountsResponse, ResponseError> {
-    return this.#rawClient.execute<SearchLoyaltyAccountsResponse, ResponseError>(
+  ): ApiPromise<SearchLoyaltyAccountsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/loyalty/accounts/search"),
+        urlTemplate: this.#servers.default("/v2/loyalty/accounts/search"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: searchLoyaltyAccountsRequestSchema },
       },
       {
         success: { kind: "json", schema: searchLoyaltyAccountsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -773,25 +827,29 @@ export class Loyalty {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   searchLoyaltyEvents(
     request: Loyalty.SearchLoyaltyEventsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<SearchLoyaltyEventsResponse, ResponseError> {
-    return this.#rawClient.execute<SearchLoyaltyEventsResponse, ResponseError>(
+  ): ApiPromise<SearchLoyaltyEventsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/loyalty/events/search"),
+        urlTemplate: this.#servers.default("/v2/loyalty/events/search"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: searchLoyaltyEventsRequestSchema },
       },
       {
         success: { kind: "json", schema: searchLoyaltyEventsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -812,25 +870,29 @@ export class Loyalty {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   searchLoyaltyRewards(
     request: Loyalty.SearchLoyaltyRewardsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<SearchLoyaltyRewardsResponse, ResponseError> {
-    return this.#rawClient.execute<SearchLoyaltyRewardsResponse, ResponseError>(
+  ): ApiPromise<SearchLoyaltyRewardsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/loyalty/rewards/search"),
+        urlTemplate: this.#servers.default("/v2/loyalty/rewards/search"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: searchLoyaltyRewardsRequestSchema },
       },
       {
         success: { kind: "json", schema: searchLoyaltyRewardsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

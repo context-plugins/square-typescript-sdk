@@ -20,5 +20,5 @@ export type CatalogObjectCategory = {
 
 export const catalogObjectCategorySchema: Schema<CatalogObjectCategory> = s.object<CatalogObjectCategory>({
   id: s.optional(s.string()),
-  ordinal: s.optionalNullable(s.number()),
+  ordinal: s.optionalNullable(s.int()),
 });

@@ -4,16 +4,17 @@
 
 Accessor: `client.loyalty` · Source: `src/resources/loyalty.ts` · 18 operations · Request types: namespace `Loyalty`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### accumulateLoyaltyPoints
 
-- **Signature**: `accumulateLoyaltyPoints(request: Loyalty.AccumulateLoyaltyPointsRequestParams, options?: RequestOptions): ApiPromise<AccumulateLoyaltyPointsResponse, ResponseError>`
+- **Signature**: `accumulateLoyaltyPoints(request: Loyalty.AccumulateLoyaltyPointsRequestParams, options?: RequestOptions): ApiPromise<AccumulateLoyaltyPointsResponse, ApiError>`
 - **Wire**: `POST /v2/loyalty/accounts/{account_id}/accumulate`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `AccumulateLoyaltyPointsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Loyalty.AccumulateLoyaltyPointsRequestParams` (2):
 
@@ -29,12 +30,13 @@ Accessor: `client.loyalty` · Source: `src/resources/loyalty.ts` · 18 operation
 
 ### adjustLoyaltyPoints
 
-- **Signature**: `adjustLoyaltyPoints(request: Loyalty.AdjustLoyaltyPointsRequestParams, options?: RequestOptions): ApiPromise<AdjustLoyaltyPointsResponse, ResponseError>`
+- **Signature**: `adjustLoyaltyPoints(request: Loyalty.AdjustLoyaltyPointsRequestParams, options?: RequestOptions): ApiPromise<AdjustLoyaltyPointsResponse, ApiError>`
 - **Wire**: `POST /v2/loyalty/accounts/{account_id}/adjust`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `AdjustLoyaltyPointsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Loyalty.AdjustLoyaltyPointsRequestParams` (2):
 
@@ -50,12 +52,13 @@ Accessor: `client.loyalty` · Source: `src/resources/loyalty.ts` · 18 operation
 
 ### calculateLoyaltyPoints
 
-- **Signature**: `calculateLoyaltyPoints(request: Loyalty.CalculateLoyaltyPointsRequestParams, options?: RequestOptions): ApiPromise<CalculateLoyaltyPointsResponse, ResponseError>`
+- **Signature**: `calculateLoyaltyPoints(request: Loyalty.CalculateLoyaltyPointsRequestParams, options?: RequestOptions): ApiPromise<CalculateLoyaltyPointsResponse, ApiError>`
 - **Wire**: `POST /v2/loyalty/programs/{program_id}/calculate`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CalculateLoyaltyPointsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Loyalty.CalculateLoyaltyPointsRequestParams` (2):
 
@@ -71,12 +74,13 @@ Accessor: `client.loyalty` · Source: `src/resources/loyalty.ts` · 18 operation
 
 ### cancelLoyaltyPromotion
 
-- **Signature**: `cancelLoyaltyPromotion(request: Loyalty.CancelLoyaltyPromotionRequest, options?: RequestOptions): ApiPromise<CancelLoyaltyPromotionResponse, ResponseError>`
+- **Signature**: `cancelLoyaltyPromotion(request: Loyalty.CancelLoyaltyPromotionRequest, options?: RequestOptions): ApiPromise<CancelLoyaltyPromotionResponse, ApiError>`
 - **Wire**: `POST /v2/loyalty/programs/{program_id}/promotions/{promotion_id}/cancel`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CancelLoyaltyPromotionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Loyalty.CancelLoyaltyPromotionRequest` (2):
 
@@ -91,12 +95,13 @@ Accessor: `client.loyalty` · Source: `src/resources/loyalty.ts` · 18 operation
 
 ### createLoyaltyAccount
 
-- **Signature**: `createLoyaltyAccount(request: Loyalty.CreateLoyaltyAccountRequestParams, options?: RequestOptions): ApiPromise<CreateLoyaltyAccountResponse, ResponseError>`
+- **Signature**: `createLoyaltyAccount(request: Loyalty.CreateLoyaltyAccountRequestParams, options?: RequestOptions): ApiPromise<CreateLoyaltyAccountResponse, ApiError>`
 - **Wire**: `POST /v2/loyalty/accounts`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateLoyaltyAccountResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Loyalty.CreateLoyaltyAccountRequestParams` (1):
 
@@ -111,12 +116,13 @@ Accessor: `client.loyalty` · Source: `src/resources/loyalty.ts` · 18 operation
 
 ### createLoyaltyPromotion
 
-- **Signature**: `createLoyaltyPromotion(request: Loyalty.CreateLoyaltyPromotionRequestParams, options?: RequestOptions): ApiPromise<CreateLoyaltyPromotionResponse, ResponseError>`
+- **Signature**: `createLoyaltyPromotion(request: Loyalty.CreateLoyaltyPromotionRequestParams, options?: RequestOptions): ApiPromise<CreateLoyaltyPromotionResponse, ApiError>`
 - **Wire**: `POST /v2/loyalty/programs/{program_id}/promotions`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateLoyaltyPromotionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Loyalty.CreateLoyaltyPromotionRequestParams` (2):
 
@@ -132,12 +138,13 @@ Accessor: `client.loyalty` · Source: `src/resources/loyalty.ts` · 18 operation
 
 ### createLoyaltyReward
 
-- **Signature**: `createLoyaltyReward(request: Loyalty.CreateLoyaltyRewardRequestParams, options?: RequestOptions): ApiPromise<CreateLoyaltyRewardResponse, ResponseError>`
+- **Signature**: `createLoyaltyReward(request: Loyalty.CreateLoyaltyRewardRequestParams, options?: RequestOptions): ApiPromise<CreateLoyaltyRewardResponse, ApiError>`
 - **Wire**: `POST /v2/loyalty/rewards`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateLoyaltyRewardResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Loyalty.CreateLoyaltyRewardRequestParams` (1):
 
@@ -152,12 +159,13 @@ Accessor: `client.loyalty` · Source: `src/resources/loyalty.ts` · 18 operation
 
 ### deleteLoyaltyReward
 
-- **Signature**: `deleteLoyaltyReward(request: Loyalty.DeleteLoyaltyRewardRequest, options?: RequestOptions): ApiPromise<DeleteLoyaltyRewardResponse, ResponseError>`
+- **Signature**: `deleteLoyaltyReward(request: Loyalty.DeleteLoyaltyRewardRequest, options?: RequestOptions): ApiPromise<DeleteLoyaltyRewardResponse, ApiError>`
 - **Wire**: `DELETE /v2/loyalty/rewards/{reward_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DeleteLoyaltyRewardResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Loyalty.DeleteLoyaltyRewardRequest` (1):
 
@@ -171,13 +179,13 @@ Accessor: `client.loyalty` · Source: `src/resources/loyalty.ts` · 18 operation
 
 ### listLoyaltyPrograms
 
-- **Signature**: `listLoyaltyPrograms(options?: RequestOptions): ApiPromise<ListLoyaltyProgramsResponse, ResponseError>`
+- **Signature**: `listLoyaltyPrograms(options?: RequestOptions): ApiPromise<ListLoyaltyProgramsResponse, ApiError>`
 - **Deprecated**: the method carries `@deprecated`, so an IDE strikes the call site through; it still works
 - **Wire**: `GET /v2/loyalty/programs`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListLoyaltyProgramsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 | Type | Schema value | Source |
 | --- | --- | --- |
@@ -185,12 +193,12 @@ Accessor: `client.loyalty` · Source: `src/resources/loyalty.ts` · 18 operation
 
 ### listLoyaltyPromotions
 
-- **Signature**: `listLoyaltyPromotions(request: Loyalty.ListLoyaltyPromotionsRequest, options?: RequestOptions): ApiPromise<ListLoyaltyPromotionsResponse, ResponseError>`
+- **Signature**: `listLoyaltyPromotions(request: Loyalty.ListLoyaltyPromotionsRequest, options?: RequestOptions): ApiPromise<ListLoyaltyPromotionsResponse, ApiError>`
 - **Wire**: `GET /v2/loyalty/programs/{program_id}/promotions`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListLoyaltyPromotionsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Loyalty.ListLoyaltyPromotionsRequest` (4):
 
@@ -208,12 +216,13 @@ Accessor: `client.loyalty` · Source: `src/resources/loyalty.ts` · 18 operation
 
 ### redeemLoyaltyReward
 
-- **Signature**: `redeemLoyaltyReward(request: Loyalty.RedeemLoyaltyRewardRequestParams, options?: RequestOptions): ApiPromise<RedeemLoyaltyRewardResponse, ResponseError>`
+- **Signature**: `redeemLoyaltyReward(request: Loyalty.RedeemLoyaltyRewardRequestParams, options?: RequestOptions): ApiPromise<RedeemLoyaltyRewardResponse, ApiError>`
 - **Wire**: `POST /v2/loyalty/rewards/{reward_id}/redeem`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `RedeemLoyaltyRewardResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Loyalty.RedeemLoyaltyRewardRequestParams` (2):
 
@@ -229,12 +238,12 @@ Accessor: `client.loyalty` · Source: `src/resources/loyalty.ts` · 18 operation
 
 ### retrieveLoyaltyAccount
 
-- **Signature**: `retrieveLoyaltyAccount(request: Loyalty.RetrieveLoyaltyAccountRequest, options?: RequestOptions): ApiPromise<RetrieveLoyaltyAccountResponse, ResponseError>`
+- **Signature**: `retrieveLoyaltyAccount(request: Loyalty.RetrieveLoyaltyAccountRequest, options?: RequestOptions): ApiPromise<RetrieveLoyaltyAccountResponse, ApiError>`
 - **Wire**: `GET /v2/loyalty/accounts/{account_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveLoyaltyAccountResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Loyalty.RetrieveLoyaltyAccountRequest` (1):
 
@@ -248,12 +257,12 @@ Accessor: `client.loyalty` · Source: `src/resources/loyalty.ts` · 18 operation
 
 ### retrieveLoyaltyProgram
 
-- **Signature**: `retrieveLoyaltyProgram(request: Loyalty.RetrieveLoyaltyProgramRequest, options?: RequestOptions): ApiPromise<RetrieveLoyaltyProgramResponse, ResponseError>`
+- **Signature**: `retrieveLoyaltyProgram(request: Loyalty.RetrieveLoyaltyProgramRequest, options?: RequestOptions): ApiPromise<RetrieveLoyaltyProgramResponse, ApiError>`
 - **Wire**: `GET /v2/loyalty/programs/{program_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveLoyaltyProgramResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Loyalty.RetrieveLoyaltyProgramRequest` (1):
 
@@ -267,12 +276,12 @@ Accessor: `client.loyalty` · Source: `src/resources/loyalty.ts` · 18 operation
 
 ### retrieveLoyaltyPromotion
 
-- **Signature**: `retrieveLoyaltyPromotion(request: Loyalty.RetrieveLoyaltyPromotionRequest, options?: RequestOptions): ApiPromise<RetrieveLoyaltyPromotionResponse, ResponseError>`
+- **Signature**: `retrieveLoyaltyPromotion(request: Loyalty.RetrieveLoyaltyPromotionRequest, options?: RequestOptions): ApiPromise<RetrieveLoyaltyPromotionResponse, ApiError>`
 - **Wire**: `GET /v2/loyalty/programs/{program_id}/promotions/{promotion_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveLoyaltyPromotionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Loyalty.RetrieveLoyaltyPromotionRequest` (2):
 
@@ -287,12 +296,12 @@ Accessor: `client.loyalty` · Source: `src/resources/loyalty.ts` · 18 operation
 
 ### retrieveLoyaltyReward
 
-- **Signature**: `retrieveLoyaltyReward(request: Loyalty.RetrieveLoyaltyRewardRequest, options?: RequestOptions): ApiPromise<RetrieveLoyaltyRewardResponse, ResponseError>`
+- **Signature**: `retrieveLoyaltyReward(request: Loyalty.RetrieveLoyaltyRewardRequest, options?: RequestOptions): ApiPromise<RetrieveLoyaltyRewardResponse, ApiError>`
 - **Wire**: `GET /v2/loyalty/rewards/{reward_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveLoyaltyRewardResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Loyalty.RetrieveLoyaltyRewardRequest` (1):
 
@@ -306,12 +315,13 @@ Accessor: `client.loyalty` · Source: `src/resources/loyalty.ts` · 18 operation
 
 ### searchLoyaltyAccounts
 
-- **Signature**: `searchLoyaltyAccounts(request: Loyalty.SearchLoyaltyAccountsRequestParams, options?: RequestOptions): ApiPromise<SearchLoyaltyAccountsResponse, ResponseError>`
+- **Signature**: `searchLoyaltyAccounts(request: Loyalty.SearchLoyaltyAccountsRequestParams, options?: RequestOptions): ApiPromise<SearchLoyaltyAccountsResponse, ApiError>`
 - **Wire**: `POST /v2/loyalty/accounts/search`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `SearchLoyaltyAccountsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Loyalty.SearchLoyaltyAccountsRequestParams` (1):
 
@@ -326,12 +336,13 @@ Accessor: `client.loyalty` · Source: `src/resources/loyalty.ts` · 18 operation
 
 ### searchLoyaltyEvents
 
-- **Signature**: `searchLoyaltyEvents(request: Loyalty.SearchLoyaltyEventsRequestParams, options?: RequestOptions): ApiPromise<SearchLoyaltyEventsResponse, ResponseError>`
+- **Signature**: `searchLoyaltyEvents(request: Loyalty.SearchLoyaltyEventsRequestParams, options?: RequestOptions): ApiPromise<SearchLoyaltyEventsResponse, ApiError>`
 - **Wire**: `POST /v2/loyalty/events/search`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `SearchLoyaltyEventsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Loyalty.SearchLoyaltyEventsRequestParams` (1):
 
@@ -346,12 +357,13 @@ Accessor: `client.loyalty` · Source: `src/resources/loyalty.ts` · 18 operation
 
 ### searchLoyaltyRewards
 
-- **Signature**: `searchLoyaltyRewards(request: Loyalty.SearchLoyaltyRewardsRequestParams, options?: RequestOptions): ApiPromise<SearchLoyaltyRewardsResponse, ResponseError>`
+- **Signature**: `searchLoyaltyRewards(request: Loyalty.SearchLoyaltyRewardsRequestParams, options?: RequestOptions): ApiPromise<SearchLoyaltyRewardsResponse, ApiError>`
 - **Wire**: `POST /v2/loyalty/rewards/search`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `SearchLoyaltyRewardsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Loyalty.SearchLoyaltyRewardsRequestParams` (1):
 

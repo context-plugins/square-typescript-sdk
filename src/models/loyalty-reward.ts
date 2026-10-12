@@ -40,7 +40,7 @@ export const loyaltyRewardSchema: Schema<LoyaltyReward> = s.object<LoyaltyReward
   status: s.optional(s.lazy(() => loyaltyRewardStatusSchema)),
   loyaltyAccountId: s.string(),
   rewardTierId: s.string(),
-  points: s.optional(s.number()),
+  points: s.optional(s.int()),
   orderId: s.optionalNullable(s.string()),
   createdAt: s.optional(s.string()),
   updatedAt: s.optional(s.string()),

@@ -4,16 +4,17 @@
 
 Accessor: `client.webhookSubscriptions` · Source: `src/resources/webhook-subscriptions.ts` · 8 operations · Request types: namespace `WebhookSubscriptions`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### createWebhookSubscription
 
-- **Signature**: `createWebhookSubscription(request: WebhookSubscriptions.CreateWebhookSubscriptionRequestParams, options?: RequestOptions): ApiPromise<CreateWebhookSubscriptionResponse, ResponseError>`
+- **Signature**: `createWebhookSubscription(request: WebhookSubscriptions.CreateWebhookSubscriptionRequestParams, options?: RequestOptions): ApiPromise<CreateWebhookSubscriptionResponse, ApiError>`
 - **Wire**: `POST /v2/webhooks/subscriptions`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateWebhookSubscriptionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `WebhookSubscriptions.CreateWebhookSubscriptionRequestParams` (1):
 
@@ -28,12 +29,13 @@ Accessor: `client.webhookSubscriptions` · Source: `src/resources/webhook-subscr
 
 ### deleteWebhookSubscription
 
-- **Signature**: `deleteWebhookSubscription(request: WebhookSubscriptions.DeleteWebhookSubscriptionRequest, options?: RequestOptions): ApiPromise<DeleteWebhookSubscriptionResponse, ResponseError>`
+- **Signature**: `deleteWebhookSubscription(request: WebhookSubscriptions.DeleteWebhookSubscriptionRequest, options?: RequestOptions): ApiPromise<DeleteWebhookSubscriptionResponse, ApiError>`
 - **Wire**: `DELETE /v2/webhooks/subscriptions/{subscription_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DeleteWebhookSubscriptionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `WebhookSubscriptions.DeleteWebhookSubscriptionRequest` (1):
 
@@ -47,12 +49,12 @@ Accessor: `client.webhookSubscriptions` · Source: `src/resources/webhook-subscr
 
 ### listWebhookEventTypes
 
-- **Signature**: `listWebhookEventTypes(request: WebhookSubscriptions.ListWebhookEventTypesRequest, options?: RequestOptions): ApiPromise<ListWebhookEventTypesResponse, ResponseError>`
+- **Signature**: `listWebhookEventTypes(request: WebhookSubscriptions.ListWebhookEventTypesRequest, options?: RequestOptions): ApiPromise<ListWebhookEventTypesResponse, ApiError>`
 - **Wire**: `GET /v2/webhooks/event-types`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListWebhookEventTypesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `WebhookSubscriptions.ListWebhookEventTypesRequest` (1):
 
@@ -66,12 +68,12 @@ Accessor: `client.webhookSubscriptions` · Source: `src/resources/webhook-subscr
 
 ### listWebhookSubscriptions
 
-- **Signature**: `listWebhookSubscriptions(request: WebhookSubscriptions.ListWebhookSubscriptionsRequest, options?: RequestOptions): ApiPromise<ListWebhookSubscriptionsResponse, ResponseError>`
+- **Signature**: `listWebhookSubscriptions(request: WebhookSubscriptions.ListWebhookSubscriptionsRequest, options?: RequestOptions): ApiPromise<ListWebhookSubscriptionsResponse, ApiError>`
 - **Wire**: `GET /v2/webhooks/subscriptions`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListWebhookSubscriptionsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `WebhookSubscriptions.ListWebhookSubscriptionsRequest` (4):
 
@@ -89,12 +91,12 @@ Accessor: `client.webhookSubscriptions` · Source: `src/resources/webhook-subscr
 
 ### retrieveWebhookSubscription
 
-- **Signature**: `retrieveWebhookSubscription(request: WebhookSubscriptions.RetrieveWebhookSubscriptionRequest, options?: RequestOptions): ApiPromise<RetrieveWebhookSubscriptionResponse, ResponseError>`
+- **Signature**: `retrieveWebhookSubscription(request: WebhookSubscriptions.RetrieveWebhookSubscriptionRequest, options?: RequestOptions): ApiPromise<RetrieveWebhookSubscriptionResponse, ApiError>`
 - **Wire**: `GET /v2/webhooks/subscriptions/{subscription_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveWebhookSubscriptionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `WebhookSubscriptions.RetrieveWebhookSubscriptionRequest` (1):
 
@@ -108,12 +110,13 @@ Accessor: `client.webhookSubscriptions` · Source: `src/resources/webhook-subscr
 
 ### testWebhookSubscription
 
-- **Signature**: `testWebhookSubscription(request: WebhookSubscriptions.TestWebhookSubscriptionRequestParams, options?: RequestOptions): ApiPromise<TestWebhookSubscriptionResponse, ResponseError>`
+- **Signature**: `testWebhookSubscription(request: WebhookSubscriptions.TestWebhookSubscriptionRequestParams, options?: RequestOptions): ApiPromise<TestWebhookSubscriptionResponse, ApiError>`
 - **Wire**: `POST /v2/webhooks/subscriptions/{subscription_id}/test`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `TestWebhookSubscriptionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `WebhookSubscriptions.TestWebhookSubscriptionRequestParams` (2):
 
@@ -129,12 +132,13 @@ Accessor: `client.webhookSubscriptions` · Source: `src/resources/webhook-subscr
 
 ### updateWebhookSubscription
 
-- **Signature**: `updateWebhookSubscription(request: WebhookSubscriptions.UpdateWebhookSubscriptionRequestParams, options?: RequestOptions): ApiPromise<UpdateWebhookSubscriptionResponse, ResponseError>`
+- **Signature**: `updateWebhookSubscription(request: WebhookSubscriptions.UpdateWebhookSubscriptionRequestParams, options?: RequestOptions): ApiPromise<UpdateWebhookSubscriptionResponse, ApiError>`
 - **Wire**: `PUT /v2/webhooks/subscriptions/{subscription_id}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateWebhookSubscriptionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `WebhookSubscriptions.UpdateWebhookSubscriptionRequestParams` (2):
 
@@ -150,12 +154,13 @@ Accessor: `client.webhookSubscriptions` · Source: `src/resources/webhook-subscr
 
 ### updateWebhookSubscriptionSignatureKey
 
-- **Signature**: `updateWebhookSubscriptionSignatureKey(request: WebhookSubscriptions.UpdateWebhookSubscriptionSignatureKeyRequestParams, options?: RequestOptions): ApiPromise<UpdateWebhookSubscriptionSignatureKeyResponse, ResponseError>`
+- **Signature**: `updateWebhookSubscriptionSignatureKey(request: WebhookSubscriptions.UpdateWebhookSubscriptionSignatureKeyRequestParams, options?: RequestOptions): ApiPromise<UpdateWebhookSubscriptionSignatureKeyResponse, ApiError>`
 - **Wire**: `POST /v2/webhooks/subscriptions/{subscription_id}/signature-key`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateWebhookSubscriptionSignatureKeyResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `WebhookSubscriptions.UpdateWebhookSubscriptionSignatureKeyRequestParams` (2):
 

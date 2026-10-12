@@ -19,5 +19,5 @@ export type BulkPublishScheduledShiftsData = {
 
 export const bulkPublishScheduledShiftsDataSchema: Schema<BulkPublishScheduledShiftsData> =
   s.object<BulkPublishScheduledShiftsData>({
-    version: s.optional(s.number()),
+    version: s.optional(s.int()),
   });

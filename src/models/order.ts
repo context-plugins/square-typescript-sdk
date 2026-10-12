@@ -235,7 +235,7 @@ export const orderSchema: Schema<Order> = s.object<Order>({
   updatedAt: s.optional(s.string()),
   closedAt: s.optional(s.string()),
   state: s.optional(s.lazy(() => orderStateSchema)),
-  version: s.optional(s.number()),
+  version: s.optional(s.int()),
   totalMoney: s.optional(s.lazy(() => moneySchema)),
   totalTaxMoney: s.optional(s.lazy(() => moneySchema)),
   totalDiscountMoney: s.optional(s.lazy(() => moneySchema)),

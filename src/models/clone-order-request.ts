@@ -30,7 +30,7 @@ export type CloneOrderRequest = {
 
 export const cloneOrderRequestSchema: Schema<CloneOrderRequest> = s.object<CloneOrderRequest>({
   orderId: s.string(),
-  version: s.optional(s.number()),
+  version: s.optional(s.int()),
   idempotencyKey: s.optionalNullable(s.string()),
   _keysMap: {
     orderId: "order_id",

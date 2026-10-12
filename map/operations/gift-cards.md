@@ -4,16 +4,17 @@
 
 Accessor: `client.giftCards` · Source: `src/resources/gift-cards.ts` · 7 operations · Request types: namespace `GiftCards`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### createGiftCard
 
-- **Signature**: `createGiftCard(request: GiftCards.CreateGiftCardRequestParams, options?: RequestOptions): ApiPromise<CreateGiftCardResponse, ResponseError>`
+- **Signature**: `createGiftCard(request: GiftCards.CreateGiftCardRequestParams, options?: RequestOptions): ApiPromise<CreateGiftCardResponse, ApiError>`
 - **Wire**: `POST /v2/gift-cards`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateGiftCardResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `GiftCards.CreateGiftCardRequestParams` (1):
 
@@ -28,12 +29,13 @@ Accessor: `client.giftCards` · Source: `src/resources/gift-cards.ts` · 7 opera
 
 ### linkCustomerToGiftCard
 
-- **Signature**: `linkCustomerToGiftCard(request: GiftCards.LinkCustomerToGiftCardRequestParams, options?: RequestOptions): ApiPromise<LinkCustomerToGiftCardResponse, ResponseError>`
+- **Signature**: `linkCustomerToGiftCard(request: GiftCards.LinkCustomerToGiftCardRequestParams, options?: RequestOptions): ApiPromise<LinkCustomerToGiftCardResponse, ApiError>`
 - **Wire**: `POST /v2/gift-cards/{gift_card_id}/link-customer`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `LinkCustomerToGiftCardResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `GiftCards.LinkCustomerToGiftCardRequestParams` (2):
 
@@ -49,12 +51,12 @@ Accessor: `client.giftCards` · Source: `src/resources/gift-cards.ts` · 7 opera
 
 ### listGiftCards
 
-- **Signature**: `listGiftCards(request: GiftCards.ListGiftCardsRequest, options?: RequestOptions): ApiPromise<ListGiftCardsResponse, ResponseError>`
+- **Signature**: `listGiftCards(request: GiftCards.ListGiftCardsRequest, options?: RequestOptions): ApiPromise<ListGiftCardsResponse, ApiError>`
 - **Wire**: `GET /v2/gift-cards`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListGiftCardsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `GiftCards.ListGiftCardsRequest` (5):
 
@@ -72,12 +74,12 @@ Accessor: `client.giftCards` · Source: `src/resources/gift-cards.ts` · 7 opera
 
 ### retrieveGiftCard
 
-- **Signature**: `retrieveGiftCard(request: GiftCards.RetrieveGiftCardRequest, options?: RequestOptions): ApiPromise<RetrieveGiftCardResponse, ResponseError>`
+- **Signature**: `retrieveGiftCard(request: GiftCards.RetrieveGiftCardRequest, options?: RequestOptions): ApiPromise<RetrieveGiftCardResponse, ApiError>`
 - **Wire**: `GET /v2/gift-cards/{id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveGiftCardResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `GiftCards.RetrieveGiftCardRequest` (1):
 
@@ -91,12 +93,13 @@ Accessor: `client.giftCards` · Source: `src/resources/gift-cards.ts` · 7 opera
 
 ### retrieveGiftCardFromGan
 
-- **Signature**: `retrieveGiftCardFromGan(request: GiftCards.RetrieveGiftCardFromGanRequestParams, options?: RequestOptions): ApiPromise<RetrieveGiftCardFromGanResponse, ResponseError>`
+- **Signature**: `retrieveGiftCardFromGan(request: GiftCards.RetrieveGiftCardFromGanRequestParams, options?: RequestOptions): ApiPromise<RetrieveGiftCardFromGanResponse, ApiError>`
 - **Wire**: `POST /v2/gift-cards/from-gan`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `RetrieveGiftCardFromGanResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `GiftCards.RetrieveGiftCardFromGanRequestParams` (1):
 
@@ -111,12 +114,13 @@ Accessor: `client.giftCards` · Source: `src/resources/gift-cards.ts` · 7 opera
 
 ### retrieveGiftCardFromNonce
 
-- **Signature**: `retrieveGiftCardFromNonce(request: GiftCards.RetrieveGiftCardFromNonceRequestParams, options?: RequestOptions): ApiPromise<RetrieveGiftCardFromNonceResponse, ResponseError>`
+- **Signature**: `retrieveGiftCardFromNonce(request: GiftCards.RetrieveGiftCardFromNonceRequestParams, options?: RequestOptions): ApiPromise<RetrieveGiftCardFromNonceResponse, ApiError>`
 - **Wire**: `POST /v2/gift-cards/from-nonce`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `RetrieveGiftCardFromNonceResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `GiftCards.RetrieveGiftCardFromNonceRequestParams` (1):
 
@@ -131,12 +135,13 @@ Accessor: `client.giftCards` · Source: `src/resources/gift-cards.ts` · 7 opera
 
 ### unlinkCustomerFromGiftCard
 
-- **Signature**: `unlinkCustomerFromGiftCard(request: GiftCards.UnlinkCustomerFromGiftCardRequestParams, options?: RequestOptions): ApiPromise<UnlinkCustomerFromGiftCardResponse, ResponseError>`
+- **Signature**: `unlinkCustomerFromGiftCard(request: GiftCards.UnlinkCustomerFromGiftCardRequestParams, options?: RequestOptions): ApiPromise<UnlinkCustomerFromGiftCardResponse, ApiError>`
 - **Wire**: `POST /v2/gift-cards/{gift_card_id}/unlink-customer`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UnlinkCustomerFromGiftCardResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `GiftCards.UnlinkCustomerFromGiftCardRequestParams` (2):
 

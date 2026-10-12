@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   captureTransactionResponseSchema,
@@ -48,31 +49,36 @@ export class Transactions {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    *
    * @deprecated
    */
   captureTransaction(
     request: Transactions.CaptureTransactionRequest,
     options?: RequestOptions,
-  ): ApiPromise<CaptureTransactionResponse, ResponseError> {
-    return this.#rawClient.execute<CaptureTransactionResponse, ResponseError>(
+  ): ApiPromise<CaptureTransactionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/locations/{location_id}/transactions/{transaction_id}/capture"),
+        urlTemplate: this.#servers.default(
+          "/v2/locations/{location_id}/transactions/{transaction_id}/capture",
+        ),
         auth: this.#auth.oauth2,
         pathParams: [
           { name: "location_id", value: request.locationId, schema: s.string() },
           { name: "transaction_id", value: request.transactionId, schema: s.string() },
         ],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: captureTransactionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -91,21 +97,22 @@ export class Transactions {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    *
    * @deprecated
    */
   listTransactions(
     request: Transactions.ListTransactionsRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListTransactionsResponse, ResponseError> {
-    return this.#rawClient.execute<ListTransactionsResponse, ResponseError>(
+  ): ApiPromise<ListTransactionsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/locations/{location_id}/transactions"),
+        urlTemplate: this.#servers.default("/v2/locations/{location_id}/transactions"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "location_id", value: request.locationId, schema: s.string() }],
         query: [
@@ -114,11 +121,12 @@ export class Transactions {
           { name: "sort_order", value: request.sortOrder, schema: s.optional(s.lazy(() => sortOrderSchema)) },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listTransactionsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -132,31 +140,34 @@ export class Transactions {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    *
    * @deprecated
    */
   retrieveTransaction(
     request: Transactions.RetrieveTransactionRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveTransactionResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveTransactionResponse, ResponseError>(
+  ): ApiPromise<RetrieveTransactionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/locations/{location_id}/transactions/{transaction_id}"),
+        urlTemplate: this.#servers.default("/v2/locations/{location_id}/transactions/{transaction_id}"),
         auth: this.#auth.oauth2,
         pathParams: [
           { name: "location_id", value: request.locationId, schema: s.string() },
           { name: "transaction_id", value: request.transactionId, schema: s.string() },
         ],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveTransactionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -176,31 +187,34 @@ export class Transactions {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    *
    * @deprecated
    */
   voidTransaction(
     request: Transactions.VoidTransactionRequest,
     options?: RequestOptions,
-  ): ApiPromise<VoidTransactionResponse, ResponseError> {
-    return this.#rawClient.execute<VoidTransactionResponse, ResponseError>(
+  ): ApiPromise<VoidTransactionResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/locations/{location_id}/transactions/{transaction_id}/void"),
+        urlTemplate: this.#servers.default("/v2/locations/{location_id}/transactions/{transaction_id}/void"),
         auth: this.#auth.oauth2,
         pathParams: [
           { name: "location_id", value: request.locationId, schema: s.string() },
           { name: "transaction_id", value: request.transactionId, schema: s.string() },
         ],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: voidTransactionResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

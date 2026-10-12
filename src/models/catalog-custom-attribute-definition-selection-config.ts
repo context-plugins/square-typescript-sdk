@@ -23,7 +23,7 @@ export type CatalogCustomAttributeDefinitionSelectionConfig = {
 
 export const catalogCustomAttributeDefinitionSelectionConfigSchema: Schema<CatalogCustomAttributeDefinitionSelectionConfig> =
   s.object<CatalogCustomAttributeDefinitionSelectionConfig>({
-    maxAllowedSelections: s.optionalNullable(s.number()),
+    maxAllowedSelections: s.optionalNullable(s.int()),
     allowedSelections: s.optionalNullable(
       s.array(s.lazy(() => catalogCustomAttributeDefinitionSelectionConfigCustomAttributeSelectionSchema)),
     ),

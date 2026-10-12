@@ -62,9 +62,9 @@ export const catalogProductSetSchema: Schema<CatalogProductSet> = s.object<Catal
   name: s.optionalNullable(s.string()),
   productIdsAny: s.optionalNullable(s.array(s.string())),
   productIdsAll: s.optionalNullable(s.array(s.string())),
-  quantityExact: s.optionalNullable(s.number()),
-  quantityMin: s.optionalNullable(s.number()),
-  quantityMax: s.optionalNullable(s.number()),
+  quantityExact: s.optionalNullable(s.int()),
+  quantityMin: s.optionalNullable(s.int()),
+  quantityMax: s.optionalNullable(s.int()),
   allProducts: s.optionalNullable(s.boolean()),
   _keysMap: {
     productIdsAny: "product_ids_any",

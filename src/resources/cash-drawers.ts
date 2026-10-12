@@ -1,8 +1,8 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
 import * as s from "../core/validation/index.js";
 import {
   listCashDrawerShiftEventsResponseSchema,
@@ -38,31 +38,33 @@ export class CashDrawers {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listCashDrawerShiftEvents(
     request: CashDrawers.ListCashDrawerShiftEventsRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListCashDrawerShiftEventsResponse, ResponseError> {
-    return this.#rawClient.execute<ListCashDrawerShiftEventsResponse, ResponseError>(
+  ): ApiPromise<ListCashDrawerShiftEventsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/cash-drawers/shifts/{shift_id}/events"),
+        urlTemplate: this.#servers.default("/v2/cash-drawers/shifts/{shift_id}/events"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "shift_id", value: request.shiftId, schema: s.string() }],
         query: [
           { name: "location_id", value: request.locationId, schema: s.string() },
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listCashDrawerShiftEventsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -76,33 +78,36 @@ export class CashDrawers {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listCashDrawerShifts(
     request: CashDrawers.ListCashDrawerShiftsRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListCashDrawerShiftsResponse, ResponseError> {
-    return this.#rawClient.execute<ListCashDrawerShiftsResponse, ResponseError>(
+  ): ApiPromise<ListCashDrawerShiftsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/cash-drawers/shifts"),
+        urlTemplate: this.#servers.default("/v2/cash-drawers/shifts"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
           { name: "location_id", value: request.locationId, schema: s.string() },
           { name: "sort_order", value: request.sortOrder, schema: s.optional(s.lazy(() => sortOrderSchema)) },
           { name: "begin_time", value: request.beginTime, schema: s.optional(s.string()) },
           { name: "end_time", value: request.endTime, schema: s.optional(s.string()) },
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listCashDrawerShiftsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -118,27 +123,29 @@ export class CashDrawers {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveCashDrawerShift(
     request: CashDrawers.RetrieveCashDrawerShiftRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveCashDrawerShiftResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveCashDrawerShiftResponse, ResponseError>(
+  ): ApiPromise<RetrieveCashDrawerShiftResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/cash-drawers/shifts/{shift_id}"),
+        urlTemplate: this.#servers.default("/v2/cash-drawers/shifts/{shift_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "shift_id", value: request.shiftId, schema: s.string() }],
         query: [{ name: "location_id", value: request.locationId, schema: s.string() }],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveCashDrawerShiftResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

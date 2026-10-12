@@ -58,7 +58,7 @@ export const catalogModifierSchema: Schema<CatalogModifier> = s.object<CatalogMo
   name: s.optionalNullable(s.string()),
   priceMoney: s.optional(s.lazy(() => moneySchema)),
   onByDefault: s.optionalNullable(s.boolean()),
-  ordinal: s.optionalNullable(s.number()),
+  ordinal: s.optionalNullable(s.int()),
   modifierListId: s.optionalNullable(s.string()),
   locationOverrides: s.optionalNullable(s.array(s.lazy(() => modifierLocationOverridesSchema))),
   kitchenName: s.optionalNullable(s.string()),

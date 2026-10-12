@@ -4,16 +4,17 @@
 
 Accessor: `client.labor` · Source: `src/resources/labor.ts` · 27 operations · Request types: namespace `Labor`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### bulkPublishScheduledShifts
 
-- **Signature**: `bulkPublishScheduledShifts(request: Labor.BulkPublishScheduledShiftsRequestParams, options?: RequestOptions): ApiPromise<BulkPublishScheduledShiftsResponse, ResponseError>`
+- **Signature**: `bulkPublishScheduledShifts(request: Labor.BulkPublishScheduledShiftsRequestParams, options?: RequestOptions): ApiPromise<BulkPublishScheduledShiftsResponse, ApiError>`
 - **Wire**: `POST /v2/labor/scheduled-shifts/bulk-publish`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BulkPublishScheduledShiftsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Labor.BulkPublishScheduledShiftsRequestParams` (1):
 
@@ -28,12 +29,13 @@ Accessor: `client.labor` · Source: `src/resources/labor.ts` · 27 operations ·
 
 ### createBreakType
 
-- **Signature**: `createBreakType(request: Labor.CreateBreakTypeRequestParams, options?: RequestOptions): ApiPromise<CreateBreakTypeResponse, ResponseError>`
+- **Signature**: `createBreakType(request: Labor.CreateBreakTypeRequestParams, options?: RequestOptions): ApiPromise<CreateBreakTypeResponse, ApiError>`
 - **Wire**: `POST /v2/labor/break-types`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateBreakTypeResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Labor.CreateBreakTypeRequestParams` (1):
 
@@ -48,12 +50,13 @@ Accessor: `client.labor` · Source: `src/resources/labor.ts` · 27 operations ·
 
 ### createScheduledShift
 
-- **Signature**: `createScheduledShift(request: Labor.CreateScheduledShiftRequestParams, options?: RequestOptions): ApiPromise<CreateScheduledShiftResponse, ResponseError>`
+- **Signature**: `createScheduledShift(request: Labor.CreateScheduledShiftRequestParams, options?: RequestOptions): ApiPromise<CreateScheduledShiftResponse, ApiError>`
 - **Wire**: `POST /v2/labor/scheduled-shifts`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateScheduledShiftResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Labor.CreateScheduledShiftRequestParams` (1):
 
@@ -68,13 +71,14 @@ Accessor: `client.labor` · Source: `src/resources/labor.ts` · 27 operations ·
 
 ### createShift
 
-- **Signature**: `createShift(request: Labor.CreateShiftRequestParams, options?: RequestOptions): ApiPromise<CreateShiftResponse, ResponseError>`
+- **Signature**: `createShift(request: Labor.CreateShiftRequestParams, options?: RequestOptions): ApiPromise<CreateShiftResponse, ApiError>`
 - **Deprecated**: the method carries `@deprecated`, so an IDE strikes the call site through; it still works
 - **Wire**: `POST /v2/labor/shifts`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateShiftResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Labor.CreateShiftRequestParams` (1):
 
@@ -89,12 +93,13 @@ Accessor: `client.labor` · Source: `src/resources/labor.ts` · 27 operations ·
 
 ### createTimecard
 
-- **Signature**: `createTimecard(request: Labor.CreateTimecardRequestParams, options?: RequestOptions): ApiPromise<CreateTimecardResponse, ResponseError>`
+- **Signature**: `createTimecard(request: Labor.CreateTimecardRequestParams, options?: RequestOptions): ApiPromise<CreateTimecardResponse, ApiError>`
 - **Wire**: `POST /v2/labor/timecards`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateTimecardResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Labor.CreateTimecardRequestParams` (1):
 
@@ -109,12 +114,13 @@ Accessor: `client.labor` · Source: `src/resources/labor.ts` · 27 operations ·
 
 ### deleteBreakType
 
-- **Signature**: `deleteBreakType(request: Labor.DeleteBreakTypeRequest, options?: RequestOptions): ApiPromise<DeleteBreakTypeResponse, ResponseError>`
+- **Signature**: `deleteBreakType(request: Labor.DeleteBreakTypeRequest, options?: RequestOptions): ApiPromise<DeleteBreakTypeResponse, ApiError>`
 - **Wire**: `DELETE /v2/labor/break-types/{id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DeleteBreakTypeResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Labor.DeleteBreakTypeRequest` (1):
 
@@ -128,13 +134,14 @@ Accessor: `client.labor` · Source: `src/resources/labor.ts` · 27 operations ·
 
 ### deleteShift
 
-- **Signature**: `deleteShift(request: Labor.DeleteShiftRequest, options?: RequestOptions): ApiPromise<DeleteShiftResponse, ResponseError>`
+- **Signature**: `deleteShift(request: Labor.DeleteShiftRequest, options?: RequestOptions): ApiPromise<DeleteShiftResponse, ApiError>`
 - **Deprecated**: the method carries `@deprecated`, so an IDE strikes the call site through; it still works
 - **Wire**: `DELETE /v2/labor/shifts/{id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DeleteShiftResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Labor.DeleteShiftRequest` (1):
 
@@ -148,12 +155,13 @@ Accessor: `client.labor` · Source: `src/resources/labor.ts` · 27 operations ·
 
 ### deleteTimecard
 
-- **Signature**: `deleteTimecard(request: Labor.DeleteTimecardRequest, options?: RequestOptions): ApiPromise<DeleteTimecardResponse, ResponseError>`
+- **Signature**: `deleteTimecard(request: Labor.DeleteTimecardRequest, options?: RequestOptions): ApiPromise<DeleteTimecardResponse, ApiError>`
 - **Wire**: `DELETE /v2/labor/timecards/{id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DeleteTimecardResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Labor.DeleteTimecardRequest` (1):
 
@@ -167,12 +175,12 @@ Accessor: `client.labor` · Source: `src/resources/labor.ts` · 27 operations ·
 
 ### getBreakType
 
-- **Signature**: `getBreakType(request: Labor.GetBreakTypeRequest, options?: RequestOptions): ApiPromise<GetBreakTypeResponse, ResponseError>`
+- **Signature**: `getBreakType(request: Labor.GetBreakTypeRequest, options?: RequestOptions): ApiPromise<GetBreakTypeResponse, ApiError>`
 - **Wire**: `GET /v2/labor/break-types/{id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `GetBreakTypeResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Labor.GetBreakTypeRequest` (1):
 
@@ -186,13 +194,13 @@ Accessor: `client.labor` · Source: `src/resources/labor.ts` · 27 operations ·
 
 ### getEmployeeWage
 
-- **Signature**: `getEmployeeWage(request: Labor.GetEmployeeWageRequest, options?: RequestOptions): ApiPromise<GetEmployeeWageResponse, ResponseError>`
+- **Signature**: `getEmployeeWage(request: Labor.GetEmployeeWageRequest, options?: RequestOptions): ApiPromise<GetEmployeeWageResponse, ApiError>`
 - **Deprecated**: the method carries `@deprecated`, so an IDE strikes the call site through; it still works
 - **Wire**: `GET /v2/labor/employee-wages/{id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `GetEmployeeWageResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Labor.GetEmployeeWageRequest` (1):
 
@@ -206,13 +214,13 @@ Accessor: `client.labor` · Source: `src/resources/labor.ts` · 27 operations ·
 
 ### getShift
 
-- **Signature**: `getShift(request: Labor.GetShiftRequest, options?: RequestOptions): ApiPromise<GetShiftResponse, ResponseError>`
+- **Signature**: `getShift(request: Labor.GetShiftRequest, options?: RequestOptions): ApiPromise<GetShiftResponse, ApiError>`
 - **Deprecated**: the method carries `@deprecated`, so an IDE strikes the call site through; it still works
 - **Wire**: `GET /v2/labor/shifts/{id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `GetShiftResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Labor.GetShiftRequest` (1):
 
@@ -226,12 +234,12 @@ Accessor: `client.labor` · Source: `src/resources/labor.ts` · 27 operations ·
 
 ### getTeamMemberWage
 
-- **Signature**: `getTeamMemberWage(request: Labor.GetTeamMemberWageRequest, options?: RequestOptions): ApiPromise<GetTeamMemberWageResponse, ResponseError>`
+- **Signature**: `getTeamMemberWage(request: Labor.GetTeamMemberWageRequest, options?: RequestOptions): ApiPromise<GetTeamMemberWageResponse, ApiError>`
 - **Wire**: `GET /v2/labor/team-member-wages/{id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `GetTeamMemberWageResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Labor.GetTeamMemberWageRequest` (1):
 
@@ -245,12 +253,12 @@ Accessor: `client.labor` · Source: `src/resources/labor.ts` · 27 operations ·
 
 ### listBreakTypes
 
-- **Signature**: `listBreakTypes(request: Labor.ListBreakTypesRequest, options?: RequestOptions): ApiPromise<ListBreakTypesResponse, ResponseError>`
+- **Signature**: `listBreakTypes(request: Labor.ListBreakTypesRequest, options?: RequestOptions): ApiPromise<ListBreakTypesResponse, ApiError>`
 - **Wire**: `GET /v2/labor/break-types`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListBreakTypesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Labor.ListBreakTypesRequest` (3):
 
@@ -266,13 +274,13 @@ Accessor: `client.labor` · Source: `src/resources/labor.ts` · 27 operations ·
 
 ### listEmployeeWages
 
-- **Signature**: `listEmployeeWages(request: Labor.ListEmployeeWagesRequest, options?: RequestOptions): ApiPromise<ListEmployeeWagesResponse, ResponseError>`
+- **Signature**: `listEmployeeWages(request: Labor.ListEmployeeWagesRequest, options?: RequestOptions): ApiPromise<ListEmployeeWagesResponse, ApiError>`
 - **Deprecated**: the method carries `@deprecated`, so an IDE strikes the call site through; it still works
 - **Wire**: `GET /v2/labor/employee-wages`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListEmployeeWagesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Labor.ListEmployeeWagesRequest` (3):
 
@@ -288,12 +296,12 @@ Accessor: `client.labor` · Source: `src/resources/labor.ts` · 27 operations ·
 
 ### listTeamMemberWages
 
-- **Signature**: `listTeamMemberWages(request: Labor.ListTeamMemberWagesRequest, options?: RequestOptions): ApiPromise<ListTeamMemberWagesResponse, ResponseError>`
+- **Signature**: `listTeamMemberWages(request: Labor.ListTeamMemberWagesRequest, options?: RequestOptions): ApiPromise<ListTeamMemberWagesResponse, ApiError>`
 - **Wire**: `GET /v2/labor/team-member-wages`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListTeamMemberWagesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Labor.ListTeamMemberWagesRequest` (3):
 
@@ -309,12 +317,12 @@ Accessor: `client.labor` · Source: `src/resources/labor.ts` · 27 operations ·
 
 ### listWorkweekConfigs
 
-- **Signature**: `listWorkweekConfigs(request: Labor.ListWorkweekConfigsRequest, options?: RequestOptions): ApiPromise<ListWorkweekConfigsResponse, ResponseError>`
+- **Signature**: `listWorkweekConfigs(request: Labor.ListWorkweekConfigsRequest, options?: RequestOptions): ApiPromise<ListWorkweekConfigsResponse, ApiError>`
 - **Wire**: `GET /v2/labor/workweek-configs`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListWorkweekConfigsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Labor.ListWorkweekConfigsRequest` (2):
 
@@ -329,12 +337,13 @@ Accessor: `client.labor` · Source: `src/resources/labor.ts` · 27 operations ·
 
 ### publishScheduledShift
 
-- **Signature**: `publishScheduledShift(request: Labor.PublishScheduledShiftRequestParams, options?: RequestOptions): ApiPromise<PublishScheduledShiftResponse, ResponseError>`
+- **Signature**: `publishScheduledShift(request: Labor.PublishScheduledShiftRequestParams, options?: RequestOptions): ApiPromise<PublishScheduledShiftResponse, ApiError>`
 - **Wire**: `POST /v2/labor/scheduled-shifts/{id}/publish`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `PublishScheduledShiftResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Labor.PublishScheduledShiftRequestParams` (2):
 
@@ -350,12 +359,12 @@ Accessor: `client.labor` · Source: `src/resources/labor.ts` · 27 operations ·
 
 ### retrieveScheduledShift
 
-- **Signature**: `retrieveScheduledShift(request: Labor.RetrieveScheduledShiftRequest, options?: RequestOptions): ApiPromise<RetrieveScheduledShiftResponse, ResponseError>`
+- **Signature**: `retrieveScheduledShift(request: Labor.RetrieveScheduledShiftRequest, options?: RequestOptions): ApiPromise<RetrieveScheduledShiftResponse, ApiError>`
 - **Wire**: `GET /v2/labor/scheduled-shifts/{id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveScheduledShiftResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Labor.RetrieveScheduledShiftRequest` (1):
 
@@ -369,12 +378,12 @@ Accessor: `client.labor` · Source: `src/resources/labor.ts` · 27 operations ·
 
 ### retrieveTimecard
 
-- **Signature**: `retrieveTimecard(request: Labor.RetrieveTimecardRequest, options?: RequestOptions): ApiPromise<RetrieveTimecardResponse, ResponseError>`
+- **Signature**: `retrieveTimecard(request: Labor.RetrieveTimecardRequest, options?: RequestOptions): ApiPromise<RetrieveTimecardResponse, ApiError>`
 - **Wire**: `GET /v2/labor/timecards/{id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveTimecardResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Labor.RetrieveTimecardRequest` (1):
 
@@ -388,12 +397,13 @@ Accessor: `client.labor` · Source: `src/resources/labor.ts` · 27 operations ·
 
 ### searchScheduledShifts
 
-- **Signature**: `searchScheduledShifts(request: Labor.SearchScheduledShiftsRequestParams, options?: RequestOptions): ApiPromise<SearchScheduledShiftsResponse, ResponseError>`
+- **Signature**: `searchScheduledShifts(request: Labor.SearchScheduledShiftsRequestParams, options?: RequestOptions): ApiPromise<SearchScheduledShiftsResponse, ApiError>`
 - **Wire**: `POST /v2/labor/scheduled-shifts/search`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `SearchScheduledShiftsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Labor.SearchScheduledShiftsRequestParams` (1):
 
@@ -408,13 +418,14 @@ Accessor: `client.labor` · Source: `src/resources/labor.ts` · 27 operations ·
 
 ### searchShifts
 
-- **Signature**: `searchShifts(request: Labor.SearchShiftsRequestParams, options?: RequestOptions): ApiPromise<SearchShiftsResponse, ResponseError>`
+- **Signature**: `searchShifts(request: Labor.SearchShiftsRequestParams, options?: RequestOptions): ApiPromise<SearchShiftsResponse, ApiError>`
 - **Deprecated**: the method carries `@deprecated`, so an IDE strikes the call site through; it still works
 - **Wire**: `POST /v2/labor/shifts/search`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `SearchShiftsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Labor.SearchShiftsRequestParams` (1):
 
@@ -429,12 +440,13 @@ Accessor: `client.labor` · Source: `src/resources/labor.ts` · 27 operations ·
 
 ### searchTimecards
 
-- **Signature**: `searchTimecards(request: Labor.SearchTimecardsRequestParams, options?: RequestOptions): ApiPromise<SearchTimecardsResponse, ResponseError>`
+- **Signature**: `searchTimecards(request: Labor.SearchTimecardsRequestParams, options?: RequestOptions): ApiPromise<SearchTimecardsResponse, ApiError>`
 - **Wire**: `POST /v2/labor/timecards/search`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `SearchTimecardsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Labor.SearchTimecardsRequestParams` (1):
 
@@ -449,12 +461,13 @@ Accessor: `client.labor` · Source: `src/resources/labor.ts` · 27 operations ·
 
 ### updateBreakType
 
-- **Signature**: `updateBreakType(request: Labor.UpdateBreakTypeRequestParams, options?: RequestOptions): ApiPromise<UpdateBreakTypeResponse, ResponseError>`
+- **Signature**: `updateBreakType(request: Labor.UpdateBreakTypeRequestParams, options?: RequestOptions): ApiPromise<UpdateBreakTypeResponse, ApiError>`
 - **Wire**: `PUT /v2/labor/break-types/{id}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateBreakTypeResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Labor.UpdateBreakTypeRequestParams` (2):
 
@@ -470,12 +483,13 @@ Accessor: `client.labor` · Source: `src/resources/labor.ts` · 27 operations ·
 
 ### updateScheduledShift
 
-- **Signature**: `updateScheduledShift(request: Labor.UpdateScheduledShiftRequestParams, options?: RequestOptions): ApiPromise<UpdateScheduledShiftResponse, ResponseError>`
+- **Signature**: `updateScheduledShift(request: Labor.UpdateScheduledShiftRequestParams, options?: RequestOptions): ApiPromise<UpdateScheduledShiftResponse, ApiError>`
 - **Wire**: `PUT /v2/labor/scheduled-shifts/{id}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateScheduledShiftResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Labor.UpdateScheduledShiftRequestParams` (2):
 
@@ -491,13 +505,14 @@ Accessor: `client.labor` · Source: `src/resources/labor.ts` · 27 operations ·
 
 ### updateShift
 
-- **Signature**: `updateShift(request: Labor.UpdateShiftRequestParams, options?: RequestOptions): ApiPromise<UpdateShiftResponse, ResponseError>`
+- **Signature**: `updateShift(request: Labor.UpdateShiftRequestParams, options?: RequestOptions): ApiPromise<UpdateShiftResponse, ApiError>`
 - **Deprecated**: the method carries `@deprecated`, so an IDE strikes the call site through; it still works
 - **Wire**: `PUT /v2/labor/shifts/{id}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateShiftResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Labor.UpdateShiftRequestParams` (2):
 
@@ -513,12 +528,13 @@ Accessor: `client.labor` · Source: `src/resources/labor.ts` · 27 operations ·
 
 ### updateTimecard
 
-- **Signature**: `updateTimecard(request: Labor.UpdateTimecardRequestParams, options?: RequestOptions): ApiPromise<UpdateTimecardResponse, ResponseError>`
+- **Signature**: `updateTimecard(request: Labor.UpdateTimecardRequestParams, options?: RequestOptions): ApiPromise<UpdateTimecardResponse, ApiError>`
 - **Wire**: `PUT /v2/labor/timecards/{id}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateTimecardResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Labor.UpdateTimecardRequestParams` (2):
 
@@ -534,12 +550,13 @@ Accessor: `client.labor` · Source: `src/resources/labor.ts` · 27 operations ·
 
 ### updateWorkweekConfig
 
-- **Signature**: `updateWorkweekConfig(request: Labor.UpdateWorkweekConfigRequestParams, options?: RequestOptions): ApiPromise<UpdateWorkweekConfigResponse, ResponseError>`
+- **Signature**: `updateWorkweekConfig(request: Labor.UpdateWorkweekConfigRequestParams, options?: RequestOptions): ApiPromise<UpdateWorkweekConfigResponse, ApiError>`
 - **Wire**: `PUT /v2/labor/workweek-configs/{id}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateWorkweekConfigResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Labor.UpdateWorkweekConfigRequestParams` (2):
 

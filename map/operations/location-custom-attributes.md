@@ -4,16 +4,17 @@
 
 Accessor: `client.locationCustomAttributes` · Source: `src/resources/location-custom-attributes.ts` · 11 operations · Request types: namespace `LocationCustomAttributes`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### bulkDeleteLocationCustomAttributes
 
-- **Signature**: `bulkDeleteLocationCustomAttributes(request: LocationCustomAttributes.BulkDeleteLocationCustomAttributesRequestParams, options?: RequestOptions): ApiPromise<BulkDeleteLocationCustomAttributesResponse, ResponseError>`
+- **Signature**: `bulkDeleteLocationCustomAttributes(request: LocationCustomAttributes.BulkDeleteLocationCustomAttributesRequestParams, options?: RequestOptions): ApiPromise<BulkDeleteLocationCustomAttributesResponse, ApiError>`
 - **Wire**: `POST /v2/locations/custom-attributes/bulk-delete`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BulkDeleteLocationCustomAttributesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `LocationCustomAttributes.BulkDeleteLocationCustomAttributesRequestParams` (1):
 
@@ -28,12 +29,13 @@ Accessor: `client.locationCustomAttributes` · Source: `src/resources/location-c
 
 ### bulkUpsertLocationCustomAttributes
 
-- **Signature**: `bulkUpsertLocationCustomAttributes(request: LocationCustomAttributes.BulkUpsertLocationCustomAttributesRequestParams, options?: RequestOptions): ApiPromise<BulkUpsertLocationCustomAttributesResponse, ResponseError>`
+- **Signature**: `bulkUpsertLocationCustomAttributes(request: LocationCustomAttributes.BulkUpsertLocationCustomAttributesRequestParams, options?: RequestOptions): ApiPromise<BulkUpsertLocationCustomAttributesResponse, ApiError>`
 - **Wire**: `POST /v2/locations/custom-attributes/bulk-upsert`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BulkUpsertLocationCustomAttributesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `LocationCustomAttributes.BulkUpsertLocationCustomAttributesRequestParams` (1):
 
@@ -48,12 +50,13 @@ Accessor: `client.locationCustomAttributes` · Source: `src/resources/location-c
 
 ### createLocationCustomAttributeDefinition
 
-- **Signature**: `createLocationCustomAttributeDefinition(request: LocationCustomAttributes.CreateLocationCustomAttributeDefinitionRequestParams, options?: RequestOptions): ApiPromise<CreateLocationCustomAttributeDefinitionResponse, ResponseError>`
+- **Signature**: `createLocationCustomAttributeDefinition(request: LocationCustomAttributes.CreateLocationCustomAttributeDefinitionRequestParams, options?: RequestOptions): ApiPromise<CreateLocationCustomAttributeDefinitionResponse, ApiError>`
 - **Wire**: `POST /v2/locations/custom-attribute-definitions`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateLocationCustomAttributeDefinitionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `LocationCustomAttributes.CreateLocationCustomAttributeDefinitionRequestParams` (1):
 
@@ -68,12 +71,13 @@ Accessor: `client.locationCustomAttributes` · Source: `src/resources/location-c
 
 ### deleteLocationCustomAttribute
 
-- **Signature**: `deleteLocationCustomAttribute(request: LocationCustomAttributes.DeleteLocationCustomAttributeRequest, options?: RequestOptions): ApiPromise<DeleteLocationCustomAttributeResponse, ResponseError>`
+- **Signature**: `deleteLocationCustomAttribute(request: LocationCustomAttributes.DeleteLocationCustomAttributeRequest, options?: RequestOptions): ApiPromise<DeleteLocationCustomAttributeResponse, ApiError>`
 - **Wire**: `DELETE /v2/locations/{location_id}/custom-attributes/{key}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DeleteLocationCustomAttributeResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `LocationCustomAttributes.DeleteLocationCustomAttributeRequest` (2):
 
@@ -88,12 +92,13 @@ Accessor: `client.locationCustomAttributes` · Source: `src/resources/location-c
 
 ### deleteLocationCustomAttributeDefinition
 
-- **Signature**: `deleteLocationCustomAttributeDefinition(request: LocationCustomAttributes.DeleteLocationCustomAttributeDefinitionRequest, options?: RequestOptions): ApiPromise<DeleteLocationCustomAttributeDefinitionResponse, ResponseError>`
+- **Signature**: `deleteLocationCustomAttributeDefinition(request: LocationCustomAttributes.DeleteLocationCustomAttributeDefinitionRequest, options?: RequestOptions): ApiPromise<DeleteLocationCustomAttributeDefinitionResponse, ApiError>`
 - **Wire**: `DELETE /v2/locations/custom-attribute-definitions/{key}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DeleteLocationCustomAttributeDefinitionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `LocationCustomAttributes.DeleteLocationCustomAttributeDefinitionRequest` (1):
 
@@ -107,12 +112,12 @@ Accessor: `client.locationCustomAttributes` · Source: `src/resources/location-c
 
 ### listLocationCustomAttributeDefinitions
 
-- **Signature**: `listLocationCustomAttributeDefinitions(request: LocationCustomAttributes.ListLocationCustomAttributeDefinitionsRequest, options?: RequestOptions): ApiPromise<ListLocationCustomAttributeDefinitionsResponse, ResponseError>`
+- **Signature**: `listLocationCustomAttributeDefinitions(request: LocationCustomAttributes.ListLocationCustomAttributeDefinitionsRequest, options?: RequestOptions): ApiPromise<ListLocationCustomAttributeDefinitionsResponse, ApiError>`
 - **Wire**: `GET /v2/locations/custom-attribute-definitions`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListLocationCustomAttributeDefinitionsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `LocationCustomAttributes.ListLocationCustomAttributeDefinitionsRequest` (3):
 
@@ -129,12 +134,12 @@ Accessor: `client.locationCustomAttributes` · Source: `src/resources/location-c
 
 ### listLocationCustomAttributes
 
-- **Signature**: `listLocationCustomAttributes(request: LocationCustomAttributes.ListLocationCustomAttributesRequest, options?: RequestOptions): ApiPromise<ListLocationCustomAttributesResponse, ResponseError>`
+- **Signature**: `listLocationCustomAttributes(request: LocationCustomAttributes.ListLocationCustomAttributesRequest, options?: RequestOptions): ApiPromise<ListLocationCustomAttributesResponse, ApiError>`
 - **Wire**: `GET /v2/locations/{location_id}/custom-attributes`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListLocationCustomAttributesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `LocationCustomAttributes.ListLocationCustomAttributesRequest` (5):
 
@@ -153,12 +158,12 @@ Accessor: `client.locationCustomAttributes` · Source: `src/resources/location-c
 
 ### retrieveLocationCustomAttribute
 
-- **Signature**: `retrieveLocationCustomAttribute(request: LocationCustomAttributes.RetrieveLocationCustomAttributeRequest, options?: RequestOptions): ApiPromise<RetrieveLocationCustomAttributeResponse, ResponseError>`
+- **Signature**: `retrieveLocationCustomAttribute(request: LocationCustomAttributes.RetrieveLocationCustomAttributeRequest, options?: RequestOptions): ApiPromise<RetrieveLocationCustomAttributeResponse, ApiError>`
 - **Wire**: `GET /v2/locations/{location_id}/custom-attributes/{key}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveLocationCustomAttributeResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `LocationCustomAttributes.RetrieveLocationCustomAttributeRequest` (4):
 
@@ -175,12 +180,12 @@ Accessor: `client.locationCustomAttributes` · Source: `src/resources/location-c
 
 ### retrieveLocationCustomAttributeDefinition
 
-- **Signature**: `retrieveLocationCustomAttributeDefinition(request: LocationCustomAttributes.RetrieveLocationCustomAttributeDefinitionRequest, options?: RequestOptions): ApiPromise<RetrieveLocationCustomAttributeDefinitionResponse, ResponseError>`
+- **Signature**: `retrieveLocationCustomAttributeDefinition(request: LocationCustomAttributes.RetrieveLocationCustomAttributeDefinitionRequest, options?: RequestOptions): ApiPromise<RetrieveLocationCustomAttributeDefinitionResponse, ApiError>`
 - **Wire**: `GET /v2/locations/custom-attribute-definitions/{key}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveLocationCustomAttributeDefinitionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `LocationCustomAttributes.RetrieveLocationCustomAttributeDefinitionRequest` (2):
 
@@ -195,12 +200,13 @@ Accessor: `client.locationCustomAttributes` · Source: `src/resources/location-c
 
 ### updateLocationCustomAttributeDefinition
 
-- **Signature**: `updateLocationCustomAttributeDefinition(request: LocationCustomAttributes.UpdateLocationCustomAttributeDefinitionRequestParams, options?: RequestOptions): ApiPromise<UpdateLocationCustomAttributeDefinitionResponse, ResponseError>`
+- **Signature**: `updateLocationCustomAttributeDefinition(request: LocationCustomAttributes.UpdateLocationCustomAttributeDefinitionRequestParams, options?: RequestOptions): ApiPromise<UpdateLocationCustomAttributeDefinitionResponse, ApiError>`
 - **Wire**: `PUT /v2/locations/custom-attribute-definitions/{key}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateLocationCustomAttributeDefinitionResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `LocationCustomAttributes.UpdateLocationCustomAttributeDefinitionRequestParams` (2):
 
@@ -216,12 +222,13 @@ Accessor: `client.locationCustomAttributes` · Source: `src/resources/location-c
 
 ### upsertLocationCustomAttribute
 
-- **Signature**: `upsertLocationCustomAttribute(request: LocationCustomAttributes.UpsertLocationCustomAttributeRequestParams, options?: RequestOptions): ApiPromise<UpsertLocationCustomAttributeResponse, ResponseError>`
+- **Signature**: `upsertLocationCustomAttribute(request: LocationCustomAttributes.UpsertLocationCustomAttributeRequestParams, options?: RequestOptions): ApiPromise<UpsertLocationCustomAttributeResponse, ApiError>`
 - **Wire**: `POST /v2/locations/{location_id}/custom-attributes/{key}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpsertLocationCustomAttributeResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `LocationCustomAttributes.UpsertLocationCustomAttributeRequestParams` (3):
 

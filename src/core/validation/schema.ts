@@ -7,9 +7,9 @@ import { decodeWith, encodeWith } from "./schema-error.js";
  *
  * @remarks
  * Only `Date` and `Uint8Array` change shape — a `Date` becomes its serialized form and a
- * `Uint8Array` a base64 string — recursing through arrays and objects. Everything else is
- * unchanged, because the schema layer stops at *values*: how a number is written into a query
- * string versus a JSON body is the engine's decision, not the schema's.
+ * `Uint8Array` a string in the RFC 4648 alphabet its field declares — recursing through arrays and
+ * objects. Everything else is unchanged, because the schema layer stops at *values*: how a number
+ * is written into a query string versus a JSON body is the engine's decision, not the schema's.
  */
 export type Encoded<T> = T extends Date
   ? string | number
@@ -35,7 +35,9 @@ export type Shape<T> = { [K in keyof T]-?: Entry<T[K]> } & { readonly _keysMap?:
  * @remarks
  * Both directions are complete on their own — one call each, never a pair. `decode` accepts the
  * wire form only and `encode` the SDK form only, so passing one direction's value to the other is
- * rejected rather than waved through. A failure throws `SchemaError`.
+ * rejected rather than waved through. A failure throws `SchemaError`; through an operation the
+ * same failure reaches you one level down, on the `cause` of a `DecodeError` or an
+ * `EncodeError`, which name the call.
  *
  * Validation is **structural**: types, shape, and required keys. Value constraints such as
  * `minLength`, `pattern` or enum membership are the service's to enforce, and the SDK does not

@@ -4,16 +4,17 @@
 
 Accessor: `client.events` · Source: `src/resources/events.ts` · 4 operations · Request types: namespace `Events`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### disableEvents
 
-- **Signature**: `disableEvents(options?: RequestOptions): ApiPromise<DisableEventsResponse, ResponseError>`
+- **Signature**: `disableEvents(options?: RequestOptions): ApiPromise<DisableEventsResponse, ApiError>`
 - **Wire**: `PUT /v2/events/disable`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DisableEventsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 | Type | Schema value | Source |
 | --- | --- | --- |
@@ -21,12 +22,13 @@ Accessor: `client.events` · Source: `src/resources/events.ts` · 4 operations �
 
 ### enableEvents
 
-- **Signature**: `enableEvents(options?: RequestOptions): ApiPromise<EnableEventsResponse, ResponseError>`
+- **Signature**: `enableEvents(options?: RequestOptions): ApiPromise<EnableEventsResponse, ApiError>`
 - **Wire**: `PUT /v2/events/enable`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `EnableEventsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 | Type | Schema value | Source |
 | --- | --- | --- |
@@ -34,12 +36,12 @@ Accessor: `client.events` · Source: `src/resources/events.ts` · 4 operations �
 
 ### listEventTypes
 
-- **Signature**: `listEventTypes(request: Events.ListEventTypesRequest, options?: RequestOptions): ApiPromise<ListEventTypesResponse, ResponseError>`
+- **Signature**: `listEventTypes(request: Events.ListEventTypesRequest, options?: RequestOptions): ApiPromise<ListEventTypesResponse, ApiError>`
 - **Wire**: `GET /v2/events/types`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListEventTypesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Events.ListEventTypesRequest` (1):
 
@@ -53,12 +55,13 @@ Accessor: `client.events` · Source: `src/resources/events.ts` · 4 operations �
 
 ### searchEvents
 
-- **Signature**: `searchEvents(request: Events.SearchEventsRequestParams, options?: RequestOptions): ApiPromise<SearchEventsResponse, ResponseError>`
+- **Signature**: `searchEvents(request: Events.SearchEventsRequestParams, options?: RequestOptions): ApiPromise<SearchEventsResponse, ApiError>`
 - **Wire**: `POST /v2/events`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `SearchEventsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Events.SearchEventsRequestParams` (1):
 

@@ -4,8 +4,12 @@
  * @remarks
  * A function is called on **every** request and its result is never cached, so a key or token can
  * be rotated without rebuilding the client. An empty string counts as absent.
+ *
+ * The function is handed the call's `signal`, or one that never aborts when the call was given
+ * none. The SDK waits for the function to settle, so a function that does I/O should honour that
+ * signal for a cancelled call to end promptly.
  */
-export type TokenProvider = string | (() => string | Promise<string>);
+export type TokenProvider = string | ((signal: AbortSignal) => string | Promise<string>);
 
 /** Username and password for HTTP Basic, sent base64 in the Authorization header. */
 export type BasicAuthCredentials = {
@@ -49,6 +53,9 @@ export type PkceMethod = (typeof PkceMethod)[keyof typeof PkceMethod];
  * @remarks
  * The SDK builds the URL and hands it over; it never opens it itself. Typically this opens a
  * browser, waits for the redirect, and returns its `code` query parameter.
+ *
+ * `signal` is the one the call was given, or one that never aborts when it was given none. No
+ * timeout covers the prompt, so it may wait on the user for as long as that signal allows.
  */
 export type AuthorizationCodePrompt = (authorizationUrl: string, signal: AbortSignal) => Promise<string>;
 

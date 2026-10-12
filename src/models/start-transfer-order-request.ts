@@ -15,7 +15,7 @@ export type StartTransferOrderRequest = {
 export const startTransferOrderRequestSchema: Schema<StartTransferOrderRequest> =
   s.object<StartTransferOrderRequest>({
     idempotencyKey: s.string(),
-    version: s.optional(s.number()),
+    version: s.optional(s.int()),
     _keysMap: {
       idempotencyKey: "idempotency_key",
     },

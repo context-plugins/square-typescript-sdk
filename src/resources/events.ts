@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   disableEventsResponseSchema,
@@ -38,22 +39,26 @@ export class Events {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
-  disableEvents(options?: RequestOptions): ApiPromise<DisableEventsResponse, ResponseError> {
-    return this.#rawClient.execute<DisableEventsResponse, ResponseError>(
+  disableEvents(options?: RequestOptions): ApiPromise<DisableEventsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/events/disable"),
+        urlTemplate: this.#servers.default("/v2/events/disable"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: disableEventsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -68,22 +73,26 @@ export class Events {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
-  enableEvents(options?: RequestOptions): ApiPromise<EnableEventsResponse, ResponseError> {
-    return this.#rawClient.execute<EnableEventsResponse, ResponseError>(
+  enableEvents(options?: RequestOptions): ApiPromise<EnableEventsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/events/enable"),
+        urlTemplate: this.#servers.default("/v2/events/enable"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: enableEventsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -97,26 +106,29 @@ export class Events {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listEventTypes(
     request: Events.ListEventTypesRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListEventTypesResponse, ResponseError> {
-    return this.#rawClient.execute<ListEventTypesResponse, ResponseError>(
+  ): ApiPromise<ListEventTypesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/events/types"),
+        urlTemplate: this.#servers.default("/v2/events/types"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [{ name: "api_version", value: request.apiVersion, schema: s.optional(s.string()) }],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listEventTypesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -130,25 +142,29 @@ export class Events {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   searchEvents(
     request: Events.SearchEventsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<SearchEventsResponse, ResponseError> {
-    return this.#rawClient.execute<SearchEventsResponse, ResponseError>(
+  ): ApiPromise<SearchEventsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/events"),
+        urlTemplate: this.#servers.default("/v2/events"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: searchEventsRequestSchema },
       },
       {
         success: { kind: "json", schema: searchEventsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

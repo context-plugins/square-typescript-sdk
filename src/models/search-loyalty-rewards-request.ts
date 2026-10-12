@@ -22,6 +22,6 @@ export type SearchLoyaltyRewardsRequest = {
 export const searchLoyaltyRewardsRequestSchema: Schema<SearchLoyaltyRewardsRequest> =
   s.object<SearchLoyaltyRewardsRequest>({
     query: s.optional(s.lazy(() => searchLoyaltyRewardsRequestLoyaltyRewardQuerySchema)),
-    limit: s.optional(s.number()),
+    limit: s.optional(s.int()),
     cursor: s.optional(s.string()),
   });

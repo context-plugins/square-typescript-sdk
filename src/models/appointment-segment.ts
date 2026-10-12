@@ -28,11 +28,11 @@ export type AppointmentSegment = {
 };
 
 export const appointmentSegmentSchema: Schema<AppointmentSegment> = s.object<AppointmentSegment>({
-  durationMinutes: s.optionalNullable(s.number()),
+  durationMinutes: s.optionalNullable(s.int()),
   serviceVariationId: s.optionalNullable(s.string()),
   teamMemberId: s.string(),
-  serviceVariationVersion: s.optionalNullable(s.number()),
-  intermissionMinutes: s.optional(s.number()),
+  serviceVariationVersion: s.optionalNullable(s.int()),
+  intermissionMinutes: s.optional(s.int()),
   anyTeamMember: s.optional(s.boolean()),
   resourceIds: s.optional(s.array(s.string())),
   _keysMap: {

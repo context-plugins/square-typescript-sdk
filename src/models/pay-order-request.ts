@@ -26,7 +26,7 @@ export type PayOrderRequest = {
 
 export const payOrderRequestSchema: Schema<PayOrderRequest> = s.object<PayOrderRequest>({
   idempotencyKey: s.string(),
-  orderVersion: s.optionalNullable(s.number()),
+  orderVersion: s.optionalNullable(s.int()),
   paymentIds: s.optionalNullable(s.array(s.string())),
   _keysMap: {
     idempotencyKey: "idempotency_key",

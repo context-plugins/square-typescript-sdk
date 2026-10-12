@@ -97,7 +97,7 @@ export const createSubscriptionRequestSchema: Schema<CreateSubscriptionRequest> 
     cardId: s.optional(s.string()),
     timezone: s.optional(s.string()),
     source: s.optional(s.lazy(() => subscriptionSourceSchema)),
-    monthlyBillingAnchorDate: s.optional(s.number()),
+    monthlyBillingAnchorDate: s.optional(s.int()),
     phases: s.optional(s.array(s.lazy(() => phaseSchema))),
     _keysMap: {
       idempotencyKey: "idempotency_key",

@@ -4,16 +4,17 @@
 
 Accessor: `client.bankAccounts` · Source: `src/resources/bank-accounts.ts` · 5 operations · Request types: namespace `BankAccounts`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### createBankAccount
 
-- **Signature**: `createBankAccount(request: BankAccounts.CreateBankAccountRequestParams, options?: RequestOptions): ApiPromise<CreateBankAccountResponse, ResponseError>`
+- **Signature**: `createBankAccount(request: BankAccounts.CreateBankAccountRequestParams, options?: RequestOptions): ApiPromise<CreateBankAccountResponse, ApiError>`
 - **Wire**: `POST /v2/bank-accounts`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateBankAccountResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `BankAccounts.CreateBankAccountRequestParams` (1):
 
@@ -28,12 +29,13 @@ Accessor: `client.bankAccounts` · Source: `src/resources/bank-accounts.ts` · 5
 
 ### disableBankAccount
 
-- **Signature**: `disableBankAccount(request: BankAccounts.DisableBankAccountRequest, options?: RequestOptions): ApiPromise<DisableBankAccountResponse, ResponseError>`
+- **Signature**: `disableBankAccount(request: BankAccounts.DisableBankAccountRequest, options?: RequestOptions): ApiPromise<DisableBankAccountResponse, ApiError>`
 - **Wire**: `POST /v2/bank-accounts/{bank_account_id}/disable`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DisableBankAccountResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `BankAccounts.DisableBankAccountRequest` (1):
 
@@ -47,12 +49,12 @@ Accessor: `client.bankAccounts` · Source: `src/resources/bank-accounts.ts` · 5
 
 ### getBankAccount
 
-- **Signature**: `getBankAccount(request: BankAccounts.GetBankAccountRequest, options?: RequestOptions): ApiPromise<GetBankAccountResponse, ResponseError>`
+- **Signature**: `getBankAccount(request: BankAccounts.GetBankAccountRequest, options?: RequestOptions): ApiPromise<GetBankAccountResponse, ApiError>`
 - **Wire**: `GET /v2/bank-accounts/{bank_account_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `GetBankAccountResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `BankAccounts.GetBankAccountRequest` (1):
 
@@ -66,12 +68,12 @@ Accessor: `client.bankAccounts` · Source: `src/resources/bank-accounts.ts` · 5
 
 ### getBankAccountByV1Id
 
-- **Signature**: `getBankAccountByV1Id(request: BankAccounts.GetBankAccountByV1IdRequest, options?: RequestOptions): ApiPromise<GetBankAccountByV1IdResponse, ResponseError>`
+- **Signature**: `getBankAccountByV1Id(request: BankAccounts.GetBankAccountByV1IdRequest, options?: RequestOptions): ApiPromise<GetBankAccountByV1IdResponse, ApiError>`
 - **Wire**: `GET /v2/bank-accounts/by-v1-id/{v1_bank_account_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `GetBankAccountByV1IdResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `BankAccounts.GetBankAccountByV1IdRequest` (1):
 
@@ -85,12 +87,12 @@ Accessor: `client.bankAccounts` · Source: `src/resources/bank-accounts.ts` · 5
 
 ### listBankAccounts
 
-- **Signature**: `listBankAccounts(request: BankAccounts.ListBankAccountsRequest, options?: RequestOptions): ApiPromise<ListBankAccountsResponse, ResponseError>`
+- **Signature**: `listBankAccounts(request: BankAccounts.ListBankAccountsRequest, options?: RequestOptions): ApiPromise<ListBankAccountsResponse, ApiError>`
 - **Wire**: `GET /v2/bank-accounts`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListBankAccountsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `BankAccounts.ListBankAccountsRequest` (4):
 

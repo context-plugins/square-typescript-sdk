@@ -29,7 +29,7 @@ export const invoiceAttachmentSchema: Schema<InvoiceAttachment> = s.object<Invoi
   id: s.optional(s.string()),
   filename: s.optional(s.string()),
   description: s.optional(s.string()),
-  filesize: s.optional(s.number()),
+  filesize: s.optional(s.int()),
   hash: s.optional(s.string()),
   mimeType: s.optional(s.string()),
   uploadedAt: s.optional(s.string()),

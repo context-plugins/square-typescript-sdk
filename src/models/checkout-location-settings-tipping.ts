@@ -35,9 +35,9 @@ export type CheckoutLocationSettingsTipping = {
 
 export const checkoutLocationSettingsTippingSchema: Schema<CheckoutLocationSettingsTipping> =
   s.object<CheckoutLocationSettingsTipping>({
-    percentages: s.optionalNullable(s.array(s.number())),
+    percentages: s.optionalNullable(s.array(s.int())),
     smartTippingEnabled: s.optionalNullable(s.boolean()),
-    defaultPercent: s.optionalNullable(s.number()),
+    defaultPercent: s.optionalNullable(s.int()),
     smartTips: s.optionalNullable(s.array(s.lazy(() => moneySchema))),
     defaultSmartTip: s.optional(s.lazy(() => moneySchema)),
     _keysMap: {

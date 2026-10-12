@@ -4,16 +4,17 @@
 
 Accessor: `client.vendors` · Source: `src/resources/vendors.ts` · 7 operations · Request types: namespace `Vendors`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### bulkCreateVendors
 
-- **Signature**: `bulkCreateVendors(request: Vendors.BulkCreateVendorsRequestParams, options?: RequestOptions): ApiPromise<BulkCreateVendorsResponse, ResponseError>`
+- **Signature**: `bulkCreateVendors(request: Vendors.BulkCreateVendorsRequestParams, options?: RequestOptions): ApiPromise<BulkCreateVendorsResponse, ApiError>`
 - **Wire**: `POST /v2/vendors/bulk-create`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BulkCreateVendorsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Vendors.BulkCreateVendorsRequestParams` (1):
 
@@ -28,12 +29,13 @@ Accessor: `client.vendors` · Source: `src/resources/vendors.ts` · 7 operations
 
 ### bulkRetrieveVendors
 
-- **Signature**: `bulkRetrieveVendors(request: Vendors.BulkRetrieveVendorsRequestParams, options?: RequestOptions): ApiPromise<BulkRetrieveVendorsResponse, ResponseError>`
+- **Signature**: `bulkRetrieveVendors(request: Vendors.BulkRetrieveVendorsRequestParams, options?: RequestOptions): ApiPromise<BulkRetrieveVendorsResponse, ApiError>`
 - **Wire**: `POST /v2/vendors/bulk-retrieve`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BulkRetrieveVendorsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Vendors.BulkRetrieveVendorsRequestParams` (1):
 
@@ -48,12 +50,13 @@ Accessor: `client.vendors` · Source: `src/resources/vendors.ts` · 7 operations
 
 ### bulkUpdateVendors
 
-- **Signature**: `bulkUpdateVendors(request: Vendors.BulkUpdateVendorsRequestParams, options?: RequestOptions): ApiPromise<BulkUpdateVendorsResponse, ResponseError>`
+- **Signature**: `bulkUpdateVendors(request: Vendors.BulkUpdateVendorsRequestParams, options?: RequestOptions): ApiPromise<BulkUpdateVendorsResponse, ApiError>`
 - **Wire**: `PUT /v2/vendors/bulk-update`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BulkUpdateVendorsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Vendors.BulkUpdateVendorsRequestParams` (1):
 
@@ -68,12 +71,13 @@ Accessor: `client.vendors` · Source: `src/resources/vendors.ts` · 7 operations
 
 ### createVendor
 
-- **Signature**: `createVendor(request: Vendors.CreateVendorRequestParams, options?: RequestOptions): ApiPromise<CreateVendorResponse, ResponseError>`
+- **Signature**: `createVendor(request: Vendors.CreateVendorRequestParams, options?: RequestOptions): ApiPromise<CreateVendorResponse, ApiError>`
 - **Wire**: `POST /v2/vendors/create`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateVendorResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Vendors.CreateVendorRequestParams` (1):
 
@@ -88,12 +92,12 @@ Accessor: `client.vendors` · Source: `src/resources/vendors.ts` · 7 operations
 
 ### retrieveVendor
 
-- **Signature**: `retrieveVendor(request: Vendors.RetrieveVendorRequest, options?: RequestOptions): ApiPromise<RetrieveVendorResponse, ResponseError>`
+- **Signature**: `retrieveVendor(request: Vendors.RetrieveVendorRequest, options?: RequestOptions): ApiPromise<RetrieveVendorResponse, ApiError>`
 - **Wire**: `GET /v2/vendors/{vendor_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveVendorResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Vendors.RetrieveVendorRequest` (1):
 
@@ -107,12 +111,13 @@ Accessor: `client.vendors` · Source: `src/resources/vendors.ts` · 7 operations
 
 ### searchVendors
 
-- **Signature**: `searchVendors(request: Vendors.SearchVendorsRequestParams, options?: RequestOptions): ApiPromise<SearchVendorsResponse, ResponseError>`
+- **Signature**: `searchVendors(request: Vendors.SearchVendorsRequestParams, options?: RequestOptions): ApiPromise<SearchVendorsResponse, ApiError>`
 - **Wire**: `POST /v2/vendors/search`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `SearchVendorsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Vendors.SearchVendorsRequestParams` (1):
 
@@ -127,12 +132,13 @@ Accessor: `client.vendors` · Source: `src/resources/vendors.ts` · 7 operations
 
 ### updateVendor
 
-- **Signature**: `updateVendor(request: Vendors.UpdateVendorRequestParams, options?: RequestOptions): ApiPromise<UpdateVendorResponse, ResponseError>`
+- **Signature**: `updateVendor(request: Vendors.UpdateVendorRequestParams, options?: RequestOptions): ApiPromise<UpdateVendorResponse, ApiError>`
 - **Wire**: `PUT /v2/vendors/{vendor_id}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateVendorResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Vendors.UpdateVendorRequestParams` (2):
 

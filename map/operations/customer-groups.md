@@ -4,16 +4,17 @@
 
 Accessor: `client.customerGroups` · Source: `src/resources/customer-groups.ts` · 5 operations · Request types: namespace `CustomerGroups`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### createCustomerGroup
 
-- **Signature**: `createCustomerGroup(request: CustomerGroups.CreateCustomerGroupRequestParams, options?: RequestOptions): ApiPromise<CreateCustomerGroupResponse, ResponseError>`
+- **Signature**: `createCustomerGroup(request: CustomerGroups.CreateCustomerGroupRequestParams, options?: RequestOptions): ApiPromise<CreateCustomerGroupResponse, ApiError>`
 - **Wire**: `POST /v2/customers/groups`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateCustomerGroupResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `CustomerGroups.CreateCustomerGroupRequestParams` (1):
 
@@ -28,12 +29,13 @@ Accessor: `client.customerGroups` · Source: `src/resources/customer-groups.ts` 
 
 ### deleteCustomerGroup
 
-- **Signature**: `deleteCustomerGroup(request: CustomerGroups.DeleteCustomerGroupRequest, options?: RequestOptions): ApiPromise<DeleteCustomerGroupResponse, ResponseError>`
+- **Signature**: `deleteCustomerGroup(request: CustomerGroups.DeleteCustomerGroupRequest, options?: RequestOptions): ApiPromise<DeleteCustomerGroupResponse, ApiError>`
 - **Wire**: `DELETE /v2/customers/groups/{group_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DeleteCustomerGroupResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `CustomerGroups.DeleteCustomerGroupRequest` (1):
 
@@ -47,12 +49,12 @@ Accessor: `client.customerGroups` · Source: `src/resources/customer-groups.ts` 
 
 ### listCustomerGroups
 
-- **Signature**: `listCustomerGroups(request: CustomerGroups.ListCustomerGroupsRequest, options?: RequestOptions): ApiPromise<ListCustomerGroupsResponse, ResponseError>`
+- **Signature**: `listCustomerGroups(request: CustomerGroups.ListCustomerGroupsRequest, options?: RequestOptions): ApiPromise<ListCustomerGroupsResponse, ApiError>`
 - **Wire**: `GET /v2/customers/groups`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListCustomerGroupsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `CustomerGroups.ListCustomerGroupsRequest` (2):
 
@@ -67,12 +69,12 @@ Accessor: `client.customerGroups` · Source: `src/resources/customer-groups.ts` 
 
 ### retrieveCustomerGroup
 
-- **Signature**: `retrieveCustomerGroup(request: CustomerGroups.RetrieveCustomerGroupRequest, options?: RequestOptions): ApiPromise<RetrieveCustomerGroupResponse, ResponseError>`
+- **Signature**: `retrieveCustomerGroup(request: CustomerGroups.RetrieveCustomerGroupRequest, options?: RequestOptions): ApiPromise<RetrieveCustomerGroupResponse, ApiError>`
 - **Wire**: `GET /v2/customers/groups/{group_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveCustomerGroupResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `CustomerGroups.RetrieveCustomerGroupRequest` (1):
 
@@ -86,12 +88,13 @@ Accessor: `client.customerGroups` · Source: `src/resources/customer-groups.ts` 
 
 ### updateCustomerGroup
 
-- **Signature**: `updateCustomerGroup(request: CustomerGroups.UpdateCustomerGroupRequestParams, options?: RequestOptions): ApiPromise<UpdateCustomerGroupResponse, ResponseError>`
+- **Signature**: `updateCustomerGroup(request: CustomerGroups.UpdateCustomerGroupRequestParams, options?: RequestOptions): ApiPromise<UpdateCustomerGroupResponse, ApiError>`
 - **Wire**: `PUT /v2/customers/groups/{group_id}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateCustomerGroupResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `CustomerGroups.UpdateCustomerGroupRequestParams` (2):
 

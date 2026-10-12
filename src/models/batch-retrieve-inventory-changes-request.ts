@@ -70,7 +70,7 @@ export const batchRetrieveInventoryChangesRequestSchema: Schema<BatchRetrieveInv
     updatedAfter: s.optionalNullable(s.string()),
     updatedBefore: s.optionalNullable(s.string()),
     cursor: s.optionalNullable(s.string()),
-    limit: s.optionalNullable(s.number()),
+    limit: s.optionalNullable(s.int()),
     sort: s.optional(s.lazy(() => batchRetrieveInventoryChangesSortSchema)),
     reasonIds: s.optionalNullable(s.array(s.lazy(() => inventoryAdjustmentReasonIdSchema))),
     _keysMap: {

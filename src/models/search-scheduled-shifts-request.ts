@@ -22,6 +22,6 @@ export type SearchScheduledShiftsRequest = {
 export const searchScheduledShiftsRequestSchema: Schema<SearchScheduledShiftsRequest> =
   s.object<SearchScheduledShiftsRequest>({
     query: s.optional(s.lazy(() => scheduledShiftQuerySchema)),
-    limit: s.optional(s.number()),
+    limit: s.optional(s.int()),
     cursor: s.optional(s.string()),
   });

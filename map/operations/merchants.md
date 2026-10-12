@@ -4,16 +4,16 @@
 
 Accessor: `client.merchants` · Source: `src/resources/merchants.ts` · 2 operations · Request types: namespace `Merchants`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### listMerchants
 
-- **Signature**: `listMerchants(request: Merchants.ListMerchantsRequest, options?: RequestOptions): ApiPromise<ListMerchantsResponse, ResponseError>`
+- **Signature**: `listMerchants(request: Merchants.ListMerchantsRequest, options?: RequestOptions): ApiPromise<ListMerchantsResponse, ApiError>`
 - **Wire**: `GET /v2/merchants`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListMerchantsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Merchants.ListMerchantsRequest` (1):
 
@@ -27,12 +27,12 @@ Accessor: `client.merchants` · Source: `src/resources/merchants.ts` · 2 operat
 
 ### retrieveMerchant
 
-- **Signature**: `retrieveMerchant(request: Merchants.RetrieveMerchantRequest, options?: RequestOptions): ApiPromise<RetrieveMerchantResponse, ResponseError>`
+- **Signature**: `retrieveMerchant(request: Merchants.RetrieveMerchantRequest, options?: RequestOptions): ApiPromise<RetrieveMerchantResponse, ApiError>`
 - **Wire**: `GET /v2/merchants/{merchant_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveMerchantResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Merchants.RetrieveMerchantRequest` (1):
 

@@ -14,7 +14,7 @@ export type CatalogObjectReference = {
 
 export const catalogObjectReferenceSchema: Schema<CatalogObjectReference> = s.object<CatalogObjectReference>({
   objectId: s.optionalNullable(s.string()),
-  catalogVersion: s.optionalNullable(s.number()),
+  catalogVersion: s.optionalNullable(s.int()),
   _keysMap: {
     objectId: "object_id",
     catalogVersion: "catalog_version",

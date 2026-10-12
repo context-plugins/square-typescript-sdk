@@ -4,16 +4,17 @@
 
 Accessor: `client.team` · Source: `src/resources/team.ts` · 12 operations · Request types: namespace `Team`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### bulkCreateTeamMembers
 
-- **Signature**: `bulkCreateTeamMembers(request: Team.BulkCreateTeamMembersRequestParams, options?: RequestOptions): ApiPromise<BulkCreateTeamMembersResponse, ResponseError>`
+- **Signature**: `bulkCreateTeamMembers(request: Team.BulkCreateTeamMembersRequestParams, options?: RequestOptions): ApiPromise<BulkCreateTeamMembersResponse, ApiError>`
 - **Wire**: `POST /v2/team-members/bulk-create`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BulkCreateTeamMembersResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Team.BulkCreateTeamMembersRequestParams` (1):
 
@@ -28,12 +29,13 @@ Accessor: `client.team` · Source: `src/resources/team.ts` · 12 operations · R
 
 ### bulkUpdateTeamMembers
 
-- **Signature**: `bulkUpdateTeamMembers(request: Team.BulkUpdateTeamMembersRequestParams, options?: RequestOptions): ApiPromise<BulkUpdateTeamMembersResponse, ResponseError>`
+- **Signature**: `bulkUpdateTeamMembers(request: Team.BulkUpdateTeamMembersRequestParams, options?: RequestOptions): ApiPromise<BulkUpdateTeamMembersResponse, ApiError>`
 - **Wire**: `POST /v2/team-members/bulk-update`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BulkUpdateTeamMembersResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Team.BulkUpdateTeamMembersRequestParams` (1):
 
@@ -48,12 +50,13 @@ Accessor: `client.team` · Source: `src/resources/team.ts` · 12 operations · R
 
 ### createJob
 
-- **Signature**: `createJob(request: Team.CreateJobRequestParams, options?: RequestOptions): ApiPromise<CreateJobResponse, ResponseError>`
+- **Signature**: `createJob(request: Team.CreateJobRequestParams, options?: RequestOptions): ApiPromise<CreateJobResponse, ApiError>`
 - **Wire**: `POST /v2/team-members/jobs`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateJobResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Team.CreateJobRequestParams` (1):
 
@@ -68,12 +71,13 @@ Accessor: `client.team` · Source: `src/resources/team.ts` · 12 operations · R
 
 ### createTeamMember
 
-- **Signature**: `createTeamMember(request: Team.CreateTeamMemberRequestParams, options?: RequestOptions): ApiPromise<CreateTeamMemberResponse, ResponseError>`
+- **Signature**: `createTeamMember(request: Team.CreateTeamMemberRequestParams, options?: RequestOptions): ApiPromise<CreateTeamMemberResponse, ApiError>`
 - **Wire**: `POST /v2/team-members`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateTeamMemberResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Team.CreateTeamMemberRequestParams` (1):
 
@@ -88,12 +92,12 @@ Accessor: `client.team` · Source: `src/resources/team.ts` · 12 operations · R
 
 ### listJobs
 
-- **Signature**: `listJobs(request: Team.ListJobsRequest, options?: RequestOptions): ApiPromise<ListJobsResponse, ResponseError>`
+- **Signature**: `listJobs(request: Team.ListJobsRequest, options?: RequestOptions): ApiPromise<ListJobsResponse, ApiError>`
 - **Wire**: `GET /v2/team-members/jobs`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListJobsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Team.ListJobsRequest` (1):
 
@@ -107,12 +111,12 @@ Accessor: `client.team` · Source: `src/resources/team.ts` · 12 operations · R
 
 ### retrieveJob
 
-- **Signature**: `retrieveJob(request: Team.RetrieveJobRequest, options?: RequestOptions): ApiPromise<RetrieveJobResponse, ResponseError>`
+- **Signature**: `retrieveJob(request: Team.RetrieveJobRequest, options?: RequestOptions): ApiPromise<RetrieveJobResponse, ApiError>`
 - **Wire**: `GET /v2/team-members/jobs/{job_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveJobResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Team.RetrieveJobRequest` (1):
 
@@ -126,12 +130,12 @@ Accessor: `client.team` · Source: `src/resources/team.ts` · 12 operations · R
 
 ### retrieveTeamMember
 
-- **Signature**: `retrieveTeamMember(request: Team.RetrieveTeamMemberRequest, options?: RequestOptions): ApiPromise<RetrieveTeamMemberResponse, ResponseError>`
+- **Signature**: `retrieveTeamMember(request: Team.RetrieveTeamMemberRequest, options?: RequestOptions): ApiPromise<RetrieveTeamMemberResponse, ApiError>`
 - **Wire**: `GET /v2/team-members/{team_member_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveTeamMemberResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Team.RetrieveTeamMemberRequest` (1):
 
@@ -145,12 +149,12 @@ Accessor: `client.team` · Source: `src/resources/team.ts` · 12 operations · R
 
 ### retrieveWageSetting
 
-- **Signature**: `retrieveWageSetting(request: Team.RetrieveWageSettingRequest, options?: RequestOptions): ApiPromise<RetrieveWageSettingResponse, ResponseError>`
+- **Signature**: `retrieveWageSetting(request: Team.RetrieveWageSettingRequest, options?: RequestOptions): ApiPromise<RetrieveWageSettingResponse, ApiError>`
 - **Wire**: `GET /v2/team-members/{team_member_id}/wage-setting`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveWageSettingResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Team.RetrieveWageSettingRequest` (1):
 
@@ -164,12 +168,13 @@ Accessor: `client.team` · Source: `src/resources/team.ts` · 12 operations · R
 
 ### searchTeamMembers
 
-- **Signature**: `searchTeamMembers(request: Team.SearchTeamMembersRequestParams, options?: RequestOptions): ApiPromise<SearchTeamMembersResponse, ResponseError>`
+- **Signature**: `searchTeamMembers(request: Team.SearchTeamMembersRequestParams, options?: RequestOptions): ApiPromise<SearchTeamMembersResponse, ApiError>`
 - **Wire**: `POST /v2/team-members/search`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `SearchTeamMembersResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Team.SearchTeamMembersRequestParams` (1):
 
@@ -184,12 +189,13 @@ Accessor: `client.team` · Source: `src/resources/team.ts` · 12 operations · R
 
 ### updateJob
 
-- **Signature**: `updateJob(request: Team.UpdateJobRequestParams, options?: RequestOptions): ApiPromise<UpdateJobResponse, ResponseError>`
+- **Signature**: `updateJob(request: Team.UpdateJobRequestParams, options?: RequestOptions): ApiPromise<UpdateJobResponse, ApiError>`
 - **Wire**: `PUT /v2/team-members/jobs/{job_id}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateJobResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Team.UpdateJobRequestParams` (2):
 
@@ -205,12 +211,13 @@ Accessor: `client.team` · Source: `src/resources/team.ts` · 12 operations · R
 
 ### updateTeamMember
 
-- **Signature**: `updateTeamMember(request: Team.UpdateTeamMemberRequestParams, options?: RequestOptions): ApiPromise<UpdateTeamMemberResponse, ResponseError>`
+- **Signature**: `updateTeamMember(request: Team.UpdateTeamMemberRequestParams, options?: RequestOptions): ApiPromise<UpdateTeamMemberResponse, ApiError>`
 - **Wire**: `PUT /v2/team-members/{team_member_id}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateTeamMemberResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Team.UpdateTeamMemberRequestParams` (2):
 
@@ -226,12 +233,13 @@ Accessor: `client.team` · Source: `src/resources/team.ts` · 12 operations · R
 
 ### updateWageSetting
 
-- **Signature**: `updateWageSetting(request: Team.UpdateWageSettingRequestParams, options?: RequestOptions): ApiPromise<UpdateWageSettingResponse, ResponseError>`
+- **Signature**: `updateWageSetting(request: Team.UpdateWageSettingRequestParams, options?: RequestOptions): ApiPromise<UpdateWageSettingResponse, ApiError>`
 - **Wire**: `PUT /v2/team-members/{team_member_id}/wage-setting`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateWageSettingResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Team.UpdateWageSettingRequestParams` (2):
 

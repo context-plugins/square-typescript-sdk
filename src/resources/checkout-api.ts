@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   createCheckoutRequestSchema,
@@ -91,28 +92,31 @@ export class CheckoutApi {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    *
    * @deprecated
    */
   createCheckout(
     request: CheckoutApi.CreateCheckoutRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateCheckoutResponse, ResponseError> {
-    return this.#rawClient.execute<CreateCheckoutResponse, ResponseError>(
+  ): ApiPromise<CreateCheckoutResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/locations/{location_id}/checkouts"),
+        urlTemplate: this.#servers.default("/v2/locations/{location_id}/checkouts"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "location_id", value: request.locationId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createCheckoutRequestSchema },
       },
       {
         success: { kind: "json", schema: createCheckoutResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -127,25 +131,29 @@ export class CheckoutApi {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createPaymentLink(
     request: CheckoutApi.CreatePaymentLinkRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreatePaymentLinkResponse, ResponseError> {
-    return this.#rawClient.execute<CreatePaymentLinkResponse, ResponseError>(
+  ): ApiPromise<CreatePaymentLinkResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/online-checkout/payment-links"),
+        urlTemplate: this.#servers.default("/v2/online-checkout/payment-links"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createPaymentLinkRequestSchema },
       },
       {
         success: { kind: "json", schema: createPaymentLinkResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -159,26 +167,29 @@ export class CheckoutApi {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   deletePaymentLink(
     request: CheckoutApi.DeletePaymentLinkRequest,
     options?: RequestOptions,
-  ): ApiPromise<DeletePaymentLinkResponse, ResponseError> {
-    return this.#rawClient.execute<DeletePaymentLinkResponse, ResponseError>(
+  ): ApiPromise<DeletePaymentLinkResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v2/online-checkout/payment-links/{id}"),
+        urlTemplate: this.#servers.default("/v2/online-checkout/payment-links/{id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "id", value: request.id, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: deletePaymentLinkResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -192,29 +203,32 @@ export class CheckoutApi {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listPaymentLinks(
     request: CheckoutApi.ListPaymentLinksRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListPaymentLinksResponse, ResponseError> {
-    return this.#rawClient.execute<ListPaymentLinksResponse, ResponseError>(
+  ): ApiPromise<ListPaymentLinksResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/online-checkout/payment-links"),
+        urlTemplate: this.#servers.default("/v2/online-checkout/payment-links"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listPaymentLinksResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -228,26 +242,29 @@ export class CheckoutApi {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrieveLocationSettings(
     request: CheckoutApi.RetrieveLocationSettingsRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrieveLocationSettingsResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveLocationSettingsResponse, ResponseError>(
+  ): ApiPromise<RetrieveLocationSettingsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/online-checkout/location-settings/{location_id}"),
+        urlTemplate: this.#servers.default("/v2/online-checkout/location-settings/{location_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "location_id", value: request.locationId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveLocationSettingsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -261,24 +278,26 @@ export class CheckoutApi {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
-  retrieveMerchantSettings(
-    options?: RequestOptions,
-  ): ApiPromise<RetrieveMerchantSettingsResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveMerchantSettingsResponse, ResponseError>(
+  retrieveMerchantSettings(options?: RequestOptions): ApiPromise<RetrieveMerchantSettingsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/online-checkout/merchant-settings"),
+        urlTemplate: this.#servers.default("/v2/online-checkout/merchant-settings"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveMerchantSettingsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -292,26 +311,29 @@ export class CheckoutApi {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   retrievePaymentLink(
     request: CheckoutApi.RetrievePaymentLinkRequest,
     options?: RequestOptions,
-  ): ApiPromise<RetrievePaymentLinkResponse, ResponseError> {
-    return this.#rawClient.execute<RetrievePaymentLinkResponse, ResponseError>(
+  ): ApiPromise<RetrievePaymentLinkResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/online-checkout/payment-links/{id}"),
+        urlTemplate: this.#servers.default("/v2/online-checkout/payment-links/{id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "id", value: request.id, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrievePaymentLinkResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -325,26 +347,29 @@ export class CheckoutApi {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updateLocationSettings(
     request: CheckoutApi.UpdateLocationSettingsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateLocationSettingsResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateLocationSettingsResponse, ResponseError>(
+  ): ApiPromise<UpdateLocationSettingsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/online-checkout/location-settings/{location_id}"),
+        urlTemplate: this.#servers.default("/v2/online-checkout/location-settings/{location_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "location_id", value: request.locationId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: updateLocationSettingsRequestSchema },
       },
       {
         success: { kind: "json", schema: updateLocationSettingsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -358,25 +383,29 @@ export class CheckoutApi {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updateMerchantSettings(
     request: CheckoutApi.UpdateMerchantSettingsRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdateMerchantSettingsResponse, ResponseError> {
-    return this.#rawClient.execute<UpdateMerchantSettingsResponse, ResponseError>(
+  ): ApiPromise<UpdateMerchantSettingsResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/online-checkout/merchant-settings"),
+        urlTemplate: this.#servers.default("/v2/online-checkout/merchant-settings"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: updateMerchantSettingsRequestSchema },
       },
       {
         success: { kind: "json", schema: updateMerchantSettingsResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -392,26 +421,29 @@ export class CheckoutApi {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   updatePaymentLink(
     request: CheckoutApi.UpdatePaymentLinkRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<UpdatePaymentLinkResponse, ResponseError> {
-    return this.#rawClient.execute<UpdatePaymentLinkResponse, ResponseError>(
+  ): ApiPromise<UpdatePaymentLinkResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v2/online-checkout/payment-links/{id}"),
+        urlTemplate: this.#servers.default("/v2/online-checkout/payment-links/{id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "id", value: request.id, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: updatePaymentLinkRequestSchema },
       },
       {
         success: { kind: "json", schema: updatePaymentLinkResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   createDeviceCodeRequestSchema,
@@ -47,25 +48,29 @@ export class Devices {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   createDeviceCode(
     request: Devices.CreateDeviceCodeRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<CreateDeviceCodeResponse, ResponseError> {
-    return this.#rawClient.execute<CreateDeviceCodeResponse, ResponseError>(
+  ): ApiPromise<CreateDeviceCodeResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v2/devices/codes"),
+        urlTemplate: this.#servers.default("/v2/devices/codes"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: createDeviceCodeRequestSchema },
       },
       {
         success: { kind: "json", schema: createDeviceCodeResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -79,26 +84,29 @@ export class Devices {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   getDevice(
     request: Devices.GetDeviceRequest,
     options?: RequestOptions,
-  ): ApiPromise<GetDeviceResponse, ResponseError> {
-    return this.#rawClient.execute<GetDeviceResponse, ResponseError>(
+  ): ApiPromise<GetDeviceResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/devices/{device_id}"),
+        urlTemplate: this.#servers.default("/v2/devices/{device_id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "device_id", value: request.deviceId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: getDeviceResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -112,26 +120,29 @@ export class Devices {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   getDeviceCode(
     request: Devices.GetDeviceCodeRequest,
     options?: RequestOptions,
-  ): ApiPromise<GetDeviceCodeResponse, ResponseError> {
-    return this.#rawClient.execute<GetDeviceCodeResponse, ResponseError>(
+  ): ApiPromise<GetDeviceCodeResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/devices/codes/{id}"),
+        urlTemplate: this.#servers.default("/v2/devices/codes/{id}"),
         auth: this.#auth.oauth2,
         pathParams: [{ name: "id", value: request.id, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: getDeviceCodeResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -145,20 +156,22 @@ export class Devices {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listDeviceCodes(
     request: Devices.ListDeviceCodesRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListDeviceCodesResponse, ResponseError> {
-    return this.#rawClient.execute<ListDeviceCodesResponse, ResponseError>(
+  ): ApiPromise<ListDeviceCodesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/devices/codes"),
+        urlTemplate: this.#servers.default("/v2/devices/codes"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
           { name: "location_id", value: request.locationId, schema: s.optional(s.string()) },
@@ -169,11 +182,12 @@ export class Devices {
           },
           { name: "status", value: request.status, schema: s.optional(s.lazy(() => deviceCodeStatusSchema)) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listDeviceCodesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -187,31 +201,34 @@ export class Devices {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   listDevices(
     request: Devices.ListDevicesRequest,
     options?: RequestOptions,
-  ): ApiPromise<ListDevicesResponse, ResponseError> {
-    return this.#rawClient.execute<ListDevicesResponse, ResponseError>(
+  ): ApiPromise<ListDevicesResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v2/devices"),
+        urlTemplate: this.#servers.default("/v2/devices"),
         auth: this.#auth.oauth2,
+        pathParams: [],
         query: [
           { name: "cursor", value: request.cursor, schema: s.optional(s.string()) },
           { name: "sort_order", value: request.sortOrder, schema: s.optional(s.lazy(() => sortOrderSchema)) },
-          { name: "limit", value: request.limit, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.optional(s.int()) },
           { name: "location_id", value: request.locationId, schema: s.optional(s.string()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: listDevicesResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

@@ -4,16 +4,17 @@
 
 Accessor: `client.bookings` · Source: `src/resources/bookings.ts` · 13 operations · Request types: namespace `Bookings`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `square`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### bulkRetrieveBookings
 
-- **Signature**: `bulkRetrieveBookings(request: Bookings.BulkRetrieveBookingsRequestParams, options?: RequestOptions): ApiPromise<BulkRetrieveBookingsResponse, ResponseError>`
+- **Signature**: `bulkRetrieveBookings(request: Bookings.BulkRetrieveBookingsRequestParams, options?: RequestOptions): ApiPromise<BulkRetrieveBookingsResponse, ApiError>`
 - **Wire**: `POST /v2/bookings/bulk-retrieve`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BulkRetrieveBookingsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Bookings.BulkRetrieveBookingsRequestParams` (1):
 
@@ -28,12 +29,13 @@ Accessor: `client.bookings` · Source: `src/resources/bookings.ts` · 13 operati
 
 ### bulkRetrieveTeamMemberBookingProfiles
 
-- **Signature**: `bulkRetrieveTeamMemberBookingProfiles(request: Bookings.BulkRetrieveTeamMemberBookingProfilesRequestParams, options?: RequestOptions): ApiPromise<BulkRetrieveTeamMemberBookingProfilesResponse, ResponseError>`
+- **Signature**: `bulkRetrieveTeamMemberBookingProfiles(request: Bookings.BulkRetrieveTeamMemberBookingProfilesRequestParams, options?: RequestOptions): ApiPromise<BulkRetrieveTeamMemberBookingProfilesResponse, ApiError>`
 - **Wire**: `POST /v2/bookings/team-member-booking-profiles/bulk-retrieve`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `BulkRetrieveTeamMemberBookingProfilesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Bookings.BulkRetrieveTeamMemberBookingProfilesRequestParams` (1):
 
@@ -48,12 +50,13 @@ Accessor: `client.bookings` · Source: `src/resources/bookings.ts` · 13 operati
 
 ### cancelBooking
 
-- **Signature**: `cancelBooking(request: Bookings.CancelBookingRequestParams, options?: RequestOptions): ApiPromise<CancelBookingResponse, ResponseError>`
+- **Signature**: `cancelBooking(request: Bookings.CancelBookingRequestParams, options?: RequestOptions): ApiPromise<CancelBookingResponse, ApiError>`
 - **Wire**: `POST /v2/bookings/{booking_id}/cancel`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CancelBookingResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Bookings.CancelBookingRequestParams` (2):
 
@@ -69,12 +72,13 @@ Accessor: `client.bookings` · Source: `src/resources/bookings.ts` · 13 operati
 
 ### createBooking
 
-- **Signature**: `createBooking(request: Bookings.CreateBookingRequestParams, options?: RequestOptions): ApiPromise<CreateBookingResponse, ResponseError>`
+- **Signature**: `createBooking(request: Bookings.CreateBookingRequestParams, options?: RequestOptions): ApiPromise<CreateBookingResponse, ApiError>`
 - **Wire**: `POST /v2/bookings`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateBookingResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Bookings.CreateBookingRequestParams` (1):
 
@@ -89,12 +93,12 @@ Accessor: `client.bookings` · Source: `src/resources/bookings.ts` · 13 operati
 
 ### listBookings
 
-- **Signature**: `listBookings(request: Bookings.ListBookingsRequest, options?: RequestOptions): ApiPromise<ListBookingsResponse, ResponseError>`
+- **Signature**: `listBookings(request: Bookings.ListBookingsRequest, options?: RequestOptions): ApiPromise<ListBookingsResponse, ApiError>`
 - **Wire**: `GET /v2/bookings`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListBookingsResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Bookings.ListBookingsRequest` (7):
 
@@ -114,12 +118,12 @@ Accessor: `client.bookings` · Source: `src/resources/bookings.ts` · 13 operati
 
 ### listLocationBookingProfiles
 
-- **Signature**: `listLocationBookingProfiles(request: Bookings.ListLocationBookingProfilesRequest, options?: RequestOptions): ApiPromise<ListLocationBookingProfilesResponse, ResponseError>`
+- **Signature**: `listLocationBookingProfiles(request: Bookings.ListLocationBookingProfilesRequest, options?: RequestOptions): ApiPromise<ListLocationBookingProfilesResponse, ApiError>`
 - **Wire**: `GET /v2/bookings/location-booking-profiles`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListLocationBookingProfilesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Bookings.ListLocationBookingProfilesRequest` (2):
 
@@ -134,12 +138,12 @@ Accessor: `client.bookings` · Source: `src/resources/bookings.ts` · 13 operati
 
 ### listTeamMemberBookingProfiles
 
-- **Signature**: `listTeamMemberBookingProfiles(request: Bookings.ListTeamMemberBookingProfilesRequest, options?: RequestOptions): ApiPromise<ListTeamMemberBookingProfilesResponse, ResponseError>`
+- **Signature**: `listTeamMemberBookingProfiles(request: Bookings.ListTeamMemberBookingProfilesRequest, options?: RequestOptions): ApiPromise<ListTeamMemberBookingProfilesResponse, ApiError>`
 - **Wire**: `GET /v2/bookings/team-member-booking-profiles`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListTeamMemberBookingProfilesResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Bookings.ListTeamMemberBookingProfilesRequest` (4):
 
@@ -156,12 +160,12 @@ Accessor: `client.bookings` · Source: `src/resources/bookings.ts` · 13 operati
 
 ### retrieveBooking
 
-- **Signature**: `retrieveBooking(request: Bookings.RetrieveBookingRequest, options?: RequestOptions): ApiPromise<RetrieveBookingResponse, ResponseError>`
+- **Signature**: `retrieveBooking(request: Bookings.RetrieveBookingRequest, options?: RequestOptions): ApiPromise<RetrieveBookingResponse, ApiError>`
 - **Wire**: `GET /v2/bookings/{booking_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveBookingResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Bookings.RetrieveBookingRequest` (1):
 
@@ -175,12 +179,12 @@ Accessor: `client.bookings` · Source: `src/resources/bookings.ts` · 13 operati
 
 ### retrieveBusinessBookingProfile
 
-- **Signature**: `retrieveBusinessBookingProfile(options?: RequestOptions): ApiPromise<RetrieveBusinessBookingProfileResponse, ResponseError>`
+- **Signature**: `retrieveBusinessBookingProfile(options?: RequestOptions): ApiPromise<RetrieveBusinessBookingProfileResponse, ApiError>`
 - **Wire**: `GET /v2/bookings/business-booking-profile`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveBusinessBookingProfileResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 | Type | Schema value | Source |
 | --- | --- | --- |
@@ -188,12 +192,12 @@ Accessor: `client.bookings` · Source: `src/resources/bookings.ts` · 13 operati
 
 ### retrieveLocationBookingProfile
 
-- **Signature**: `retrieveLocationBookingProfile(request: Bookings.RetrieveLocationBookingProfileRequest, options?: RequestOptions): ApiPromise<RetrieveLocationBookingProfileResponse, ResponseError>`
+- **Signature**: `retrieveLocationBookingProfile(request: Bookings.RetrieveLocationBookingProfileRequest, options?: RequestOptions): ApiPromise<RetrieveLocationBookingProfileResponse, ApiError>`
 - **Wire**: `GET /v2/bookings/location-booking-profiles/{location_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveLocationBookingProfileResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Bookings.RetrieveLocationBookingProfileRequest` (1):
 
@@ -207,12 +211,12 @@ Accessor: `client.bookings` · Source: `src/resources/bookings.ts` · 13 operati
 
 ### retrieveTeamMemberBookingProfile
 
-- **Signature**: `retrieveTeamMemberBookingProfile(request: Bookings.RetrieveTeamMemberBookingProfileRequest, options?: RequestOptions): ApiPromise<RetrieveTeamMemberBookingProfileResponse, ResponseError>`
+- **Signature**: `retrieveTeamMemberBookingProfile(request: Bookings.RetrieveTeamMemberBookingProfileRequest, options?: RequestOptions): ApiPromise<RetrieveTeamMemberBookingProfileResponse, ApiError>`
 - **Wire**: `GET /v2/bookings/team-member-booking-profiles/{team_member_id}`
 - **Auth**: `oauth2`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `RetrieveTeamMemberBookingProfileResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Bookings.RetrieveTeamMemberBookingProfileRequest` (1):
 
@@ -226,12 +230,13 @@ Accessor: `client.bookings` · Source: `src/resources/bookings.ts` · 13 operati
 
 ### searchAvailability
 
-- **Signature**: `searchAvailability(request: Bookings.SearchAvailabilityRequestParams, options?: RequestOptions): ApiPromise<SearchAvailabilityResponse, ResponseError>`
+- **Signature**: `searchAvailability(request: Bookings.SearchAvailabilityRequestParams, options?: RequestOptions): ApiPromise<SearchAvailabilityResponse, ApiError>`
 - **Wire**: `POST /v2/bookings/availability/search`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `SearchAvailabilityResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Bookings.SearchAvailabilityRequestParams` (1):
 
@@ -246,12 +251,13 @@ Accessor: `client.bookings` · Source: `src/resources/bookings.ts` · 13 operati
 
 ### updateBooking
 
-- **Signature**: `updateBooking(request: Bookings.UpdateBookingRequestParams, options?: RequestOptions): ApiPromise<UpdateBookingResponse, ResponseError>`
+- **Signature**: `updateBooking(request: Bookings.UpdateBookingRequestParams, options?: RequestOptions): ApiPromise<UpdateBookingResponse, ApiError>`
 - **Wire**: `PUT /v2/bookings/{booking_id}`
 - **Auth**: `oauth2`
 - **Request body**: `application/json` — the `body` field
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateBookingResponse`
-- **Error**: `ResponseError` — untyped, `payload.kind` always `"undeclared"`
+- **Error**: `SquareError` with `kind: "api"` — untyped, `payload.kind` always `"undeclared"`
 
 **Fields** — `Bookings.UpdateBookingRequestParams` (2):
 

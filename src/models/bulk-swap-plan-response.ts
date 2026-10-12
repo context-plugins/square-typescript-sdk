@@ -15,7 +15,7 @@ export type BulkSwapPlanResponse = {
 
 export const bulkSwapPlanResponseSchema: Schema<BulkSwapPlanResponse> = s.object<BulkSwapPlanResponse>({
   errors: s.optional(s.array(s.lazy(() => errorSchema))),
-  affectedSubscriptions: s.optional(s.number()),
+  affectedSubscriptions: s.optional(s.int()),
   _keysMap: {
     affectedSubscriptions: "affected_subscriptions",
   },

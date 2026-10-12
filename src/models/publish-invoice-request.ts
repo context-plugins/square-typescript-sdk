@@ -20,7 +20,7 @@ export type PublishInvoiceRequest = {
 };
 
 export const publishInvoiceRequestSchema: Schema<PublishInvoiceRequest> = s.object<PublishInvoiceRequest>({
-  version: s.number(),
+  version: s.int(),
   idempotencyKey: s.optionalNullable(s.string()),
   _keysMap: {
     idempotencyKey: "idempotency_key",

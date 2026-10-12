@@ -27,7 +27,7 @@ export type SubscriptionTestResult = {
 
 export const subscriptionTestResultSchema: Schema<SubscriptionTestResult> = s.object<SubscriptionTestResult>({
   id: s.optional(s.string()),
-  statusCode: s.optionalNullable(s.number()),
+  statusCode: s.optionalNullable(s.int()),
   payload: s.optionalNullable(s.string()),
   createdAt: s.optional(s.string()),
   updatedAt: s.optional(s.string()),

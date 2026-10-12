@@ -1,9 +1,11 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import { noneAuth } from "../core/auth/schemes.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
+import * as s from "../core/validation/index.js";
 import { obtainTokenRequestSchema, type ObtainTokenRequest } from "../models/obtain-token-request.js";
 import { obtainTokenResponseSchema, type ObtainTokenResponse } from "../models/obtain-token-response.js";
 import {
@@ -53,25 +55,29 @@ export class OAuth {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   obtainToken(
     request: OAuth.ObtainTokenRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<ObtainTokenResponse, ResponseError> {
-    return this.#rawClient.execute<ObtainTokenResponse, ResponseError>(
+  ): ApiPromise<ObtainTokenResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/oauth2/token"),
+        urlTemplate: this.#servers.default("/oauth2/token"),
         auth: noneAuth,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: obtainTokenRequestSchema },
       },
       {
         success: { kind: "json", schema: obtainTokenResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -103,22 +109,26 @@ export class OAuth {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
-  retrieveTokenStatus(options?: RequestOptions): ApiPromise<RetrieveTokenStatusResponse, ResponseError> {
-    return this.#rawClient.execute<RetrieveTokenStatusResponse, ResponseError>(
+  retrieveTokenStatus(options?: RequestOptions): ApiPromise<RetrieveTokenStatusResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/oauth2/token/status"),
+        urlTemplate: this.#servers.default("/oauth2/token/status"),
         auth: this.#auth.oauth2,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
         success: { kind: "json", schema: retrieveTokenStatusResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );
@@ -144,25 +154,29 @@ export class OAuth {
    *
    * @returns Success
    *
-   * @throws {@link ResponseError} when the API answers with an error status
+   * @throws {@link ApiError} when the API answers with an error status
    *
    * @throws {@link SquareError} when no usable response was produced: a connection failure, a
-   * timeout, an abort, a schema violation, or a credential that could not be obtained
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
    */
   revokeToken(
     request: OAuth.RevokeTokenRequestParams,
     options?: RequestOptions,
-  ): ApiPromise<RevokeTokenResponse, ResponseError> {
-    return this.#rawClient.execute<RevokeTokenResponse, ResponseError>(
+  ): ApiPromise<RevokeTokenResponse, ApiError> {
+    return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/oauth2/revoke"),
+        urlTemplate: this.#servers.default("/oauth2/revoke"),
         auth: noneAuth,
+        pathParams: [],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: revokeTokenRequestSchema },
       },
       {
         success: { kind: "json", schema: revokeTokenResponseSchema },
-        errorFactory: ResponseError,
+        errorFactory: ApiError,
       },
       options,
     );

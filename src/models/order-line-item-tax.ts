@@ -71,7 +71,7 @@ export type OrderLineItemTax = {
 export const orderLineItemTaxSchema: Schema<OrderLineItemTax> = s.object<OrderLineItemTax>({
   uid: s.optionalNullable(s.string()),
   catalogObjectId: s.optionalNullable(s.string()),
-  catalogVersion: s.optionalNullable(s.number()),
+  catalogVersion: s.optionalNullable(s.int()),
   name: s.optionalNullable(s.string()),
   type: s.optional(s.lazy(() => orderLineItemTaxTypeSchema)),
   percentage: s.optionalNullable(s.string()),

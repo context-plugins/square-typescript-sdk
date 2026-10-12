@@ -88,7 +88,7 @@ export const bankAccountSchema: Schema<BankAccount> = s.object<BankAccount>({
   creditable: s.boolean(),
   debitable: s.boolean(),
   fingerprint: s.optionalNullable(s.string()),
-  version: s.optional(s.number()),
+  version: s.optional(s.int()),
   bankName: s.optionalNullable(s.string()),
   customerId: s.optional(s.string()),
   _keysMap: {
